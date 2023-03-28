@@ -35,7 +35,13 @@ FILES_${PN} += "${nonarch_base_libdir}/firmware"
 # ti_rpmsg_char.h
 # dlr.h
 
-DEPENDS += "ti-img-rogue-umlibs glm devil freetype ti-rpmsg-char repo-native"
+DEPENDS += "glm devil freetype ti-rpmsg-char repo-native"
+DEPENDS_j7-evm += "ti-img-rogue-umlibs"
+DEPENDS_j7-hs-evm += "ti-img-rogue-umlibs"
+DEPENDS_j721s2-evm += "ti-img-rogue-umlibs"
+DEPENDS_j721s2-hs-evm += "ti-img-rogue-umlibs"
+DEPENDS_j784s4-evm += "ti-img-rogue-umlibs"
+DEPENDS_j784s4-hs-evm += "ti-img-rogue-umlibs"
 
 COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
@@ -86,9 +92,11 @@ sign_fw() {
 }
 
 do_install_prepend() {
-    # Sign prebuilt firmware binaries for HS platforms
-    FW_BIN_DIR=${FW_SRC_DIR}/vision_apps_eaik sign_fw
-    FW_BIN_DIR=${FW_SRC_DIR}/vision_apps_evm sign_fw
+    if [ $MACHINE != "am62axx-evm" ]; then
+        # Sign prebuilt firmware binaries for HS platforms
+        FW_BIN_DIR=${FW_SRC_DIR}/vision_apps_eaik sign_fw
+        FW_BIN_DIR=${FW_SRC_DIR}/vision_apps_evm sign_fw
+    fi
 }
 
 do_install() {
@@ -96,9 +104,11 @@ do_install() {
 
     SOC=${PLAT_SOC} LINUX_FS_STAGE_PATH=${D} oe_runmake yocto_install
 
-    # Copy prebuilt firmware from repo to filesystem
-    install -d ${FW_DST_DIR}
-    cp ${CP_ARGS} ${FW_SRC_DIR}/* ${FW_DST_DIR}/.
+    if [ $MACHINE != "am62axx-evm" ]; then
+        # Copy prebuilt firmware from repo to filesystem
+        install -d ${FW_DST_DIR}
+        cp ${CP_ARGS} ${FW_SRC_DIR}/* ${FW_DST_DIR}/.
+    fi
 }
 
 # Set up names for the firmwares
@@ -175,11 +185,6 @@ ALTERNATIVE_${PN}_j784s4-evm = "\
 #                    j784s4-mcu-r5f0_0-fw \
 #                    "
 
-ALTERNATIVE_${PN}_am62axx-evm = "\
-                    am62a-mcu-r5f0_0-fw \
-                    am62a-c71_0-fw \
-                    "
-
 # Set up link names for the firmwares
 
 ALTERNATIVE_LINK_NAME[j7-mcu-r5f0_0-fw] = "${base_libdir}/firmware/j7-mcu-r5f0_0-fw"
@@ -240,9 +245,6 @@ ALTERNATIVE_LINK_NAME[j784s4-c71_1-fw-sec] = "${base_libdir}/firmware/j784s4-c71
 ALTERNATIVE_LINK_NAME[j784s4-c71_2-fw-sec] = "${base_libdir}/firmware/j784s4-c71_2-fw-sec"
 ALTERNATIVE_LINK_NAME[j784s4-c71_3-fw-sec] = "${base_libdir}/firmware/j784s4-c71_3-fw-sec"
 
-ALTERNATIVE_LINK_NAME[am62a-mcu-r5f0_0-fw] = "${base_libdir}/firmware/am62a-mcu-r5f0_0-fw"
-ALTERNATIVE_LINK_NAME[am62a-c71_0-fw] = "${base_libdir}/firmware/am62a-c71_0-fw"
-
 # Create the firmware alternatives
 
 ALTERNATIVE_TARGET[j7-mcu-r5f0_0-fw] = "${base_libdir}/firmware/pdk-ipc/ipc_echo_testb_mcu1_0_release_strip.xer5f"
@@ -302,9 +304,6 @@ ALTERNATIVE_TARGET[j784s4-c71_0-fw-sec] = "${base_libdir}/firmware/vision_apps_e
 ALTERNATIVE_TARGET[j784s4-c71_1-fw-sec] = "${base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_c7x_2.out.signed"
 ALTERNATIVE_TARGET[j784s4-c71_2-fw-sec] = "${base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_c7x_3.out.signed"
 ALTERNATIVE_TARGET[j784s4-c71_3-fw-sec] = "${base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_c7x_4.out.signed"
-
-ALTERNATIVE_TARGET[am62a-mcu-r5f0_0-fw] = "${base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_mcu1_0.out"
-ALTERNATIVE_TARGET[am62a-c71_0-fw] = "${base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_c7x_1.out"
 
 
 ALTERNATIVE_PRIORITY = "20"
