@@ -24,6 +24,7 @@ EDGEAI_STACK = " \
         edgeai-gst-plugins-source \
         edgeai-tiovx-kernels-source \
         edgeai-tiovx-modules-source \
+        edgeai-apps-utils-source \
         edgeai-dl-inferer-source \
         ti-gpio-cpp-source \
         ti-gpio-py-source \
