@@ -3,6 +3,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/linux-ti-staging/${MACHINE}:"
 SRC_URI_append_j7-evm = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
     file://0004-arm64-dts-ti-k3-j721e-rtos-memory-map-CMA-DT-node.patch \
+    file://0003-arm64-dts-ti-k3-j721e-sk-Add-additional-DDR-carveout.patch \
 "
 
 SRC_URI_append_j721s2-evm = " \
@@ -20,6 +21,7 @@ SRC_URI_append_j784s4-evm = " \
 SRC_URI_append_j7-hs-evm = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
     file://0004-arm64-dts-ti-k3-j721e-rtos-memory-map-CMA-DT-node.patch \
+    file://0003-arm64-dts-ti-k3-j721e-sk-Add-additional-DDR-carveout.patch \
 "
 
 SRC_URI_append_j721s2-hs-evm = " \
@@ -34,4 +36,4 @@ SRC_URI_append_j784s4-hs-evm = " \
     file://0003-arm64-dts-ti-k3-j784s4-rtos-memory-map-CMA-DT-node.patch \
 "
 
-PR_append = "_edgeai_0"
+PR_append = "_edgeai_1"
