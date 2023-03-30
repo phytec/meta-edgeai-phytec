@@ -8,6 +8,21 @@ SRC_URI_append_k3 = " \
 SRC_URI_append_j7-evm = " \
     file://0001-Optimal-QoS-Settings.patch \
 "
+SRC_URI_append_j7-evm = " \
+    file://0001-HACK-arm-k3-j721e-sk-RPi-header-pins-set-to-default-.patch \
+"
+SRC_URI_append_j7-evm-k3r5 = " \
+    file://0001-HACK-arm-k3-j721e-sk-RPi-header-pins-set-to-default-.patch \
+"
+SRC_URI_append_j7-hs-evm = " \
+    file://0001-HACK-arm-k3-j721e-sk-RPi-header-pins-set-to-default-.patch \
+"
+SRC_URI_append_j7-hs-evm-k3r5 = " \
+    file://0001-HACK-arm-k3-j721e-sk-RPi-header-pins-set-to-default-.patch \
+"
+SRC_URI_append_j7-hs-evm-k3r5-sr1-1 = " \
+    file://0001-HACK-arm-k3-j721e-sk-RPi-header-pins-set-to-default-.patch \
+"
 SRC_URI_append_j7-evm-k3r5 = " \
     file://0001-Optimal-QoS-Settings.patch \
 "
@@ -21,4 +36,4 @@ SRC_URI_append_j7-hs-evm-k3r5-sr1-1 = " \
     file://0001-Optimal-QoS-Settings.patch \
 "
 
-PR_append = "_edgeai_0"
+PR_append = "_edgeai_1"
