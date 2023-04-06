@@ -36,12 +36,12 @@ FILES_${PN} += "${nonarch_base_libdir}/firmware"
 # dlr.h
 
 DEPENDS += "glm devil freetype ti-rpmsg-char repo-native"
-DEPENDS_j7-evm += "ti-img-rogue-umlibs"
-DEPENDS_j7-hs-evm += "ti-img-rogue-umlibs"
-DEPENDS_j721s2-evm += "ti-img-rogue-umlibs"
-DEPENDS_j721s2-hs-evm += "ti-img-rogue-umlibs"
-DEPENDS_j784s4-evm += "ti-img-rogue-umlibs"
-DEPENDS_j784s4-hs-evm += "ti-img-rogue-umlibs"
+DEPENDS_append_j7-evm = " ti-img-rogue-umlibs"
+DEPENDS_append_j7-hs-evm = " ti-img-rogue-umlibs"
+DEPENDS_append_j721s2-evm = " ti-img-rogue-umlibs"
+DEPENDS_append_j721s2-hs-evm = " ti-img-rogue-umlibs"
+DEPENDS_append_j784s4-evm = " ti-img-rogue-umlibs"
+DEPENDS_append_j784s4-hs-evm = " ti-img-rogue-umlibs"
 
 COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
@@ -92,7 +92,7 @@ sign_fw() {
 }
 
 do_install_prepend() {
-    if [ $MACHINE != "am62axx-evm" ]; then
+    if [ ${MACHINE} != "am62axx-evm" ]; then
         # Sign prebuilt firmware binaries for HS platforms
         FW_BIN_DIR=${FW_SRC_DIR}/vision_apps_eaik sign_fw
         FW_BIN_DIR=${FW_SRC_DIR}/vision_apps_evm sign_fw
@@ -104,7 +104,7 @@ do_install() {
 
     SOC=${PLAT_SOC} LINUX_FS_STAGE_PATH=${D} oe_runmake yocto_install
 
-    if [ $MACHINE != "am62axx-evm" ]; then
+    if [ ${MACHINE} != "am62axx-evm" ]; then
         # Copy prebuilt firmware from repo to filesystem
         install -d ${FW_DST_DIR}
         cp ${CP_ARGS} ${FW_SRC_DIR}/* ${FW_DST_DIR}/.
