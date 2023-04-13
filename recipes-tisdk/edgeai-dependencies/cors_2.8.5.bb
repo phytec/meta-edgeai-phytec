@@ -16,6 +16,6 @@ S = "${WORKDIR}/npm"
 
 inherit npm
 
-LICENSE_${PN} = "MIT"
-LICENSE_${PN}-object-assign = "MIT"
-LICENSE_${PN}-vary = "MIT"
+LICENSE:${PN} = "MIT"
+LICENSE:${PN}-object-assign = "MIT"
+LICENSE:${PN}-vary = "MIT"

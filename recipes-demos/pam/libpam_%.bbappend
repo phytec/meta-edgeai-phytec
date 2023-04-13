@@ -1,17 +1,17 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += " file://custom_limits.conf"
 
-do_install_append_j7-evm(){
+do_install:append:j721e-evm(){
     install -m 0644 ${WORKDIR}/custom_limits.conf ${D}${sysconfdir}/security/limits.conf
 }
 
-do_install_append_j721s2-evm(){
+do_install:append:j721s2-evm(){
     install -m 0644 ${WORKDIR}/custom_limits.conf ${D}${sysconfdir}/security/limits.conf
 }
 
-do_install_append_j784s4-evm(){
+do_install:append:j784s4-evm(){
     install -m 0644 ${WORKDIR}/custom_limits.conf ${D}${sysconfdir}/security/limits.conf
 }
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"

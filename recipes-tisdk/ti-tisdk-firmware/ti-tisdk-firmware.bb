@@ -1,7 +1,7 @@
 SUMMARY = "OpenVX Middleware library and compatible PSDK RTOS Firmware"
 DESCRIPTION = "Builds tivision_apps user space library and installs prebuilt PSDK RTOS Firmware"
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"
 
 LICENSE = "TI-TFL & BSD-2-Clause & BSD-3-Clause & BSD-4-Clause & MIT & Apache-2.0 & Apache-2.0-with-LLVM-exception & \
            Khronos & Hewlett-Packard & Patrick-Powell & FreeType & Zlib & CC0-1.0 & OpenSSL"
@@ -24,8 +24,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/licenses/TI-TFL;md5=a1b59cb7ba
 
 SRC_URI = "repo://git.ti.com/processor-sdk/psdk_repo_manifests.git;protocol=git;branch=refs/tags/REL.PSDK.JACINTO.08.06.00.08;manifest=vision_apps_yocto.xml"
 
-FILES_${PN} += "/opt/*"
-FILES_${PN} += "${nonarch_base_libdir}/firmware"
+FILES:${PN} += "/opt/*"
+FILES:${PN} += "${nonarch_base_libdir}/firmware"
 
 #PTK needs:
 # EGL/egl.h
@@ -36,25 +36,25 @@ FILES_${PN} += "${nonarch_base_libdir}/firmware"
 # dlr.h
 
 DEPENDS += "glm devil freetype ti-rpmsg-char repo-native"
-DEPENDS_append_j7-evm = " ti-img-rogue-umlibs"
-DEPENDS_append_j7-hs-evm = " ti-img-rogue-umlibs"
-DEPENDS_append_j721s2-evm = " ti-img-rogue-umlibs"
-DEPENDS_append_j721s2-hs-evm = " ti-img-rogue-umlibs"
-DEPENDS_append_j784s4-evm = " ti-img-rogue-umlibs"
-DEPENDS_append_j784s4-hs-evm = " ti-img-rogue-umlibs"
+DEPENDS:append:j721e-evm = " ti-img-rogue-umlibs"
+DEPENDS:append:j721e-hs-evm = " ti-img-rogue-umlibs"
+DEPENDS:append:j721s2-evm = " ti-img-rogue-umlibs"
+DEPENDS:append:j721s2-hs-evm = " ti-img-rogue-umlibs"
+DEPENDS:append:j784s4-evm = " ti-img-rogue-umlibs"
+DEPENDS:append:j784s4-hs-evm = " ti-img-rogue-umlibs"
 
-COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
 inherit update-alternatives
 
 PLAT_SOC = ""
-PLAT_SOC_j7-evm = "j721e"
-PLAT_SOC_j7-hs-evm = "j721e"
-PLAT_SOC_j721s2-evm = "j721s2"
-PLAT_SOC_j721s2-hs-evm = "j721s2"
-PLAT_SOC_j784s4-evm = "j784s4"
-PLAT_SOC_j784s4-hs-evm = "j784s4"
-PLAT_SOC_am62axx-evm = "am62a"
+PLAT_SOC:j721e-evm = "j721e"
+PLAT_SOC:j721e-hs-evm = "j721e"
+PLAT_SOC:j721s2-evm = "j721s2"
+PLAT_SOC:j721s2-hs-evm = "j721s2"
+PLAT_SOC:j784s4-evm = "j784s4"
+PLAT_SOC:j784s4-hs-evm = "j784s4"
+PLAT_SOC:am62axx-evm = "am62a"
 
 S = "${WORKDIR}"
 
@@ -75,7 +75,7 @@ FW_DST_DIR="${D}${nonarch_base_libdir}/firmware"
 
 require recipes-ti/includes/ti-paths.inc
 
-DEPENDS_append = " ${@ '' if d.getVar('TI_SECURE_DEV_PKG_K3') else 'ti-k3-secdev-native' }"
+DEPENDS:append = " ${@ '' if d.getVar('TI_SECURE_DEV_PKG_K3') else 'ti-k3-secdev-native' }"
 TI_SECURE_DEV_PKG = "${@ d.getVar('TI_SECURE_DEV_PKG_K3') or '${TI_K3_SECDEV_INSTALL_DIR}' }"
 export TI_SECURE_DEV_PKG
 
@@ -91,7 +91,7 @@ sign_fw() {
     done
 }
 
-do_install_prepend() {
+do_install:prepend() {
     if [ ${MACHINE} != "am62axx-evm" ]; then
         # Sign prebuilt firmware binaries for HS platforms
         FW_BIN_DIR=${FW_SRC_DIR}/vision_apps_eaik sign_fw
@@ -112,7 +112,7 @@ do_install() {
 }
 
 # Set up names for the firmwares
-ALTERNATIVE_${PN}_j7 = "\
+ALTERNATIVE:${PN}:j7 = "\
                     j7-main-r5f0_0-fw \
                     j7-main-r5f0_1-fw \
                     j7-c66_0-fw \
@@ -131,11 +131,11 @@ ALTERNATIVE_${PN}_j7 = "\
                     "
 
 # These commented out are not overwritten by this recipe at this time
-#ALTERNATIVE_${PN}_j7 += "\
+#ALTERNATIVE:${PN}:j7 += "\
 #                    j7-mcu-r5f0_0-fw \
 #                    "
 
-ALTERNATIVE_${PN}_j721s2-evm = "\
+ALTERNATIVE:${PN}:j721s2-evm = "\
                     j721s2-main-r5f0_0-fw \
                     j721s2-main-r5f0_1-fw \
                     j721s2-c71_0-fw \
@@ -152,11 +152,11 @@ ALTERNATIVE_${PN}_j721s2-evm = "\
                     "
 
 # These commented out are not overwritten by this recipe at this time
-#ALTERNATIVE_${PN}_j721s2-evm += "\
+#ALTERNATIVE:${PN}:j721s2-evm += "\
 #                    j721s2-mcu-r5f0_0-fw \
 #                    "
 
-ALTERNATIVE_${PN}_j784s4-evm = "\
+ALTERNATIVE:${PN}:j784s4-evm = "\
                     j784s4-main-r5f0_0-fw \
                     j784s4-main-r5f0_1-fw \
                     j784s4-main-r5f1_0-fw \
@@ -181,7 +181,7 @@ ALTERNATIVE_${PN}_j784s4-evm = "\
                     "
 
 # These commented out are not overwritten by this recipe at this time
-#ALTERNATIVE_${PN}_j784s4-evm += "\
+#ALTERNATIVE:${PN}:j784s4-evm += "\
 #                    j784s4-mcu-r5f0_0-fw \
 #                    "
 
@@ -314,5 +314,5 @@ INHIBIT_SYSROOT_STRIP = "1"
 # This is used to prevent the build system to split the debug info in a separate file
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 # As it likely to be a different arch from the Yocto build, disable checking by adding "arch" to INSANE_SKIP
-INSANE_SKIP_${PN} += "arch"
+INSANE_SKIP:${PN} += "arch"
 

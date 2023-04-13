@@ -10,9 +10,9 @@ SRC_URI = "file://edgeai-launcher.sh \
            file://dot.profile \
 "
 
-RDEPENDS_${PN} += "edgeai-gst-apps-source edgeai-gui-app"
+RDEPENDS:${PN} += "edgeai-gst-apps-source edgeai-gui-app"
 
-SYSTEMD_SERVICE_${PN} = "edgeai-init.service"
+SYSTEMD_SERVICE:${PN} = "edgeai-init.service"
 
 inherit systemd
 
@@ -27,7 +27,7 @@ do_install() {
     install -m 0755 ${WORKDIR}/dot.profile ${D}/home/root/.profile
 }
 
-FILES_${PN} += " /home/root/.profile"
+FILES:${PN} += " /home/root/.profile"
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"
 

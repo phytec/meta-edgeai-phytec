@@ -3,7 +3,7 @@
 require recipes-core/images/tisdk-default-image.bb
 require recipes-core/images/tisdk-default-image-append.inc
 
-COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
 EDGEAI_STACK = " \
         ti-tisdk-firmware-dev \
@@ -30,22 +30,22 @@ EDGEAI_STACK = " \
         ti-gpio-py-source \
 "
 
-IMAGE_INSTALL_append = " \
+IMAGE_INSTALL:append = " \
 	${EDGEAI_STACK} \
 "
 
 do_image_wic[depends] += "edgeai-uenv:do_deploy"
-IMAGE_BOOT_FILES_remove = "uEnv.txt"
-IMAGE_BOOT_FILES_append = " uEnv_edgeai-apps.txt;uEnv.txt "
+IMAGE_BOOT_FILES:remove = "uEnv.txt"
+IMAGE_BOOT_FILES:append = " uEnv_edgeai-apps.txt;uEnv.txt "
 
 # For AM68-SK, default tiboot3.bin should be HSFS
-IMAGE_BOOT_FILES_remove_j721s2-evm = "tiboot3.bin"
-IMAGE_BOOT_FILES_append_j721s2-evm = " tiboot3-j721s2-gp-evm.bin tiboot3-j721s2-hs-fs-evm.bin tiboot3-j721s2-hs-fs-evm.bin;tiboot3.bin"
+IMAGE_BOOT_FILES:remove:j721s2-evm = "tiboot3.bin"
+IMAGE_BOOT_FILES:append:j721s2-evm = " tiboot3-j721s2-gp-evm.bin tiboot3-j721s2-hs-fs-evm.bin tiboot3-j721s2-hs-fs-evm.bin;tiboot3.bin"
 
 # For AM69-SK, default tiboot3.bin should be HSFS
-IMAGE_BOOT_FILES_remove_j784s4-evm = "tiboot3.bin"
-IMAGE_BOOT_FILES_append_j784s4-evm = " tiboot3-j784s4-gp-evm.bin tiboot3-j784s4-hs-fs-evm.bin tiboot3-j784s4-hs-fs-evm.bin;tiboot3.bin"
+IMAGE_BOOT_FILES:remove:j784s4-evm = "tiboot3.bin"
+IMAGE_BOOT_FILES:append:j784s4-evm = " tiboot3-j784s4-gp-evm.bin tiboot3-j784s4-hs-fs-evm.bin tiboot3-j784s4-hs-fs-evm.bin;tiboot3.bin"
 
 export IMAGE_BASENAME = "tisdk-edgeai-image"
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"

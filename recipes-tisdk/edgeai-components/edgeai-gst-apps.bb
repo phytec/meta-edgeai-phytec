@@ -8,30 +8,30 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=dc68ab0305d85e56491b9a9aed
 SRC_URI = "git://github.com/TexasInstruments/edgeai-gst-apps.git;tag=EDGEAI_APP_STACK_08_06_00_02;nobranch=1;protocol=https"
 
 PLAT_SOC = ""
-PLAT_SOC_j7-evm = "j721e"
-PLAT_SOC_j7-hs-evm = "j721e"
-PLAT_SOC_j721s2-evm = "j721s2"
-PLAT_SOC_j721s2-hs-evm = "j721s2"
-PLAT_SOC_j784s4-evm = "j784s4"
-PLAT_SOC_j784s4-hs-evm = "j784s4"
-PLAT_SOC_am62axx-evm = "am62a"
+PLAT_SOC:j721e-evm = "j721e"
+PLAT_SOC:j721e-hs-evm = "j721e"
+PLAT_SOC:j721s2-evm = "j721s2"
+PLAT_SOC:j721s2-hs-evm = "j721s2"
+PLAT_SOC:j784s4-evm = "j784s4"
+PLAT_SOC:j784s4-hs-evm = "j784s4"
+PLAT_SOC:am62axx-evm = "am62a"
 
 S = "${WORKDIR}/git/apps_cpp"
 
 DEPENDS = "ti-tisdk-firmware edgeai-dl-inferer yaml-cpp gstreamer1.0 opencv"
 
-RDEPENDS_${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev"
+RDEPENDS:${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev"
 
-RDEPENDS_${PN}-source += "bash python3-core edgeai-dl-inferer-dev"
+RDEPENDS:${PN}-source += "bash python3-core edgeai-dl-inferer-dev"
 
-COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
 export SOC = "${PLAT_SOC}"
 
 EXTRA_OECMAKE = "-DTARGET_FS=${WORKDIR}/recipe-sysroot -DCMAKE_SKIP_RPATH=TRUE"
 
 PACKAGES += "${PN}-source"
-FILES_${PN}-source += "/opt"
+FILES:${PN}-source += "/opt"
 
 inherit cmake
 
@@ -63,6 +63,6 @@ do_install() {
     cp ${CP_ARGS} ${WORKDIR}/oob-demo-assets/* ${D}/opt/oob-demo-assets
 }
 
-INSANE_SKIP_${PN}-source += "dev-deps"
+INSANE_SKIP:${PN}-source += "dev-deps"
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"

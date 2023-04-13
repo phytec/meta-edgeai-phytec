@@ -8,7 +8,7 @@ PYPI_PACKAGE = "typing_extensions"
 PV = "4.5.0"
 inherit pypi
 
-FILES_${PN} += "${libdir}/python3.8/*"
+FILES:${PN} += "${libdir}/python3.8/*"
 
 do_install() {
   CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"

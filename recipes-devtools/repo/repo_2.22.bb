@@ -18,7 +18,7 @@ MIRRORS += "git://gerrit.googlesource.com/git-repo.git git://github.com/GerritCo
 
 S = "${WORKDIR}/git"
 
-do_configure_prepend() {
+do_configure:prepend() {
 	sed -Ei "s/REPO_REV\s*=\s*('|\")stable('|\")/REPO_REV = '${SRCREV}'/g" ${S}/repo
 }
 
@@ -26,6 +26,6 @@ do_install() {
 	install -D ${WORKDIR}/git/repo ${D}${bindir}/repo
 }
 
-RDEPENDS_${PN} = "python3 git"
+RDEPENDS:${PN} = "python3 git"
 
 BBCLASSEXTEND = "native nativesdk"

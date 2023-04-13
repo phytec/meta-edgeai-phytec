@@ -10,20 +10,20 @@ SRC_URI = "git://git.ti.com/edgeai/edgeai-dl-inferer.git;tag=EDGEAI_APP_STACK_08
 S = "${WORKDIR}/git"
 
 DEPENDS = "ti-tidl-osrt yaml-cpp opencv"
-RDEPENDS_${PN} += "ti-tidl-osrt-staticdev"
-RDEPENDS_${PN}-source = "bash python3-core"
+RDEPENDS:${PN} += "ti-tidl-osrt-staticdev"
+RDEPENDS:${PN}-source = "bash python3-core"
 
-COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
 EXTRA_OECMAKE = "-DTARGET_FS=${WORKDIR}/recipe-sysroot -DCMAKE_SKIP_RPATH=TRUE"
 
-FILES_${PN} += "/usr/lib/python3.8/site-packages/"
+FILES:${PN} += "/usr/lib/python3.8/site-packages/"
 PACKAGES += "${PN}-source"
-FILES_${PN}-source += "/opt/"
+FILES:${PN}-source += "/opt/"
 
 inherit cmake
 
-do_install_append() {
+do_install:append() {
     CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
 
     mkdir -p ${D}/opt/edgeai-dl-inferer
@@ -32,6 +32,6 @@ do_install_append() {
     rm -rf ${D}/usr/cmake
 }
 
-INSANE_SKIP_${PN} += "dev-deps"
+INSANE_SKIP:${PN} += "dev-deps"
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"

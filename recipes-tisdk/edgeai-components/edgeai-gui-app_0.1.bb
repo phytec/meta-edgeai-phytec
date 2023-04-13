@@ -7,7 +7,7 @@ LICENSE = "TI-TSPA"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=5c3a7f5f6886ba6f33ec3d214dc7ab4c"
 
 DEPENDS = "qtbase qtquick3d qtmultimedia"
-RDEPENDS_${PN} = "qtbase qtquick3d qtmultimedia"
+RDEPENDS:${PN} = "qtbase qtquick3d qtmultimedia"
 
 BRANCH = "master"
 SRCREV = "ecad683119801529e79907cdc7506dd6195aaafe"
@@ -18,13 +18,13 @@ S = "${WORKDIR}/git"
 
 inherit qmake5
 
-do_install_append () {
+do_install:append () {
     install -d ${D}${bindir}
     install -m 0755 edgeai-gui-app ${D}${bindir}/edgeai-gui-app
 
     rm -rf ${D}/opt
 }
 
-FILES_${PN} += "${bindir}/edgeai-gui-app"
+FILES:${PN} += "${bindir}/edgeai-gui-app"
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"

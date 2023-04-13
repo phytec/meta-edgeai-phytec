@@ -5,8 +5,8 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 S = "${WORKDIR}/git"
-PR_append = "_edgeai_0"
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+PR:append = "_edgeai_0"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 
 
@@ -24,23 +24,23 @@ do_cp_downloaded_build_deps() {
 addtask cp_downloaded_build_deps after do_unpack before do_patch
 
 PLAT_SOC = ""
-PLAT_SOC_j7-evm = "j721e"
-PLAT_SOC_j7-hs-evm = "j721e"
-PLAT_SOC_j721s2-evm = "j721s2"
-PLAT_SOC_j721s2-hs-evm = "j721s2"
-PLAT_SOC_j784s4-evm = "j784s4"
-PLAT_SOC_j784s4-hs-evm = "j784s4"
-PLAT_SOC_am62axx-evm = "am62a"
+PLAT_SOC:j721e-evm = "j721e"
+PLAT_SOC:j721e-hs-evm = "j721e"
+PLAT_SOC:j721s2-evm = "j721s2"
+PLAT_SOC:j721s2-hs-evm = "j721s2"
+PLAT_SOC:j784s4-evm = "j784s4"
+PLAT_SOC:j784s4-hs-evm = "j784s4"
+PLAT_SOC:am62axx-evm = "am62a"
 
 DEPENDS += "ti-tisdk-firmware"
 
-COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
 export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 
-FILES_${PN} += "/opt/*"
-FILES_${PN} += "${libdir}/*"
-FILES_${PN} += "${includedir}/*"
+FILES:${PN} += "/opt/*"
+FILES:${PN} += "${libdir}/*"
+FILES:${PN} += "${includedir}/*"
 
 EXTRA_OEMAKE += "-C ${S}/arm-tidl"
 
@@ -63,13 +63,13 @@ INC_DST_DIR="${D}${includedir}"
 OPT_DST_DIR="${D}/opt"
 
 TIDL_SOC_NAME = ""
-TIDL_SOC_NAME_j7-evm = "J7"
-TIDL_SOC_NAME_j7-hs-evm = "J7"
-TIDL_SOC_NAME_j721s2-evm = "J721S2"
-TIDL_SOC_NAME_j721s2-hs-evm = "J721S2"
-TIDL_SOC_NAME_j784s4-evm = "J784S4"
-TIDL_SOC_NAME_j784s4-hs-evm = "J784S4"
-TIDL_SOC_NAME_am62axx-evm = "AM62A"
+TIDL_SOC_NAME:j721e-evm = "J7"
+TIDL_SOC_NAME:j721e-hs-evm = "J7"
+TIDL_SOC_NAME:j721s2-evm = "J721S2"
+TIDL_SOC_NAME:j721s2-hs-evm = "J721S2"
+TIDL_SOC_NAME:j784s4-evm = "J784S4"
+TIDL_SOC_NAME:j784s4-hs-evm = "J784S4"
+TIDL_SOC_NAME:am62axx-evm = "AM62A"
 
 do_install() {
     install -d ${LIB_DST_DIR}

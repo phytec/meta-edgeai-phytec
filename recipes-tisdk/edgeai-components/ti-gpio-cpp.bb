@@ -10,16 +10,16 @@ SRCREV = "19d9255a7365ddc9f9b265caaa6d16b7a7475b88"
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
 EXTRA_OECMAKE = "-DCMAKE_SKIP_RPATH=TRUE"
 
 PACKAGES += "${PN}-source"
-FILES_${PN}-source += "/opt/"
+FILES:${PN}-source += "/opt/"
 
 inherit cmake
 
-do_install_append() {
+do_install:append() {
     CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
 
     mkdir -p ${D}/opt/ti-gpio-cpp
@@ -28,4 +28,4 @@ do_install_append() {
     rm -rf ${D}/usr/cmake
 }
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"

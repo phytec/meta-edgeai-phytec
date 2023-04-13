@@ -2,13 +2,13 @@ DESCRIPTION = "Package that will install a uEnv_edgeai-apps.txt file into the SD
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
-COMPATIBLE_MACHINE = "j7-evm|j7-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
 SRC_URI = "\
     file://uEnv_edgeai-apps.txt \
 "
 
-PR_append = "_edgeai_0"
+PR:append = "_edgeai_0"
 PV = "1.0"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
@@ -21,7 +21,7 @@ do_install () {
     install -m 0644 ${S}/uEnv_edgeai-apps.txt ${D}/board-support/prebuilt-images/
 }
 
-FILES_${PN} += "board-support/*"
+FILES:${PN} += "board-support/*"
 
 # deploy files for wic image
 inherit deploy
