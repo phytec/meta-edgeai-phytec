@@ -5,6 +5,7 @@ HOMEPAGE = "https://github.com/TexasInstruments/edgeai-gst-apps"
 LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=dc68ab0305d85e56491b9a9aed2309f2"
 
+PV = "${SRCPV}"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-gst-apps.git;tag=EDGEAI_APP_STACK_08_06_00_02;nobranch=1;protocol=https"
 
 PLAT_SOC = ""
