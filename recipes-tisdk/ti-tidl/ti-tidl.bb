@@ -32,7 +32,7 @@ PLAT_SOC:j784s4-evm = "j784s4"
 PLAT_SOC:j784s4-hs-evm = "j784s4"
 PLAT_SOC:am62axx-evm = "am62a"
 
-DEPENDS += "ti-tisdk-firmware"
+DEPENDS += "ti-vision-apps"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 

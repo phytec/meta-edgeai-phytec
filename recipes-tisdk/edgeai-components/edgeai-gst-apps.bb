@@ -20,7 +20,7 @@ PLAT_SOC:am62axx-evm = "am62a"
 
 S = "${WORKDIR}/git/apps_cpp"
 
-DEPENDS = "ti-tisdk-firmware edgeai-dl-inferer yaml-cpp gstreamer1.0 opencv"
+DEPENDS = "ti-vision-apps edgeai-dl-inferer yaml-cpp gstreamer1.0 opencv"
 
 RDEPENDS:${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev"
 
