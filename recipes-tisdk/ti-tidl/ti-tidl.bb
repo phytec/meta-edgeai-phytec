@@ -62,6 +62,9 @@ do_compile() {
     TIDL_PROTOBUF_PATH=${S}/protobuf-3.11.3 \
     GCC_LINUX_ARM_ROOT= \
     TARGET_SOC=${PLAT_SOC} \
+    CROSS_COMPILE_LINARO=aarch64-oe-linux- \
+    LINUX_SYSROOT=${STAGING_DIR_TARGET} \
+    TREAT_WARNINGS_AS_ERROR=0 \
     oe_runmake
 }
 
@@ -96,3 +99,4 @@ do_install() {
 
 }
 
+INSANE_SKIP:${PN} += "ldflags"
