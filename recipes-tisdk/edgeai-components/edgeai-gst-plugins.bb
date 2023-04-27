@@ -20,7 +20,7 @@ PLAT_SOC:am62axx-evm = "am62a"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "edgeai-tiovx-modules gstreamer1.0-plugins-base edgeai-dl-inferer ti-tidl-osrt"
+DEPENDS = "edgeai-tiovx-modules edgeai-apps-utils gstreamer1.0-plugins-base edgeai-dl-inferer ti-tidl-osrt"
 RDEPENDS:${PN} = "edgeai-tiovx-modules"
 RDEPENDS:${PN}-source = "bash edgeai-tiovx-modules-dev"
 
