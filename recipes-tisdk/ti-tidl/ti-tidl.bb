@@ -11,13 +11,13 @@ LICENSE = "MIT"
 PV="${SRCPV}"
 
 SRCREV_FORMAT="default"
-SRCREV_arm-tidl="REL.TIDL.J7.08.06.00.10"
+SRCREV_arm-tidl="${AUTOREV}"
 SRCREV_concerto="${AUTOREV}"
 SRCREV_onnxruntime="134edd824c834936690c23dde585c4eeaa74bdd4"
 SRCREV_tensorflow="233657497d2735cae9e840df9e650e268149070d"
 
 SRC_URI = " \
-    git://git.ti.com/processor-sdk-vision/arm-tidl.git;tag=${SRCREV_arm-tidl};nobranch=1;protocol=git;name=arm-tidl;destsuffix=git/arm-tidl \
+    git://git.ti.com/processor-sdk-vision/arm-tidl.git;branch=master;protocol=git;name=arm-tidl;destsuffix=git/arm-tidl \
     git://git.ti.com/processor-sdk/concerto.git;branch=main;protocol=git;name=concerto;destsuffix=git/concerto \
     git://github.com/TexasInstruments/onnxruntime;branch=tidl-j7;protocol=https;name=onnxruntime;destsuffix=git/onnxruntime  \
     git://github.com/TexasInstruments/tensorflow;branch=tidl-j7-2.8;protocol=https;name=tensorflow;destsuffix=git/tensorflow  \
