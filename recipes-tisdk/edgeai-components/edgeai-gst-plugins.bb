@@ -44,5 +44,6 @@ do_install:append() {
 }
 
 INSANE_SKIP:${PN}-source += "dev-deps"
+INSANE_SKIP:${PN} += "rpaths"
 
 PR:append = "_edgeai_0"
