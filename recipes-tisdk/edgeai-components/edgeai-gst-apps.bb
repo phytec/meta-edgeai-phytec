@@ -35,7 +35,7 @@ EXTRA_OECMAKE = "-DTARGET_FS=${WORKDIR}/recipe-sysroot -DCMAKE_SKIP_RPATH=TRUE"
 PACKAGES += "${PN}-source"
 FILES:${PN}-source += "/opt"
 
-inherit cmake
+inherit cmake pkgconfig
 
 do_install() {
     CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
