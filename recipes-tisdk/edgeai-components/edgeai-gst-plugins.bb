@@ -34,7 +34,7 @@ FILES:${PN} += "${libdir}/gstreamer-1.0/*.so"
 
 EXTRA_OEMESON = "--prefix=/usr -Dpkg_config_path=${S}/pkgconfig"
 
-inherit meson
+inherit meson pkgconfig
 
 do_install:append() {
     CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
