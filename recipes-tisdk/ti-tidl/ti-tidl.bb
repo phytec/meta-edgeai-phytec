@@ -54,6 +54,7 @@ EXTRA_OEMAKE += "-C ${S}/arm-tidl"
 do_compile() {
     IVISION_PATH=${TARGET_FS}${includedir}/processor_sdk/ivision \
     VISION_APPS_PATH=${TARGET_FS}${includedir}/processor_sdk/vision_apps \
+    APP_UTILS_PATH=${TARGET_FS}${includedir}/processor_sdk/app_utils \
     TIOVX_PATH=${TARGET_FS}${includedir}/processor_sdk/tiovx \
     LINUX_FS_PATH=${TARGET_FS} \
     CONCERTO_ROOT=${S}/concerto \
