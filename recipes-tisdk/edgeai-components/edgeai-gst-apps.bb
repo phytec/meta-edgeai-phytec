@@ -44,25 +44,25 @@ do_install() {
     cp ${CP_ARGS} ${WORKDIR}/git/* ${D}/opt/edgeai-gst-apps
     rm -rf ${D}/opt/edgeai-gst-apps/apps_cpp/lib
 
-    mkdir -p ${D}/opt/model_zoo
-    mkdir -p ${D}/opt/edgeai-test-data
-    mkdir -p ${D}/opt/oob-demo-assets
-    export SOC="${PLAT_SOC}"
-    export EDGEAI_DATA_PATH=${WORKDIR}/edgeai-test-data
-    export OOB_DEMO_ASSETS_PATH=${WORKDIR}/oob-demo-assets
-    export EDGEAI_SDK_VERSION=08_06_00
+    #mkdir -p ${D}/opt/model_zoo
+    #mkdir -p ${D}/opt/edgeai-test-data
+    #mkdir -p ${D}/opt/oob-demo-assets
+    #export SOC="${PLAT_SOC}"
+    #export EDGEAI_DATA_PATH=${WORKDIR}/edgeai-test-data
+    #export OOB_DEMO_ASSETS_PATH=${WORKDIR}/oob-demo-assets
+    #export EDGEAI_SDK_VERSION=08_06_00
 
-    cd ${WORKDIR}/git/
-    ./download_models.sh --recommended
-    ./download_test_data.sh
-    cd $OOB_DEMO_ASSETS_PATH
-    for i in *.h264
-    do
-      ln -sf /opt/oob-demo-assets/$i $EDGEAI_DATA_PATH/videos/$i
-    done
-    cp ${CP_ARGS} ${WORKDIR}/model_zoo/* ${D}/opt/model_zoo
-    cp ${CP_ARGS} ${WORKDIR}/edgeai-test-data/* ${D}/opt/edgeai-test-data
-    cp ${CP_ARGS} ${WORKDIR}/oob-demo-assets/* ${D}/opt/oob-demo-assets
+    #cd ${WORKDIR}/git/
+    #./download_models.sh --recommended
+    #./download_test_data.sh
+    #cd $OOB_DEMO_ASSETS_PATH
+    #for i in *.h264
+    #do
+    #  ln -sf /opt/oob-demo-assets/$i $EDGEAI_DATA_PATH/videos/$i
+    #done
+    #cp ${CP_ARGS} ${WORKDIR}/model_zoo/* ${D}/opt/model_zoo
+    #cp ${CP_ARGS} ${WORKDIR}/edgeai-test-data/* ${D}/opt/edgeai-test-data
+    #cp ${CP_ARGS} ${WORKDIR}/oob-demo-assets/* ${D}/opt/oob-demo-assets
 }
 
 INSANE_SKIP:${PN}-source += "dev-deps"
