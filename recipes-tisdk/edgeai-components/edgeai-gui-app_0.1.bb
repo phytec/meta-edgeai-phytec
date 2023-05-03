@@ -6,7 +6,7 @@ LICENSE = "TI-TSPA"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=5c3a7f5f6886ba6f33ec3d214dc7ab4c"
 
-DEPENDS = "qtbase qtquick3d qtmultimedia"
+DEPENDS = "qtbase qtquick3d qtmultimedia qtdeclarative-native"
 RDEPENDS:${PN} = "qtbase qtquick3d qtmultimedia"
 
 BRANCH = "master"
