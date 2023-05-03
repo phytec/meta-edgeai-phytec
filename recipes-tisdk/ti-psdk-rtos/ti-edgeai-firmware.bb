@@ -1,7 +1,7 @@
 SUMMARY = "TI RTOS prebuilt binary firmware images for EdgeAI"
 
 LICENSE = "TI-TFL"
-LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/licenses/TI-TFL;md5=a1b59cb7ba626b9dbbcbf00f3fbc438a"
+LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/meta-ti-bsp/licenses/TI-TFL;md5=a1b59cb7ba626b9dbbcbf00f3fbc438a"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm"
 
@@ -9,15 +9,12 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 INHIBIT_DEFAULT_DEPS = "1"
 
-inherit deploy
 inherit update-alternatives
 
 PLAT_SFX = ""
 PLAT_SFX:j721e = "j721e"
 PLAT_SFX:j721s2 = "j721s2"
 PLAT_SFX:j784s4 = "j784s4"
-
-FILESEXTRAPATHS:prepend := "${METATIBASE}/recipes-bsp/ti-sci-fw/files/:"
 
 SRCREV = "${AUTOREV}"
 BRANCH = "main"
@@ -237,5 +234,6 @@ INSANE_SKIP:${PN} += "arch"
 # we don't want to configure and build the source code
 do_compile[noexec] = "1"
 do_configure[noexec] = "1"
+do_deploy[noexec] = "1"
 
 addtask deploy after do_install
