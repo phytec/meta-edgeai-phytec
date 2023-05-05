@@ -274,7 +274,7 @@ diff --git a/arch/arm/mach-k3/j721e_init.c b/arch/arm/mach-k3/j721e_init.c
 index f3fb184c6f..398ba25418 100644
 --- a/arch/arm/mach-k3/j721e_init.c
 +++ b/arch/arm/mach-k3/j721e_init.c
-@@ -191,6 +191,278 @@ void do_dt_magic(void)
+@@ -187,6 +187,278 @@ void do_dt_magic(void)
  }
  #endif
  
@@ -552,8 +552,8 @@ index f3fb184c6f..398ba25418 100644
 +
  void board_init_f(ulong dummy)
  {
- #if defined(CONFIG_CPU_V7R) && defined(CONFIG_K3_AVS0)
-@@ -328,6 +600,18 @@ void board_init_f(ulong dummy)
+ #if defined(CONFIG_K3_J721E_DDRSS) || defined(CONFIG_K3_LOAD_SYSFW)
+@@ -283,6 +555,18 @@ void board_init_f(ulong dummy)
  	if (ret)
  		panic("DRAM init failed: %d\n", ret);
  #endif
@@ -576,7 +576,7 @@ diff --git a/drivers/ram/k3-ddrss/k3-ddrss.c b/drivers/ram/k3-ddrss/k3-ddrss.c
 index 17683bbe73..f0bb5e9c2d 100644
 --- a/drivers/ram/k3-ddrss/k3-ddrss.c
 +++ b/drivers/ram/k3-ddrss/k3-ddrss.c
-@@ -719,6 +719,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
+@@ -608,6 +608,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
  	writel(val, base + DDRSS_ECC_CTRL_REG);
  }
  
@@ -597,10 +597,10 @@ index 17683bbe73..f0bb5e9c2d 100644
 +}
 +#endif
 +
- #define AM64_DDRSS_SS_BASE  0x0F300000
  static int k3_ddrss_probe(struct udevice *dev)
  {
-@@ -751,6 +768,10 @@ static int k3_ddrss_probe(struct udevice *dev)
+ 	int ret;
+@@ -640,6 +657,10 @@ static int k3_ddrss_probe(struct udevice *dev)
  	if (ret)
  		return ret;
  

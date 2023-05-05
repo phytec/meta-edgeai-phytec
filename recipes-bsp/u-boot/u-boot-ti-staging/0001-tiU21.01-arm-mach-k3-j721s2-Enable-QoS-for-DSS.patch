@@ -1,7 +1,7 @@
 From 5383f9d9247cf01a4b96c2111a4fd8787c22de37 Mon Sep 17 00:00:00 2001
 From: Aniket Limaye <a-limaye@ti.com>
 Date: Fri, 17 Feb 2023 01:48:28 +0530
-Subject: [PATCH 1/2] [tiU21.01] arm: mach-k3: j721s2: Enable QoS for DSS
+Subject: [PATCH] arm: mach-k3: j721s2: Enable QoS for DSS
 
 Enable Quality of Service (QoS) blocks for Display SubSystem (DSS), by
 servicing the DSS - DDR traffic from the Real-Time (RT) queue.
@@ -27,7 +27,7 @@ diff --git a/arch/arm/mach-k3/include/mach/hardware.h b/arch/arm/mach-k3/include
 index 6eebb5b3ae..45db0c1951 100644
 --- a/arch/arm/mach-k3/include/mach/hardware.h
 +++ b/arch/arm/mach-k3/include/mach/hardware.h
-@@ -16,6 +16,7 @@
+@@ -17,6 +17,7 @@
  
  #ifdef CONFIG_SOC_K3_J721S2
  #include "j721s2_hardware.h"
@@ -35,9 +35,9 @@ index 6eebb5b3ae..45db0c1951 100644
  #endif
  
  #ifdef CONFIG_SOC_K3_AM642
-@@ -67,4 +68,7 @@ struct k3_qos_data {
- extern struct k3_qos_data am62a_qos_data[];
- extern u32 am62a_qos_count;
+@@ -72,4 +73,7 @@ struct rom_extended_boot_data {
+ 	u32 num_components;
+ };
  
 +extern struct k3_qos_data j721s2_qos_data[];
 +extern u32 j721s2_qos_count;
@@ -370,7 +370,7 @@ diff --git a/arch/arm/mach-k3/j721s2_init.c b/arch/arm/mach-k3/j721s2_init.c
 index 43f7163117..69fcaa41a5 100644
 --- a/arch/arm/mach-k3/j721s2_init.c
 +++ b/arch/arm/mach-k3/j721s2_init.c
-@@ -140,6 +140,14 @@ static void store_boot_info_from_rom(void)
+@@ -93,6 +93,14 @@ static void store_boot_info_from_rom(void)
  	       sizeof(struct rom_extended_boot_data));
  }
  
@@ -385,7 +385,7 @@ index 43f7163117..69fcaa41a5 100644
  void k3_spl_init(void)
  {
  	struct udevice *dev;
-@@ -234,6 +242,9 @@ void k3_mem_init(void)
+@@ -179,6 +187,9 @@ void k3_mem_init(void)
  		if (ret)
  			panic("DRAM 1 init failed: %d\n", ret);
  	}

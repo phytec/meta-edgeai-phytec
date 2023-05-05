@@ -1,7 +1,7 @@
 From e5e217ad7a779b4f7b0058fd3699f72993968ca2 Mon Sep 17 00:00:00 2001
 From: Aniket Limaye <a-limaye@ti.com>
 Date: Wed, 22 Feb 2023 03:13:55 +0530
-Subject: [PATCH 2/2] [tiU21.01] arm: mach-k3: j784s4: Enable QoS for DSS
+Subject: [PATCH] arm: mach-k3: j784s4: Enable QoS for DSS
 
 Enable Quality of Service (QoS) blocks for Display SubSystem (DSS), by
 servicing the DSS - DDR traffic from the Real-Time (RT) queue.
@@ -14,12 +14,10 @@ tool with NB settings added manually
 
 Signed-off-by: Aniket Limaye <a-limaye@ti.com>
 ---
- arch/arm/mach-k3/include/mach/hardware.h   |   4 +
+ arch/arm/mach-k3/include/mach/hardware.h   |   8 +
  arch/arm/mach-k3/include/mach/j784s4_qos.h | 168 +++++++++++++++++++++
- arch/arm/mach-k3/j784s4/Makefile           |   1 +
  arch/arm/mach-k3/j784s4/j784s4_qos_data.c  | 139 +++++++++++++++++
- arch/arm/mach-k3/j784s4_init.c             |  10 ++
- 5 files changed, 322 insertions(+)
+ 3 files changed, 315 insertions(+)
  create mode 100644 arch/arm/mach-k3/include/mach/j784s4_qos.h
  create mode 100644 arch/arm/mach-k3/j784s4/j784s4_qos_data.c
 
@@ -27,15 +25,19 @@ diff --git a/arch/arm/mach-k3/include/mach/hardware.h b/arch/arm/mach-k3/include
 index 45db0c1951..06d4e4b5cc 100644
 --- a/arch/arm/mach-k3/include/mach/hardware.h
 +++ b/arch/arm/mach-k3/include/mach/hardware.h
-@@ -34,6 +34,7 @@
- 
- #ifdef CONFIG_SOC_K3_J784S4
- #include "j784s4_hardware.h"
-+#include "j784s4_qos.h"
+@@ -20,6 +20,11 @@
+ #include "j721s2_qos.h"
  #endif
  
- /* Assuming these addresses and definitions stay common across K3 devices */
-@@ -71,4 +72,7 @@ extern u32 am62a_qos_count;
++#ifdef CONFIG_SOC_K3_J784S4
++#include "j784s4_hardware.h"
++#include "j784s4_qos.h"
++#endif
++
+ #ifdef CONFIG_SOC_K3_AM642
+ #include "am64_hardware.h"
+ #endif
+@@ -76,4 +81,7 @@ struct rom_extended_boot_data {
  extern struct k3_qos_data j721s2_qos_data[];
  extern u32 j721s2_qos_count;
  
@@ -217,15 +219,6 @@ index 0000000000..58c374817c
 +#define PULSAR_SL_MAIN_2_PBDG_WMST1	0x45DCBC00
 +#define NAVSS0_NORTH_0_NBSS_NB0_CFG_MMRS    0x03702000
 +#define NAVSS0_NORTH_1_NBSS_NB1_CFG_MMRS    0x03703000
-diff --git a/arch/arm/mach-k3/j784s4/Makefile b/arch/arm/mach-k3/j784s4/Makefile
-index d8bb3c7719..9df452407a 100644
---- a/arch/arm/mach-k3/j784s4/Makefile
-+++ b/arch/arm/mach-k3/j784s4/Makefile
-@@ -3,3 +3,4 @@
- # Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
- obj-y += clk-data.o
- obj-y += dev-data.o
-+obj-y += j784s4_qos_data.o
 diff --git a/arch/arm/mach-k3/j784s4/j784s4_qos_data.c b/arch/arm/mach-k3/j784s4/j784s4_qos_data.c
 new file mode 100644
 index 0000000000..1a6898fc2f
@@ -371,34 +364,6 @@ index 0000000000..1a6898fc2f
 +};
 +
 +uint32_t j784s4_qos_count = sizeof(j784s4_qos_data) / sizeof(j784s4_qos_data[0]);
-diff --git a/arch/arm/mach-k3/j784s4_init.c b/arch/arm/mach-k3/j784s4_init.c
-index e112b7a8e4..5c8b4c0d97 100644
---- a/arch/arm/mach-k3/j784s4_init.c
-+++ b/arch/arm/mach-k3/j784s4_init.c
-@@ -138,6 +138,14 @@ static void store_boot_info_from_rom(void)
- 	       sizeof(struct rom_extended_boot_data));
- }
- 
-+static void setup_qos(void)
-+{
-+	u32 i;
-+
-+	for (i = 0; i < j784s4_qos_count; i++)
-+		writel(j784s4_qos_data[i].val, (uintptr_t)j784s4_qos_data[i].reg);
-+}
-+
- void board_init_f(ulong dummy)
- {
- 	struct udevice *dev;
-@@ -236,6 +244,8 @@ void board_init_f(ulong dummy)
- 			panic("DRAM 3 init failed: %d\n", ret);
- 	}
- 
-+	setup_qos();
-+
- 	spl_enable_dcache();
- }
- 
 -- 
 2.17.1
 

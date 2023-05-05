@@ -23,7 +23,7 @@ diff --git a/arch/arm/dts/k3-j721e-sk.dts b/arch/arm/dts/k3-j721e-sk.dts
 index 1b1aeb0844..5215f95120 100644
 --- a/arch/arm/dts/k3-j721e-sk.dts
 +++ b/arch/arm/dts/k3-j721e-sk.dts
-@@ -794,3 +794,138 @@
+@@ -789,3 +789,138 @@
  	memory-region = <&c71_0_dma_memory_region>,
  			<&c71_0_memory_region>;
  };
@@ -166,14 +166,14 @@ diff --git a/configs/j721e_evm_a72_defconfig b/configs/j721e_evm_a72_defconfig
 index bb7334ddd5..fd4a696e5b 100644
 --- a/configs/j721e_evm_a72_defconfig
 +++ b/configs/j721e_evm_a72_defconfig
-@@ -20,6 +20,7 @@ CONFIG_SPL_FS_FAT=y
+@@ -24,6 +24,7 @@ CONFIG_SPL_FS_FAT=y
  CONFIG_SPL_LIBDISK_SUPPORT=y
  CONFIG_SPL_SPI_FLASH_SUPPORT=y
- CONFIG_SPL_SPI_SUPPORT=y
+ CONFIG_SPL_SPI=y
 +CONFIG_GPIO_HOG=y
  # CONFIG_PSCI_RESET is not set
- CONFIG_DEFAULT_DEVICE_TREE="k3-j721e-common-proc-board"
- CONFIG_DISTRO_DEFAULTS=y
+ # CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
+ CONFIG_SPL_LOAD_FIT=y
 -- 
 2.17.1
 
