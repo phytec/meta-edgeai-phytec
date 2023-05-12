@@ -22,6 +22,7 @@ PLAT_SOC:am62xx-evm = "am62"
 S = "${WORKDIR}/git/apps_cpp"
 
 DEPENDS = "ti-vision-apps edgeai-dl-inferer yaml-cpp gstreamer1.0 opencv"
+DEPENDS:remove:am62xx-evm = "ti-vision-apps"
 
 RDEPENDS:${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev"
 
