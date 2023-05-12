@@ -25,6 +25,11 @@ DEPENDS = "edgeai-tiovx-modules edgeai-apps-utils gstreamer1.0-plugins-base edge
 RDEPENDS:${PN} = "edgeai-tiovx-modules"
 RDEPENDS:${PN}-source = "bash edgeai-tiovx-modules-dev"
 
+# Remove edgeai-tiovx-modules dependency for ARM only devices
+DEPENDS:remove:am62xx-evm = "edgeai-tiovx-modules"
+RDEPENDS:${PN}:remove:am62xx-evm = "edgeai-tiovx-modules"
+RDEPENDS:${PN}-source:remove:am62xx = "edgeai-tiovx-modules-dev"
+
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm|am62xx-evm"
 
 export SOC = "${PLAT_SOC}"
