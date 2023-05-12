@@ -17,6 +17,7 @@ PLAT_SOC:j721s2-hs-evm = "j721s2"
 PLAT_SOC:j784s4-evm = "j784s4"
 PLAT_SOC:j784s4-hs-evm = "j784s4"
 PLAT_SOC:am62axx-evm = "am62a"
+PLAT_SOC:am62xx-evm = "am62"
 
 S = "${WORKDIR}/git/apps_cpp"
 
@@ -26,7 +27,7 @@ RDEPENDS:${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev"
 
 RDEPENDS:${PN}-source += "bash python3-core edgeai-dl-inferer-dev"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm|am62xx-evm"
 
 export SOC = "${PLAT_SOC}"
 
