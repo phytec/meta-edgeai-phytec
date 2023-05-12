@@ -9,8 +9,6 @@ PR:append = "_edgeai_0"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 
-
-
 SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.10.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.8.2-cp38-cp38-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.7.0-cp38-cp38-linux_aarch64.whl;name=ort;subdir=${S}/ort\
@@ -32,20 +30,10 @@ do_cp_downloaded_build_deps() {
 }
 addtask cp_downloaded_build_deps after do_unpack before do_patch
 
-PLAT_SOC = ""
-PLAT_SOC:j721e-evm = "j721e"
-PLAT_SOC:j721e-hs-evm = "j721e"
-PLAT_SOC:j721s2-evm = "j721s2"
-PLAT_SOC:j721s2-hs-evm = "j721s2"
-PLAT_SOC:j784s4-evm = "j784s4"
-PLAT_SOC:j784s4-hs-evm = "j784s4"
-PLAT_SOC:am62axx-evm = "am62a"
-
 DEPENDS += "python3-pip-native"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
-export SOC = "${PLAT_SOC}"
 export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 
 PY_DST_DIR="${D}${libdir}/python3.8/site-packages"

@@ -9,22 +9,11 @@ PV = "${SRCPV}"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-studio-agent.git;branch=develop;protocol=https"
 SRCREV = "${AUTOREV}"
 
-PLAT_SOC = ""
-PLAT_SOC:j721e-evm = "j721e"
-PLAT_SOC:j721e-hs-evm = "j721e"
-PLAT_SOC:j721s2-evm = "j721s2"
-PLAT_SOC:j721s2-hs-evm = "j721s2"
-PLAT_SOC:j784s4-evm = "j784s4"
-PLAT_SOC:j784s4-hs-evm = "j784s4"
-PLAT_SOC:am62axx-evm = "am62a"
-
 S = "${WORKDIR}/git"
 
 RDEPENDS:${PN} += "edgeai-gst-apps-source bash python3-core python3-aiofiles python3-websocket-client python3-uvicorn python3-fastapi python3-python-multipart python3-websockets python3-psutil cors express nodejs"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
-
-export SOC = "${PLAT_SOC}"
 
 FILES:${PN} += "/opt"
 
