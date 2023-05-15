@@ -35,12 +35,12 @@ FILES:${PN} += "/opt/*"
 # dlr.h
 
 DEPENDS += "glm devil freetype ti-rpmsg-char repo-native"
-DEPENDS:append:j721e-evm = " mesa"
-DEPENDS:append:j721e-hs-evm = " mesa"
-DEPENDS:append:j721s2-evm = " mesa"
-DEPENDS:append:j721s2-hs-evm = " mesa"
-DEPENDS:append:j784s4-evm = " mesa"
-DEPENDS:append:j784s4-hs-evm = " mesa"
+DEPENDS:append:j721e-evm = " mesa-pvr"
+DEPENDS:append:j721e-hs-evm = " mesa-pvr"
+DEPENDS:append:j721s2-evm = " mesa-pvr"
+DEPENDS:append:j721s2-hs-evm = " mesa-pvr"
+DEPENDS:append:j784s4-evm = " mesa-pvr"
+DEPENDS:append:j784s4-hs-evm = " mesa-pvr"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
