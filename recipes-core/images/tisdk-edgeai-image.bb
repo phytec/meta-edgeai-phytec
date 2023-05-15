@@ -1,7 +1,6 @@
 # Produces wic Image for Edge AI demos
 
 require recipes-core/images/tisdk-default-image.bb
-require recipes-core/images/tisdk-default-image-append.inc
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
@@ -32,8 +31,17 @@ EDGEAI_STACK = " \
 "
 
 IMAGE_INSTALL:append = " \
-	${EDGEAI_STACK} \
+    ${EDGEAI_STACK} \
+    packagegroup-arago-gst-sdk-target \
 "
+# disable matrix gui for PSDKLA
+IMAGE_INSTALL:remove = "\
+    packagegroup-arago-tisdk-matrix \
+    packagegroup-arago-tisdk-matrix-extra \
+"
+
+WKS_FILE = "tisdk-edgeai-sdimage.wks"
+WIC_CREATE_EXTRA_ARGS += " --no-fstab-update"
 
 do_image_wic[depends] += "edgeai-uenv:do_deploy"
 IMAGE_BOOT_FILES:remove = "uEnv.txt"
