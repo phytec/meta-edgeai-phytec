@@ -21,6 +21,7 @@ PLAT_SOC:am62axx-evm = "am62a"
 S = "${WORKDIR}/git"
 
 DEPENDS = "ti-vision-apps edgeai-tiovx-kernels"
+RDEPENDS:${PN}-source = "cmake"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
