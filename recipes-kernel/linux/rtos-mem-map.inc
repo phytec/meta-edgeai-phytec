@@ -3,7 +3,6 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/linux-ti-staging/${MACHINE}:"
 SRC_URI:append:j721e-evm = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
     file://0004-arm64-dts-ti-k3-j721e-rtos-memory-map-CMA-DT-node.patch \
-    file://0003-arm64-dts-ti-k3-j721e-sk-Add-additional-DDR-carveout.patch \
 "
 
 SRC_URI:append:j721s2-evm = " \
