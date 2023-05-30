@@ -36,4 +36,9 @@ SRC_URI:append:j721e-hs-evm-k3r5-sr1-1 = " \
     file://0001-Optimal-QoS-Settings.patch \
 "
 
+PACKAGECONFIG[dm-edgeai] = "DM=${STAGING_DIR_HOST}${nonarch_base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_mcu1_0.out,,ti-edgeai-firmware"
+
+PACKAGECONFIG:remove:am62axx = " dm"
+PACKAGECONFIG:append:am62axx = " dm-edgeai"
+
 PR:append = "_edgeai_1"
