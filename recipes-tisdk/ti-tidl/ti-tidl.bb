@@ -31,13 +31,13 @@ do_cp_downloaded_build_deps() {
 addtask cp_downloaded_build_deps after do_unpack before do_patch
 
 PLAT_SOC = ""
-PLAT_SOC:j721e-evm = "j721e"
-PLAT_SOC:j721e-hs-evm = "j721e"
-PLAT_SOC:j721s2-evm = "j721s2"
-PLAT_SOC:j721s2-hs-evm = "j721s2"
-PLAT_SOC:j784s4-evm = "j784s4"
-PLAT_SOC:j784s4-hs-evm = "j784s4"
-PLAT_SOC:am62axx-evm = "am62a"
+PLAT_SOC:j721e = "j721e"
+PLAT_SOC:j721s2 = "j721s2"
+PLAT_SOC:j784s4 = "j784s4"
+PLAT_SOC:am62axx = "am62a"
+
+CPU = "A72"
+CPU:am62axx = "A53"
 
 DEPENDS += "ti-vision-apps"
 
@@ -84,11 +84,11 @@ TIDL_SOC_NAME:am62axx-evm = "AM62A"
 
 do_install() {
     install -d ${LIB_DST_DIR}
-    cp ${S}/arm-tidl/rt/out/${TIDL_SOC_NAME}/A72/LINUX/release/libvx_tidl_rt.so.1.0 ${LIB_DST_DIR}/
+    cp ${S}/arm-tidl/rt/out/${TIDL_SOC_NAME}/${CPU}/LINUX/release/libvx_tidl_rt.so.1.0 ${LIB_DST_DIR}/
     ln -s -r ${LIB_DST_DIR}/libvx_tidl_rt.so.1.0 ${LIB_DST_DIR}/libvx_tidl_rt.so
-    cp ${S}/arm-tidl/tfl_delegate/out/${TIDL_SOC_NAME}/A72/LINUX/release/libtidl_tfl_delegate.so.1.0 ${LIB_DST_DIR}/
+    cp ${S}/arm-tidl/tfl_delegate/out/${TIDL_SOC_NAME}/${CPU}/LINUX/release/libtidl_tfl_delegate.so.1.0 ${LIB_DST_DIR}/
     ln -s -r ${LIB_DST_DIR}/libtidl_tfl_delegate.so.1.0 ${LIB_DST_DIR}/libtidl_tfl_delegate.so
-    cp ${S}/arm-tidl/onnxrt_ep/out/${TIDL_SOC_NAME}/A72/LINUX/release/libtidl_onnxrt_EP.so.1.0 ${LIB_DST_DIR}/
+    cp ${S}/arm-tidl/onnxrt_ep/out/${TIDL_SOC_NAME}/${CPU}/LINUX/release/libtidl_onnxrt_EP.so.1.0 ${LIB_DST_DIR}/
     ln -s -r ${LIB_DST_DIR}/libtidl_onnxrt_EP.so.1.0 ${LIB_DST_DIR}/libtidl_onnxrt_EP.so
 
     install -d ${INC_DST_DIR}
@@ -96,7 +96,7 @@ do_install() {
     cp ${S}/arm-tidl/rt/inc/itvm_rt.h ${INC_DST_DIR}/
 
     install -d ${OPT_DST_DIR}/tidl_test
-    cp ${S}/arm-tidl/rt/out/${TIDL_SOC_NAME}/A72/LINUX/release/TI_DEVICE_armv8_test_dl_algo_host_rt.out ${OPT_DST_DIR}/tidl_test/
+    cp ${S}/arm-tidl/rt/out/${TIDL_SOC_NAME}/${CPU}/LINUX/release/TI_DEVICE_armv8_test_dl_algo_host_rt.out ${OPT_DST_DIR}/tidl_test/
 
 }
 

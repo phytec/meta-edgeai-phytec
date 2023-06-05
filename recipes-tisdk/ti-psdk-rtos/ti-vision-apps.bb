@@ -34,24 +34,16 @@ FILES:${PN} += "/opt/*"
 # ti_rpmsg_char.h
 # dlr.h
 
-DEPENDS += "glm devil freetype ti-rpmsg-char repo-native"
-DEPENDS:append:j721e-evm = " mesa-pvr"
-DEPENDS:append:j721e-hs-evm = " mesa-pvr"
-DEPENDS:append:j721s2-evm = " mesa-pvr"
-DEPENDS:append:j721s2-hs-evm = " mesa-pvr"
-DEPENDS:append:j784s4-evm = " mesa-pvr"
-DEPENDS:append:j784s4-hs-evm = " mesa-pvr"
+DEPENDS = "glm devil freetype ti-rpmsg-char repo-native mesa-pvr"
+DEPENDS:remove:am62axx = " mesa-pvr"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
 PLAT_SOC = ""
-PLAT_SOC:j721e-evm = "j721e"
-PLAT_SOC:j721e-hs-evm = "j721e"
-PLAT_SOC:j721s2-evm = "j721s2"
-PLAT_SOC:j721s2-hs-evm = "j721s2"
-PLAT_SOC:j784s4-evm = "j784s4"
-PLAT_SOC:j784s4-hs-evm = "j784s4"
-PLAT_SOC:am62axx-evm = "am62a"
+PLAT_SOC:j721e = "j721e"
+PLAT_SOC:j721s2 = "j721s2"
+PLAT_SOC:j784s4 = "j784s4"
+PLAT_SOC:am62axx = "am62a"
 
 S = "${WORKDIR}"
 

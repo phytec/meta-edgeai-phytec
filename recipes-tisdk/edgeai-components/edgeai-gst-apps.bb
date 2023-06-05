@@ -10,14 +10,11 @@ SRC_URI = "git://github.com/TexasInstruments/edgeai-gst-apps.git;branch=develop;
 SRCREV = "${AUTOREV}"
 
 PLAT_SOC = ""
-PLAT_SOC:j721e-evm = "j721e"
-PLAT_SOC:j721e-hs-evm = "j721e"
-PLAT_SOC:j721s2-evm = "j721s2"
-PLAT_SOC:j721s2-hs-evm = "j721s2"
-PLAT_SOC:j784s4-evm = "j784s4"
-PLAT_SOC:j784s4-hs-evm = "j784s4"
-PLAT_SOC:am62axx-evm = "am62a"
-PLAT_SOC:am62xx-evm = "am62"
+PLAT_SOC:j721e = "j721e"
+PLAT_SOC:j721s2 = "j721s2"
+PLAT_SOC:j784s4 = "j784s4"
+PLAT_SOC:am62axx = "am62a"
+PLAT_SOC:am62xx = "am62"
 
 S = "${WORKDIR}/git/apps_cpp"
 

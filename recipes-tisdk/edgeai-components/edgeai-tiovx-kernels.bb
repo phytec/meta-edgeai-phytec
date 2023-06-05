@@ -10,13 +10,10 @@ SRC_URI = "git://git.ti.com/edgeai/edgeai-tiovx-kernels.git;branch=develop;proto
 SRCREV = "${AUTOREV}"
 
 PLAT_SOC = ""
-PLAT_SOC:j721e-evm = "j721e"
-PLAT_SOC:j721e-hs-evm = "j721e"
-PLAT_SOC:j721s2-evm = "j721s2"
-PLAT_SOC:j721s2-hs-evm = "j721s2"
-PLAT_SOC:j784s4-evm = "j784s4"
-PLAT_SOC:j784s4-hs-evm = "j784s4"
-PLAT_SOC:am62axx-evm = "am62a"
+PLAT_SOC:j721e = "j721e"
+PLAT_SOC:j721s2 = "j721s2"
+PLAT_SOC:j784s4 = "j784s4"
+PLAT_SOC:am62axx = "am62a"
 
 S = "${WORKDIR}/git"
 
