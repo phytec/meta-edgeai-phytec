@@ -43,12 +43,12 @@ IMAGE_INSTALL:remove = "\
 WKS_FILE = "tisdk-edgeai-sdimage.wks"
 WIC_CREATE_EXTRA_ARGS += " --no-fstab-update"
 
-do_image_wic:append[depends] = " edgeai-uenv:do_deploy"
+do_image_wic[depends] += "${@oe.utils.conditional("MACHINE", "am62axx-evm", "", "edgeai-uenv:do_deploy", d)}"
+
 IMAGE_BOOT_FILES:remove = "uEnv.txt"
 IMAGE_BOOT_FILES:append = " uEnv_edgeai-apps.txt;uEnv.txt "
 
 # Remove edgeai-uenv for AM62a
-do_image_wic:remove:am62axx-evm[depends] = "edgeai-uenv:do_deploy"
 IMAGE_BOOT_FILES:remove:am62axx-evm = "uEnv_edgeai-apps.txt;uEnv.txt"
 IMAGE_BOOT_FILES:append:am62axx-evm = " uEnv.txt"
 
