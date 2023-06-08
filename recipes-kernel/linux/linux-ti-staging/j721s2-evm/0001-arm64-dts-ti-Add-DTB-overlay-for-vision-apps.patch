@@ -20,10 +20,10 @@ diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
 index 9f558e142b..3cc263dafa 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -67,6 +67,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-j721s2-common-proc-board.dtb
+@@ -74,6 +74,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-common-proc-board.dtb
  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-csi2-ov5640.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-fusion.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-gesi-exp-board.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j721s2-vision-apps.dtbo
  
  # Boards with J784s4 SoC
