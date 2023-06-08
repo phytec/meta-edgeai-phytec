@@ -40,7 +40,7 @@ inherit ti-secdev
 
 FW_DIR = "${PLAT_SFX}/vision_apps_eaik"
 
-INSTALL_FW_DIR = "${nonarch_base_libdir}/firmware/vision_apps_eaik"
+INSTALL_FW_DIR = "${nonarch_base_libdir}/firmware/vision_apps_eaik/"
 
 MCU_1_0_FW = "vx_app_rtos_linux_mcu1_0.out"
 MCU_1_1_FW = "vx_app_rtos_linux_mcu1_1.out"
@@ -77,6 +77,12 @@ do_install() {
         install -m 0644 ${S}/${FW_DIR}/${FW_NAME}        ${D}${INSTALL_FW_DIR}
         install -m 0644 ${S}/${FW_DIR}/${FW_NAME}.signed ${D}${INSTALL_FW_DIR}
     done
+}
+
+# For am62a DM FW name in u-boot recipe is hard coded to ipc_echo_testb_mcu1_0_release_strip.xer5f
+do_install:append:am62axx() {
+    mkdir -p ${D}${nonarch_base_libdir}/firmware/ti-dm/am62axx/
+    cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW} ${D}${nonarch_base_libdir}/firmware/ti-dm/am62axx/ipc_echo_testb_mcu1_0_release_strip.xer5f
 }
 
 # Set up names for the firmwares
