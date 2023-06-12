@@ -1,0 +1,30 @@
+From 8942e61004d0dfc9c5107235c23bb37a772dbb6e Mon Sep 17 00:00:00 2001
+From: Neha Malcom Francis <n-francis@ti.com>
+Date: Mon, 12 Jun 2023 17:08:38 +0530
+Subject: [PATCH] arm: dts: k3-j721e-sk: Package u-boot.img using binman
+
+Enable u-boot.img generation for J721E-sk using binman. This was missed
+out during the packaging of bootloader images for J721E.
+
+Fixes: 94edbcb98c1c ("j721e: dts: binman: Package tiboot3.bin,
+sysfw.itb, tispl.bin, u-boot.img")
+Signed-off-by: Neha Malcom Francis <n-francis@ti.com>
+---
+ arch/arm/dts/k3-j721e-sk-u-boot.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/dts/k3-j721e-sk-u-boot.dtsi b/arch/arm/dts/k3-j721e-sk-u-boot.dtsi
+index bc7c668a9e..9731094af2 100644
+--- a/arch/arm/dts/k3-j721e-sk-u-boot.dtsi
++++ b/arch/arm/dts/k3-j721e-sk-u-boot.dtsi
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <dt-bindings/net/ti-dp83867.h>
++#include "k3-j721e-binman.dtsi"
+ 
+ / {
+ 	chosen {
+-- 
+2.34.1
+
