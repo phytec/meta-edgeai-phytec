@@ -9,6 +9,8 @@ EDGEAI_SRCS = " \
     edgeai-tiovx-modules-src \
 "
 
+DEPLOY_IMAGES_NAME:append = " ipc_echo_testb_mcu1_0_release_strip.xer5f"
+
 # Add EdgeAI Sources to SDK installer
 IMAGE_INSTALL:append = " \
    ${EDGEAI_SRCS}  \
