@@ -9,6 +9,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 INHIBIT_DEFAULT_DEPS = "1"
 
+inherit deploy
 inherit update-alternatives
 
 PLAT_SFX = ""
@@ -83,6 +84,17 @@ do_install() {
 do_install:append:am62axx() {
     mkdir -p ${D}${nonarch_base_libdir}/firmware/ti-dm/am62axx/
     cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW} ${D}${nonarch_base_libdir}/firmware/ti-dm/am62axx/ipc_echo_testb_mcu1_0_release_strip.xer5f
+    cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW}.signed ${D}${nonarch_base_libdir}/firmware/ti-dm/am62axx/ipc_echo_testb_mcu1_0_release_strip.xer5f.signed
+}
+
+do_deploy() {
+}
+
+do_deploy:am62axx() {
+    # DM Firmware is needed for rebuilding U-Boot
+    install -d ${DEPLOYDIR}
+    cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW} ${DEPLOYDIR}/ipc_echo_testb_mcu1_0_release_strip.xer5f
+    cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW}.signed ${DEPLOYDIR}/ipc_echo_testb_mcu1_0_release_strip.xer5f.signed
 }
 
 # Set up names for the firmwares
@@ -256,6 +268,5 @@ INSANE_SKIP:${PN} += "arch"
 # we don't want to configure and build the source code
 do_compile[noexec] = "1"
 do_configure[noexec] = "1"
-do_deploy[noexec] = "1"
 
 addtask deploy after do_install
