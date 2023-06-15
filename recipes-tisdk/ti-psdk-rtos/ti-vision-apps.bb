@@ -53,7 +53,7 @@ do_fetch[depends] += "repo-native:do_populate_sysroot"
 
 do_compile() {
     CROSS_COMPILE_LINARO=aarch64-oe-linux- \
-    LINUX_SYSROOT=${STAGING_DIR_TARGET} \
+    LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET} \
     TREAT_WARNINGS_AS_ERROR=0 \
     GCC_LINUX_ARM_ROOT= \
     GCC_LINUX_ARM_ROOT_A72= \
