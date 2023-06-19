@@ -8,7 +8,6 @@ SRC_URI:append_k3 = " \
 SRC_URI:append:j721e = " \
     file://0001-HACK-arm-k3-j721e-sk-RPi-header-pins-set-to-default-.patch \
     file://0001-Optimal-QoS-Settings.patch \
-    file://0001-arm-dts-k3-j721e-sk-Package-u-boot.img-using-binman.patch \
     file://0001-configs-j721e_evm_a72_defconfig-Enable-envboot-for-j.patch \
 "
 
