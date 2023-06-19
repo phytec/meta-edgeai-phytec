@@ -47,7 +47,7 @@ PLAT_SOC:am62axx = "am62a"
 
 S = "${WORKDIR}"
 
-EXTRA_OEMAKE += "-C ${S}/repo/vision_apps"
+EXTRA_OEMAKE += "-C ${S}/repo/sdk_builder"
 
 do_fetch[depends] += "repo-native:do_populate_sysroot"
 
