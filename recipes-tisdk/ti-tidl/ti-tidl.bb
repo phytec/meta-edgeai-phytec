@@ -64,7 +64,7 @@ do_compile() {
     GCC_LINUX_ARM_ROOT= \
     TARGET_SOC=${PLAT_SOC} \
     CROSS_COMPILE_LINARO=aarch64-oe-linux- \
-    LINUX_SYSROOT=${STAGING_DIR_TARGET} \
+    LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET} \
     TREAT_WARNINGS_AS_ERROR=0 \
     oe_runmake
 }
