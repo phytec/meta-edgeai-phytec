@@ -39,9 +39,11 @@ PV = "${SRCPV}"
 # Secure Build
 inherit ti-secdev
 
-FW_DIR = "${PLAT_SFX}/vision_apps_eaik"
+FW_DIR:edgeai = "${PLAT_SFX}/vision_apps_eaik"
+FW_DIR:vision = "${PLAT_SFX}/vision_apps_evm"
 
-INSTALL_FW_DIR = "${nonarch_base_libdir}/firmware/vision_apps_eaik/"
+INSTALL_FW_DIR:edgeai = "${nonarch_base_libdir}/firmware/vision_apps_eaik/"
+INSTALL_FW_DIR:vision = "${nonarch_base_libdir}/firmware/vision_apps_evm/"
 
 MCU_1_0_FW = "vx_app_rtos_linux_mcu1_0.out"
 MCU_1_1_FW = "vx_app_rtos_linux_mcu1_1.out"
