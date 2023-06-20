@@ -70,7 +70,7 @@ do_install() {
     # Sign the firmware
     for FW_NAME in ${FW_LIST}
     do
-        ${TI_SECURE_DEV_PKG}/scripts/secure-binary-image.sh ${S}/${FW_DIR} ${S}/${FW_DIR}/${FW_NAME}.signed
+        ${TI_SECURE_DEV_PKG}/scripts/secure-binary-image.sh ${S}/${FW_DIR}/${FW_NAME} ${S}/${FW_DIR}/${FW_NAME}.signed
     done
 
     # Install the Firmware
