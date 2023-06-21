@@ -16,4 +16,5 @@ IMAGE_INSTALL:append = " \
    ${EDGEAI_SRCS}  \
 "
 
-TARGET_IMAGES = "tisdk-edgeai-image"
+TARGET_IMAGES:edgeai = "tisdk-edgeai-image"
+TARGET_IMAGES:adas = "tisdk-adas-image"
