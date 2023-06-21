@@ -46,12 +46,12 @@ WIC_CREATE_EXTRA_ARGS += " --no-fstab-update"
 do_image_wic[depends] += "${@oe.utils.conditional("MACHINE", "am62axx-evm", "", "edgeai-uenv:do_deploy", d)}"
 
 IMAGE_BOOT_FILES:remove = "uEnv.txt"
-IMAGE_BOOT_FILES:edgeai:append = " uEnv_edgeai-apps.txt;uEnv.txt "
-IMAGE_BOOT_FILES:adas:append = " uEnv_vision-apps.txt;uEnv.txt "
+IMAGE_BOOT_FILES:append:edgeai = " uEnv_edgeai-apps.txt;uEnv.txt "
+IMAGE_BOOT_FILES:append:adas = " uEnv_vision-apps.txt;uEnv.txt "
 
 # Remove edgeai-uenv for AM62a
-IMAGE_BOOT_FILES:edgeai:remove:am62axx-evm = "uEnv_edgeai-apps.txt;uEnv.txt"
-IMAGE_BOOT_FILES:adas:remove:am62axx-evm = "uEnv_vision-apps.txt;uEnv.txt"
+IMAGE_BOOT_FILES:remove:am62axx-evm:edgeai = "uEnv_edgeai-apps.txt;uEnv.txt"
+IMAGE_BOOT_FILES:remove:am62axx-evm:adas = "uEnv_vision-apps.txt;uEnv.txt"
 IMAGE_BOOT_FILES:append:am62axx-evm = " uEnv.txt"
 
 # For AM68-SK, default tiboot3.bin should be HSFS
