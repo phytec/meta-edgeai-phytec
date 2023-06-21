@@ -8,7 +8,7 @@ SRC_URI:edgeai = "\
     file://uEnv_edgeai-apps.txt \
 "
 
-SRC_URI:vision = "\
+SRC_URI:adas = "\
     file://uEnv_vision-apps.txt \
 "
 
@@ -27,7 +27,7 @@ do_install:append:edgeai () {
     install -m 0644 ${S}/uEnv_edgeai-apps.txt ${D}/board-support/prebuilt-images/
 }
 
-do_install:append:vision () {
+do_install:append:adas () {
     install -m 0644 ${S}/uEnv_vision-apps.txt ${D}/board-support/prebuilt-images/
 }
 
@@ -43,7 +43,7 @@ do_deploy:append:edgeai () {
     install -m 0644 ${S}/uEnv_edgeai-apps.txt ${DEPLOYDIR}
 }
 
-do_deploy:append:vision () {
+do_deploy:append:adas () {
     install -m 0644 ${S}/uEnv_vision-apps.txt ${DEPLOYDIR}
 }
 
