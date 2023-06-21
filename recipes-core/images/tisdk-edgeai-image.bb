@@ -46,19 +46,21 @@ WIC_CREATE_EXTRA_ARGS += " --no-fstab-update"
 do_image_wic[depends] += "${@oe.utils.conditional("MACHINE", "am62axx-evm", "", "edgeai-uenv:do_deploy", d)}"
 
 IMAGE_BOOT_FILES:remove = "uEnv.txt"
-IMAGE_BOOT_FILES:append = " uEnv_edgeai-apps.txt;uEnv.txt "
+IMAGE_BOOT_FILES:edgeai:append = " uEnv_edgeai-apps.txt;uEnv.txt "
+IMAGE_BOOT_FILES:vision:append = " uEnv_vision-apps.txt;uEnv.txt "
 
 # Remove edgeai-uenv for AM62a
-IMAGE_BOOT_FILES:remove:am62axx-evm = "uEnv_edgeai-apps.txt;uEnv.txt"
+IMAGE_BOOT_FILES:edgeai:remove:am62axx-evm = "uEnv_edgeai-apps.txt;uEnv.txt"
+IMAGE_BOOT_FILES:vision:remove:am62axx-evm = "uEnv_vision-apps.txt;uEnv.txt"
 IMAGE_BOOT_FILES:append:am62axx-evm = " uEnv.txt"
 
 # For AM68-SK, default tiboot3.bin should be HSFS
-IMAGE_BOOT_FILES:remove:j721s2-evm = "tiboot3.bin"
-IMAGE_BOOT_FILES:append:j721s2-evm = " tiboot3-j721s2-gp-evm.bin tiboot3-j721s2-hs-fs-evm.bin tiboot3-j721s2-hs-fs-evm.bin;tiboot3.bin"
+IMAGE_BOOT_FILES:remove:j721s2-evm:edgeai = "tiboot3.bin"
+IMAGE_BOOT_FILES:append:j721s2-evm:edgeai = " tiboot3-j721s2-gp-evm.bin tiboot3-j721s2-hs-fs-evm.bin tiboot3-j721s2-hs-fs-evm.bin;tiboot3.bin"
 
 # For AM69-SK, default tiboot3.bin should be HSFS
-IMAGE_BOOT_FILES:remove:j784s4-evm = "tiboot3.bin"
-IMAGE_BOOT_FILES:append:j784s4-evm = " tiboot3-j784s4-gp-evm.bin tiboot3-j784s4-hs-fs-evm.bin tiboot3-j784s4-hs-fs-evm.bin;tiboot3.bin"
+IMAGE_BOOT_FILES:remove:j784s4-evm:edgeai = "tiboot3.bin"
+IMAGE_BOOT_FILES:append:j784s4-evm:edgeai = " tiboot3-j784s4-gp-evm.bin tiboot3-j784s4-hs-fs-evm.bin tiboot3-j784s4-hs-fs-evm.bin;tiboot3.bin"
 
 export IMAGE_BASENAME = "tisdk-edgeai-image"
 
