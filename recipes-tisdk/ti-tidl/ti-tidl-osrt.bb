@@ -5,22 +5,22 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 S = "${WORKDIR}/src"
-PR:append = "_edgeai_0"
+PR:append = "_edgeai_1"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 
-SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.10.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.8.2-cp38-cp38-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.7.0-cp38-cp38-linux_aarch64.whl;name=ort;subdir=${S}/ort\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.8_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.7.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/08_06_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
+SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.13.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.8.2-cp310-cp310-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.7.0-cp310-cp310-linux_aarch64.whl;name=ort;subdir=${S}/ort\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.8_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.7.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
 "
-SRC_URI[dlr.sha256sum] = "64a6bda601119e754327401e8a3cff112a09923529fc0d1cba86c054c810fc5c"
-SRC_URI[tflite.sha256sum] = "1e42f3788a46c99c59c2218054591a005055a9a71918d81362ff304de625fa7a"
-SRC_URI[ort.sha256sum] = "a471f800ce1609eb2e7af3dc49eb5e8a033c18c4dea7cf6d15ea6c40c3ac3762"
+SRC_URI[dlr.sha256sum] = "d41b06f2616f05bf8fa7d9dd14027faf211d45fce84bbcff88d0abbe63529d14"
+SRC_URI[tflite.sha256sum] = "8ab3d0c00da3f80a538b53701c8cf242f32adba7702a8d18bab6fd49b2c42630"
+SRC_URI[ort.sha256sum] = "592d1780402b535b814054d3dc9c65a0a8c41245b93f92b8d2b49132758ebaf7"
 SRC_URI[tfl_lib.sha256sum] = "f954709a5b1ca71e16220b697c3a6f457571d486ac05b00bb3d3e9ae85c422a5"
-SRC_URI[ort_lib.sha256sum] = "c313ea2d0e2632b34c8d0b06e73710c72fbda555f3802cf0f3705bb034950bfb"
+SRC_URI[ort_lib.sha256sum] = "91eab75fceaa7d1374a15a7d3ca4173adad3c6d37bae9072a6e62b8c723aa281"
 SRC_URI[opencv.sha256sum] = "4122073c37e3dd268fa814b6a53510325a1e6636aa3aea9d02ab79f42b4355bd"
 
 do_cp_downloaded_build_deps() {
@@ -54,9 +54,9 @@ FILES:${PN} += "${libdir}/python3.8/*"
 FILES:${PN} += "${includedir}"
 
 do_install() {
-    #pip3 install  --no-deps --platform linux_aarch64 ${S}/tflite/tflite_runtime-2.8.2-cp38-cp38-linux_aarch64.whl --target ${PY_DST_DIR} --disable-pip-version-check
-    pip3 install  --no-deps --platform linux_aarch64 ${S}/dlr/dlr-1.10.0-py3-none-any.whl  --target ${PY_DST_DIR} --disable-pip-version-check
-    #pip3 install  --no-deps --platform linux_aarch64 ${S}/ort/onnxruntime_tidl-1.7.0-cp38-cp38-linux_aarch64.whl  --target ${PY_DST_DIR} --disable-pip-version-check
+    pip3 install  --no-deps --platform linux_aarch64 ${S}/tflite/tflite_runtime-2.8.2-cp310-cp310-linux_aarch64.whl --target ${PY_DST_DIR} --disable-pip-version-check
+    pip3 install  --no-deps --platform linux_aarch64 ${S}/dlr/dlr-1.13.0-py3-none-any.whl  --target ${PY_DST_DIR} --disable-pip-version-check
+    pip3 install  --no-deps --platform linux_aarch64 ${S}/ort/onnxruntime_tidl-1.7.0-cp310-cp310-linux_aarch64.whl  --target ${PY_DST_DIR} --disable-pip-version-check
 
     install -d ${D}${includedir}
     install -d ${LIB_DST_DIR}
@@ -65,7 +65,7 @@ do_install() {
     cp -r ${S}/tfl_lib/tflite_2.8  ${LIB_DST_DIR}/
     cp ${S}/tfl_lib/libtensorflow-lite.a ${LIB_DST_DIR}/
 
-    cp   ${S}/ort_lib/libonnxruntime.so  ${LIB_DST_DIR}/libonnxruntime.so.1.7.0
+    cp   ${S}/ort_lib/libonnxruntime.so.1.7.0  ${LIB_DST_DIR}/libonnxruntime.so.1.7.0
     ln -s -r ${LIB_DST_DIR}/libonnxruntime.so.1.7.0 ${LIB_DST_DIR}/libonnxruntime.so
     rm -rf  ${S}/ort_lib/onnxruntime/csharp
     cp -r  ${S}/ort_lib/onnxruntime ${D}${includedir}/
