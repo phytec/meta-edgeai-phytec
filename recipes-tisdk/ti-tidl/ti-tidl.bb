@@ -52,6 +52,9 @@ FILES:${PN} += "${includedir}/*"
 EXTRA_OEMAKE += "-C ${S}/arm-tidl"
 
 do_compile() {
+    ln -snf ${TARGET_FS} ${WORKDIR}/targetfs
+
+    PSDK_INSTALL_PATH=${WORKDIR} \
     IVISION_PATH=${TARGET_FS}${includedir}/processor_sdk/ivision \
     VISION_APPS_PATH=${TARGET_FS}${includedir}/processor_sdk/vision_apps \
     APP_UTILS_PATH=${TARGET_FS}${includedir}/processor_sdk/app_utils \
