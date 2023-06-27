@@ -94,9 +94,9 @@ do_deploy() {
 
 do_deploy:am62axx() {
     # DM Firmware is needed for rebuilding U-Boot
-    install -d ${DEPLOYDIR}
-    cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW} ${DEPLOYDIR}/ipc_echo_testb_mcu1_0_release_strip.xer5f
-    cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW}.signed ${DEPLOYDIR}/ipc_echo_testb_mcu1_0_release_strip.xer5f.signed
+    install -d ${DEPLOYDIR}/ti-dm/am62axx
+    cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW} ${DEPLOYDIR}/ti-dm/am62axx/ipc_echo_testb_mcu1_0_release_strip.xer5f
+    cp ${D}${INSTALL_FW_DIR}${MCU_1_0_FW}.signed ${DEPLOYDIR}/ti-dm/am62axx/ipc_echo_testb_mcu1_0_release_strip.xer5f.signed
 }
 
 # Set up names for the firmwares
