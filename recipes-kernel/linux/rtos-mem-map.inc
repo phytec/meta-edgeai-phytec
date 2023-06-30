@@ -1,9 +1,5 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/linux-ti-staging/${MACHINE}:"
 
-SRC_URI:append = " \
-    file://0001-arm64-defconfig-Enable-OMAP2MAILBOX-in-the-kernel.patch \
-"
-
 SRC_URI:append:j721e-evm = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
 "
