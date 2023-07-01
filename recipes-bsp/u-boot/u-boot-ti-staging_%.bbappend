@@ -1,6 +1,6 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI:append_k3 = " \
+SRC_URI:append:k3 = " \
     file://0001-tiU21.01-arm-mach-k3-j721s2-Enable-QoS-for-DSS.patch \
     file://0002-tiU21.01-arm-mach-k3-j784s4-Enable-QoS-for-DSS.patch \
 "
