@@ -8,7 +8,6 @@ SRC_URI:append:k3 = " \
 SRC_URI:append:j721e = " \
     file://0001-HACK-arm-k3-j721e-sk-RPi-header-pins-set-to-default-.patch \
     file://0001-Optimal-QoS-Settings.patch \
-    file://0001-configs-j721e_evm_a72_defconfig-Enable-envboot-for-j.patch \
 "
 
 SRC_URI:append:j721e:k3r5 = " \
@@ -20,4 +19,4 @@ PACKAGECONFIG[dm-edgeai] = "DM=${STAGING_DIR_HOST}${nonarch_base_libdir}/firmwar
 PACKAGECONFIG:remove:am62axx = " dm"
 PACKAGECONFIG:append:am62axx = " dm-edgeai"
 
-PR:append = "_edgeai_1"
+PR:append = "_edgeai_2"
