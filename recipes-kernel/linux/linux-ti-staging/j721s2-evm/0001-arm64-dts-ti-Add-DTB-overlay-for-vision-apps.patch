@@ -230,7 +230,7 @@ index 000000000000..484fca53a17f
 +	linux_cma_region: linux-cma-buffers@980000000 {
 +		compatible = "shared-dma-pool";
 +                reusable;
-+                reg = <0x09 0x80000000 0x00 0x70000000>;
++                reg = <0x09 0x80000000 0x00 0x38000000>;
 +                linux,cma-default;
 +	};
 +	vision_apps_core_heaps_lo: vision-apps-core-heap-memory-lo@b8000000 {
