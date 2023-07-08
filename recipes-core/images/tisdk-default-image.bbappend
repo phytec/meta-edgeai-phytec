@@ -11,6 +11,8 @@ ARM_EDGEAI_STACK = " \
     edgeai-gst-plugins-source \
     edgeai-apps-utils-source \
     edgeai-dl-inferer-source \
+    edgeai-tidl-models \
+    edgeai-test-data \
 "
 
 # Add EdgeAI Components for ARM only analytics
