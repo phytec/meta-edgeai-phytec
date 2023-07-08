@@ -6,14 +6,14 @@ export http_proxy
 export https_proxy
 
 BRANCH = "develop"
-SRCREV = "f6b7a8e9c32260cbbb280f0ecd329aaeee21bff6"
+SRCREV = "f75274a9c3cd054105cc9dca6183bb65ffc129bb"
 
 SOC = ""
 SOC:j721e = "j721e"
 SOC:j721s2 = "j721s2"
 SOC:j784s4 = "j784s4"
 SOC:am62axx = "am62a"
-SOC:am62xx = "am62"
+SOC:am62xx = "am62x"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm|am62xx"
 
@@ -26,7 +26,7 @@ do_fetch() {
     export SOC="${SOC}"
     export EDGEAI_DATA_PATH=${WORKDIR}/edgeai-test-data
     export OOB_DEMO_ASSETS_PATH=${WORKDIR}/oob-demo-assets
-    export EDGEAI_SDK_VERSION=08_06_00
+    export EDGEAI_SDK_VERSION=09_00_00
 
     ./download_test_data.sh
 

@@ -15,7 +15,7 @@ PLAT_SOC:j721e = "j721e"
 PLAT_SOC:j721s2 = "j721s2"
 PLAT_SOC:j784s4 = "j784s4"
 PLAT_SOC:am62axx = "am62a"
-PLAT_SOC:am62xx = "am62"
+PLAT_SOC:am62xx = "am62x"
 
 S = "${WORKDIR}/git/apps_cpp"
 
