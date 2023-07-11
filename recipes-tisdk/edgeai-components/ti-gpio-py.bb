@@ -3,10 +3,10 @@ DESCRIPTION = "A Linux based Python library for TI GPIO RPi header enabled platf
 HOMEPAGE = "https://github.com/TexasInstruments/ti-gpio-py"
 
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${S}/LICENSE.txt;md5=cd9620c1f5cbe6e72b9ced80bd9755d0"
+LIC_FILES_CHKSUM = "file://${S}/LICENSE.txt;md5=c514977d484aa7daa306d63effcba9bc"
 
 SRC_URI = "git://github.com/TexasInstruments/ti-gpio-py.git;protocol=https;branch=master"
-SRCREV = "14f80a8b011af185e866432b3117f00d11a23d28"
+SRCREV = "${AUTOREV}"
 
 S = "${WORKDIR}/git"
 
@@ -24,4 +24,4 @@ do_install:append() {
     cp ${CP_ARGS} ${S}/* ${D}/opt/ti-gpio-py
 }
 
-PR:append = "_edgeai_0"
+PR:append = "_edgeai_1"
