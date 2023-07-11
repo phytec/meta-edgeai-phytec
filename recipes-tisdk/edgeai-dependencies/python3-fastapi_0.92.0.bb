@@ -10,10 +10,10 @@ PYPI_PACKAGE = "fastapi"
 PV = "0.92.0"
 inherit pypi
 
-FILES:${PN} += "${libdir}/python3.8/*"
+FILES:${PN} += "${libdir}/python3.10/*"
 
 do_install() {
   CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
-  mkdir -p ${D}/${libdir}/python3.8/site-packages/
-  cp ${CP_ARGS} ${S}/fastapi ${D}/${libdir}/python3.8/site-packages/
+  mkdir -p ${D}/${libdir}/python3.10/site-packages/
+  cp ${CP_ARGS} ${S}/fastapi ${D}/${libdir}/python3.10/site-packages/
 }

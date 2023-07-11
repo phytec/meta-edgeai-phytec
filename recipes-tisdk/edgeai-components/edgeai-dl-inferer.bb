@@ -20,7 +20,7 @@ COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm
 
 EXTRA_OECMAKE = "-DTARGET_FS=${WORKDIR}/recipe-sysroot -DCMAKE_SKIP_RPATH=TRUE -DCMAKE_OUTPUT_DIR=${WORKDIR}/out"
 
-FILES:${PN} += "/usr/lib/python3.8/site-packages/"
+FILES:${PN} += "/usr/lib/python3.10/site-packages/"
 PACKAGES += "${PN}-source"
 FILES:${PN}-source += "/opt/"
 

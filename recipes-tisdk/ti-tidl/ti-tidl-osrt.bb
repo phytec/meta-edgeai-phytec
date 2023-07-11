@@ -36,7 +36,7 @@ COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm
 
 export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 
-PY_DST_DIR="${D}${libdir}/python3.8/site-packages"
+PY_DST_DIR="${D}${libdir}/python3.10/site-packages"
 LIB_DST_DIR="${D}${libdir}"
 
 FILES:${PN}-staticdev += "${libdir}/tflite_2.8/*.a"
@@ -50,7 +50,7 @@ FILES:${PN}-staticdev += "${libdir}/tflite_2.8/ruy-build/*.a"
 FILES:${PN}-staticdev += "${libdir}/tflite_2.8/flatbuffers-build/*.a"
 FILES:${PN}-staticdev += "${libdir}/*.a"
 FILES:${PN} += "${libdir}/*.so*"
-FILES:${PN} += "${libdir}/python3.8/*"
+FILES:${PN} += "${libdir}/python3.10/*"
 FILES:${PN} += "${includedir}"
 
 do_install() {
