@@ -37,6 +37,7 @@ EDGEAI_STACK = " \
 IMAGE_INSTALL:append = " \
     ${EDGEAI_STACK} \
     packagegroup-arago-gst-sdk-target \
+    packagegroup-edgeai-tisdk-addons \
 "
 # disable matrix gui for PSDKLA
 IMAGE_INSTALL:remove = "\
@@ -70,4 +71,4 @@ IMAGE_BASENAME:edgeai = "tisdk-edgeai-image"
 IMAGE_BASENAME:adas = "tisdk-adas-image"
 export IMAGE_BASENAME
 
-PR:append = "_edgeai_1"
+PR:append = "_edgeai_2"
