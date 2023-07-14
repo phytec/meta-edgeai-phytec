@@ -6,7 +6,7 @@ export http_proxy
 export https_proxy
 
 BRANCH = "develop"
-SRCREV = "b8c60422e4167165ea632ee751ee2866b47484e0"
+SRCREV = "HEAD"
 
 SOC = ""
 SOC:j721e = "j721e"
