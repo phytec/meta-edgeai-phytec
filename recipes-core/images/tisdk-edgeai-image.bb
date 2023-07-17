@@ -48,16 +48,11 @@ IMAGE_INSTALL:remove = "\
 WKS_FILE = "tisdk-edgeai-sdimage.wks"
 WIC_CREATE_EXTRA_ARGS += " --no-fstab-update"
 
-do_image_wic[depends] += "${@oe.utils.conditional("MACHINE", "am62axx-evm", "", "edgeai-uenv:do_deploy", d)}"
+do_image_wic[depends] += "edgeai-uenv:do_deploy"
 
 IMAGE_BOOT_FILES:remove = "uEnv.txt"
 IMAGE_BOOT_FILES:append:edgeai = " uEnv_edgeai-apps.txt;uEnv.txt "
 IMAGE_BOOT_FILES:append:adas = " uEnv_vision-apps.txt;uEnv.txt "
-
-# Remove edgeai-uenv for AM62a
-IMAGE_BOOT_FILES:remove:am62axx-evm:edgeai = "uEnv_edgeai-apps.txt;uEnv.txt"
-IMAGE_BOOT_FILES:remove:am62axx-evm:adas = "uEnv_vision-apps.txt;uEnv.txt"
-IMAGE_BOOT_FILES:append:am62axx-evm = " uEnv.txt"
 
 # For AM68-SK, default tiboot3.bin should be HSFS
 IMAGE_BOOT_FILES:remove:j721s2-evm:edgeai = "tiboot3.bin"
@@ -71,4 +66,4 @@ IMAGE_BASENAME:edgeai = "tisdk-edgeai-image"
 IMAGE_BASENAME:adas = "tisdk-adas-image"
 export IMAGE_BASENAME
 
-PR:append = "_edgeai_2"
+PR:append = "_edgeai_3"
