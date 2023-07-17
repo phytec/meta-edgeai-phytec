@@ -20,3 +20,5 @@ uenvcmd=if run check_psdk_setup; then echo "Already setup."; else run do_psdk_se
 dorprocboot=1
 name_overlays=ti/k3-j721e-edgeai-apps.dtbo
 
+# Update the Linux hostname based on board_name
+uenvcmd=if test "$board_name" = "j721e-sk"; then ; setenv args_all $args_all systemd.hostname=tda4vm-sk ; fi
