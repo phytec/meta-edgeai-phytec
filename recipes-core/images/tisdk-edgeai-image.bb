@@ -37,6 +37,11 @@ EDGEAI_STACK:append:edgeai = " \
         edgeai-studio-agent \
 "
 
+EDGEAI_STACK:append:adas = " \
+        edgeai-tiovx-apps \
+        edgeai-tiovx-apps-source \
+"
+
 IMAGE_INSTALL:append = " \
     ${EDGEAI_STACK} \
     packagegroup-arago-gst-sdk-target \
@@ -69,4 +74,4 @@ IMAGE_BASENAME:edgeai = "tisdk-edgeai-image"
 IMAGE_BASENAME:adas = "tisdk-adas-image"
 export IMAGE_BASENAME
 
-PR:append = "_edgeai_4"
+PR:append = "_edgeai_5"
