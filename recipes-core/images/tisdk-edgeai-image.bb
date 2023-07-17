@@ -10,28 +10,31 @@ EDGEAI_STACK = " \
         ti-vision-apps-dev \
         ti-edgeai-firmware \
         ti-tidl-dev \
-        ti-tidl-osrt-dev \
-        ti-tidl-osrt-staticdev \
-        edgeai-gst-apps \
-        edgeai-init \
-        edgeai-gui-app \
-        ti-gpio-cpp \
-        ti-gpio-py \
-        edgeai-studio-agent \
         edgeai-tiovx-kernels-dev \
         edgeai-tiovx-modules-dev \
+        edgeai-tiovx-kernels-source \
+        edgeai-tiovx-modules-source \
+        edgeai-apps-utils-source \
+        edgeai-test-data \
+        edgeai-tidl-models \
+"
+
+EDGEAI_STACK:append:edgeai = " \
+        ti-tidl-osrt-dev \
+        ti-tidl-osrt-staticdev \
+        edgeai-init \
+        edgeai-gui-app \
         edgeai-gst-plugins-dev \
         edgeai-dl-inferer-staticdev \
         edgeai-gst-apps-source \
         edgeai-gst-plugins-source \
-        edgeai-tiovx-kernels-source \
-        edgeai-tiovx-modules-source \
-        edgeai-apps-utils-source \
+        edgeai-gst-apps \
         edgeai-dl-inferer-source \
-        edgeai-test-data \
-        edgeai-tidl-models \
+        ti-gpio-cpp \
+        ti-gpio-py \
         ti-gpio-cpp-source \
         ti-gpio-py-source \
+        edgeai-studio-agent \
 "
 
 IMAGE_INSTALL:append = " \
@@ -66,4 +69,4 @@ IMAGE_BASENAME:edgeai = "tisdk-edgeai-image"
 IMAGE_BASENAME:adas = "tisdk-adas-image"
 export IMAGE_BASENAME
 
-PR:append = "_edgeai_3"
+PR:append = "_edgeai_4"
