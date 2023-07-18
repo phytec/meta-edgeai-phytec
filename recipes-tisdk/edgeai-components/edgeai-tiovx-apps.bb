@@ -18,8 +18,8 @@ PLAT_SOC:am62axx = "am62a"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "ti-vision-apps yaml-cpp"
-RDEPENDS:${PN}-source = "cmake"
+DEPENDS = "edgeai-tiovx-modules yaml-cpp glib-2.0"
+RDEPENDS:${PN}-source = "cmake bash python3-core"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
 
@@ -30,7 +30,7 @@ EXTRA_OECMAKE = "-DTARGET_FS=${WORKDIR}/recipe-sysroot -DCMAKE_SKIP_RPATH=TRUE -
 PACKAGES += "${PN}-source"
 FILES:${PN}-source += "/opt"
 
-inherit cmake
+inherit cmake pkgconfig
 
 do_install() {
     CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
@@ -42,4 +42,4 @@ do_install() {
     rm -rf build bin lib
 }
 
-PR:append = "_edgeai_0"
+PR:append = "_edgeai_1"
