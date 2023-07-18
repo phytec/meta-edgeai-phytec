@@ -70,8 +70,12 @@ IMAGE_BOOT_FILES:append:j721s2-evm:edgeai = " tiboot3-j721s2-hs-fs-evm.bin;tiboo
 IMAGE_BOOT_FILES:remove:j784s4-evm:edgeai = "tiboot3.bin"
 IMAGE_BOOT_FILES:append:j784s4-evm:edgeai = " tiboot3-j784s4-hs-fs-evm.bin;tiboot3.bin"
 
+# Package both HS-FS and gp binaries for Adas images
+IMAGE_BOOT_FILES:append:j784s4-evm:adas = " tiboot3-j784s4-gp-evm.bin tiboot3-j784s4-hs-fs-evm.bin"
+IMAGE_BOOT_FILES:append:j721s2-evm:adas = " tiboot3-j721s2-gp-evm.bin tiboot3-j721s2-hs-fs-evm.bin"
+
 IMAGE_BASENAME:edgeai = "tisdk-edgeai-image"
 IMAGE_BASENAME:adas = "tisdk-adas-image"
 export IMAGE_BASENAME
 
-PR:append = "_edgeai_5"
+PR:append = "_edgeai_6"
