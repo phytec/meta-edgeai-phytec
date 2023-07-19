@@ -38,8 +38,6 @@ do_install() {
     mkdir -p ${D}/opt/edgeai-tiovx-apps
     cp ${CP_ARGS} ${WORKDIR}/git/* ${D}/opt/edgeai-tiovx-apps
     cp ${CP_ARGS} ${WORKDIR}/out/bin ${D}/opt/edgeai-tiovx-apps
-    cd ${D}/opt/edgeai-tiovx-apps
-    rm -rf build bin lib
 }
 
-PR:append = "_edgeai_1"
+PR:append = "_edgeai_2"
