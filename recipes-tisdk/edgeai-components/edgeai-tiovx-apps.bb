@@ -29,6 +29,8 @@ EXTRA_OECMAKE = "-DTARGET_FS=${WORKDIR}/recipe-sysroot -DCMAKE_SKIP_RPATH=TRUE -
 
 PACKAGES += "${PN}-source"
 FILES:${PN}-source += "/opt"
+ALLOW_EMPTY:${PN} = "1"
+ALLOW_EMPTY:${PN}-dev = "1"
 
 inherit cmake pkgconfig
 
