@@ -31,11 +31,11 @@ do_install:append() {
 
     mkdir -p ${D}/opt/edgeai-dl-inferer
     cp ${CP_ARGS} ${S}/* ${D}/opt/edgeai-dl-inferer
-    rm -rf ${D}/opt/edgeai-dl-inferer/lib
+    cp ${CP_ARGS} ${WORKDIR}/out/bin ${D}/opt/edgeai-dl-inferer
     rm -rf ${D}/usr/cmake
 }
 
 INSANE_SKIP:${PN} += "dev-deps"
 INSANE_SKIP:${PN}-source += "dev-deps"
 
-PR:append = "_edgeai_0"
+PR:append = "_edgeai_1"
