@@ -28,10 +28,10 @@ diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
 index 7e03a906ff..8db8c20d47 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -66,6 +66,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-evm-virt-mac-client.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk.dtb
+@@ -77,6 +77,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk.dtb
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-ov5640.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-rpi-imx219.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-rpi-hdr-ehrpwm.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j721e-edgeai-apps.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j721e-vision-apps.dtbo
  
