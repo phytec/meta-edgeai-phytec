@@ -38,6 +38,7 @@ EDGEAI_STACK:append:edgeai = " \
 "
 
 EDGEAI_STACK:append:adas = " \
+        ti-tidl-osrt-staticdev \
         edgeai-tiovx-apps-dev \
         edgeai-tiovx-apps-source \
 "
