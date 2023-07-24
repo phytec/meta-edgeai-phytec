@@ -6,6 +6,7 @@ SRC_URI:append = " \
 
 SRC_URI:append:j721e = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
+    file://0002-arm64-dts-ti-k3-j721e-sk-Add-pinmux-for-RPi-Header.patch \
 "
 
 SRC_URI:append:j721s2 = " \
@@ -19,4 +20,4 @@ SRC_URI:append:j784s4 = " \
     file://0002-arm64-dts-ti-k3-j784s4-Add-overlay-for-edge-ai.patch \
 "
 
-PR:append = "_edgeai_4"
+PR:append = "_edgeai_5"
