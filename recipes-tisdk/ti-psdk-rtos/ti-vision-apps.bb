@@ -34,7 +34,7 @@ FILES:${PN} += "/opt/*"
 # ti_rpmsg_char.h
 # dlr.h
 
-DEPENDS = "glm devil freetype ti-rpmsg-char repo-native mesa-pvr"
+DEPENDS = "glm devil freetype ti-rpmsg-char repo-native mesa-pvr libpam"
 DEPENDS:remove:am62axx = " mesa-pvr"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
