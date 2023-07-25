@@ -1,0 +1,166 @@
+From fea522b99e210a231205a2bea5491ac5cc0f2955 Mon Sep 17 00:00:00 2001
+From: Rahul T R <r-ravikumar@ti.com>
+Date: Tue, 25 Jul 2023 16:02:08 +0530
+Subject: [PATCH] arm64: dts: ti: k3-j721e-sk: Add overlay for fusion board
+
+commit 8a36b3b388e3 ("arm64: dts: ti: k3-j721e/j721s2: Add overlay for
+fusion board") Adds fusion board overlay for EVM. Add a separate
+overlay for SK, since there is a difference in i2c instance connected
+to CSI2 connector
+
+Signed-off-by: Rahul T R <r-ravikumar@ti.com>
+---
+ arch/arm64/boot/dts/ti/Makefile               |   2 +
+ .../arm64/boot/dts/ti/k3-j721e-sk-fusion.dtso | 120 ++++++++++++++++++
+ 2 files changed, 122 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-sk-fusion.dtso
+
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 9df12d7ae303..895ab7f6e801 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -79,6 +79,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-rpi-imx219.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-rpi-hdr-ehrpwm.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721e-edgeai-apps.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721e-vision-apps.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-fusion.dtbo
+ 
+ # Boards with J721s2 SoC
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
+@@ -133,6 +134,7 @@ DTC_FLAGS_k3-j7200-common-proc-board += -@
+ DTC_FLAGS_k3-j721e-common-proc-board += -@
+ DTC_FLAGS_k3-j721e-evm-fusion += -@
+ DTC_FLAGS_k3-j721e-sk += -@
++DTC_FLAGS_k3-j721e-sk-fusion += -@
+ DTC_FLAGS_k3-j721s2-common-proc-board += -@
+ DTC_FLAGS_k3-j721s2-evm-fusion += -@
+ DTC_FLAGS_k3-j784s4-evm += -@
+diff --git a/arch/arm64/boot/dts/ti/k3-j721e-sk-fusion.dtso b/arch/arm64/boot/dts/ti/k3-j721e-sk-fusion.dtso
+new file mode 100644
+index 000000000000..319da71feee0
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-j721e-sk-fusion.dtso
+@@ -0,0 +1,120 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * DT Overlay for Fusion (FPD-Link III) board on J721E SK
++ * https://svtronics.com/portfolio/evm577pfusion-v1-0-fusion/
++ *
++ * Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	clk_fusion_25M_fixed: fixed-clock-25M {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <25000000>;
++	};
++};
++
++
++&main_i2c3 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	i2c-switch@70 {
++		compatible = "nxp,pca9543";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		reg = <0x70>;
++
++		cam0_i2c: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++
++            deser@3d {
++                compatible = "ti,ds90ub960-q1";
++                reg = <0x3d>;
++                clocks = <&clk_fusion_25M_fixed>;
++                clock-names = "refclk";
++                i2c-alias-pool = <0x4a 0x4b 0x4c 0x4d 0x4e 0x4f>;
++
++                ds90ub960_0_ports: ports {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    /* CSI-2 TX */
++                    port@4 {
++                        reg = <4>;
++                        ds90ub960_0_csi_out: endpoint {
++                            clock-lanes = <0>;
++                            data-lanes = <1 2 3 4>;
++                            link-frequencies = /bits/ 64 <800000000>;
++                            remote-endpoint = <&csi2_phy0>;
++                        };
++                    };
++                };
++
++                ds90ub960_0_links: links {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++                };
++            };
++
++            deser@36 {
++                compatible = "ti,ds90ub960-q1";
++                reg = <0x36>;
++                clocks = <&clk_fusion_25M_fixed>;
++                clock-names = "refclk";
++                i2c-alias-pool = <0x5a 0x5b 0x5c 0x5d 0x5e 0x5f>;
++
++                ds90ub960_1_ports: ports {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    /* CSI-2 TX */
++                    port@4 {
++                        reg = <4>;
++                        ds90ub960_1_csi_out: endpoint {
++                            clock-lanes = <0>;
++                            data-lanes = <1 2 3 4>;
++                            link-frequencies = /bits/ 64 <800000000>;
++                            remote-endpoint = <&csi2_phy1>;
++                        };
++                    };
++                };
++
++                ds90ub960_1_links: links {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++                };
++            };
++        };
++    };
++};
++
++&csi0_port0 {
++	status = "okay";
++
++	csi2_phy0: endpoint {
++		remote-endpoint = <&ds90ub960_0_csi_out>;
++		clock-lanes = <0>;
++		data-lanes = <1 2 3 4>;
++		link-frequencies = /bits/ 64 <800000000>;
++	};
++};
++
++&csi1_port0 {
++	status = "okay";
++
++	csi2_phy1: endpoint {
++		remote-endpoint = <&ds90ub960_1_csi_out>;
++		clock-lanes = <0>;
++		data-lanes = <1 2 3 4>;
++		link-frequencies = /bits/ 64 <800000000>;
++	};
++};
+-- 
+2.17.1
+
