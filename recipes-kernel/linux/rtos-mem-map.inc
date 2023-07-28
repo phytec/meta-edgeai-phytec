@@ -2,6 +2,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/linux-ti-staging/${MACHINE}:"
 
 SRC_URI:append = " \
     file://0001-arm64-defconfig-Enable-CONFIG_GPIO_SYSFS.patch \
+    file://0001-drm-tidss-Make-zpos-immutable-for-primary-plane.patch \
 "
 
 SRC_URI:append:j721e = " \
