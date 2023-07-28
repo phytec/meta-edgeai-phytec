@@ -19,9 +19,9 @@ PLAT_SOC:am62xx = "am62x"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "edgeai-tiovx-modules edgeai-apps-utils gstreamer1.0-plugins-base edgeai-dl-inferer ti-tidl-osrt"
-RDEPENDS:${PN} = "edgeai-tiovx-modules"
-RDEPENDS:${PN}-source = "bash edgeai-tiovx-modules-dev meson ninja"
+DEPENDS = "edgeai-tiovx-modules edgeai-apps-utils gstreamer1.0-plugins-base"
+DEPENDS:append:edgeai = " edgeai-dl-inferer ti-tidl-osrt"
+RDEPENDS:${PN}-source = "bash meson ninja"
 
 # Remove edgeai-tiovx-modules dependency for ARM only devices
 DEPENDS:remove:am62xx = "edgeai-tiovx-modules"
@@ -37,6 +37,7 @@ FILES:${PN}-source += "/opt/"
 FILES:${PN} += "${libdir}/gstreamer-1.0/*.so"
 
 EXTRA_OEMESON = "--prefix=/usr -Dpkg_config_path=${S}/pkgconfig"
+EXTRA_OEMESON:append:adas = " -Ddl-plugins=disabled"
 
 inherit meson pkgconfig
 
