@@ -5,10 +5,8 @@ SRC_URI:append = " \
 "
 
 SRC_URI:append:j721e = " \
-    file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
-    file://0002-arm64-dts-ti-k3-j721e-sk-Add-pinmux-for-RPi-Header.patch \
     file://0003-arm64-dts-ti-k3-j721e-sk-Add-overlay-for-fusion-boar.patch \
-    file://0004-arm64-dts-ti-k3-j721e-sk-rpi-hdr-ehrpwm-Set-the-upda.patch \
+    file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
 "
 
 SRC_URI:append:j721s2 = " \

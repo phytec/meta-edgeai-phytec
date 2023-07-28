@@ -15,11 +15,11 @@ it uses the rtos-memory-map customization only.
 
 Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 ---
- arch/arm64/boot/dts/ti/Makefile               |   2 +
+ arch/arm64/boot/dts/ti/Makefile               |   3 +
  .../boot/dts/ti/k3-j721e-edgeai-apps.dtso     |  11 +
- .../boot/dts/ti/k3-j721e-rtos-memory-map.dtsi | 270 ++++++++++++++++++
- .../boot/dts/ti/k3-j721e-vision-apps.dtso     |  39 +++
- 4 files changed, 322 insertions(+)
+ .../boot/dts/ti/k3-j721e-rtos-memory-map.dtsi | 267 ++++++++++++++++++
+ .../boot/dts/ti/k3-j721e-vision-apps.dtso     |  58 ++++
+ 4 files changed, 339 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-edgeai-apps.dtso
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-vision-apps.dtso
@@ -28,15 +28,20 @@ diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
 index 7e03a906ff..8db8c20d47 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -77,6 +77,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-ov5640.dtbo
+@@ -78,6 +78,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-ov5640.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-rpi-imx219.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-fusion.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-rpi-hdr-ehrpwm.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j721e-edgeai-apps.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j721e-vision-apps.dtbo
  
  # Boards with J721s2 SoC
  dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
+@@ -137,3 +139,4 @@ DTC_FLAGS_k3-j721s2-common-proc-board += -@
+ DTC_FLAGS_k3-j721s2-evm-fusion += -@
+ DTC_FLAGS_k3-j784s4-evm += -@
+ DTC_FLAGS_k3-am642-evm += -@
++DTC_FLAGS_k3-j721e-evm-virt-mac-client += -@
 diff --git a/arch/arm64/boot/dts/ti/k3-j721e-edgeai-apps.dtso b/arch/arm64/boot/dts/ti/k3-j721e-edgeai-apps.dtso
 new file mode 100644
 index 0000000000..5defaca9cc
@@ -59,7 +64,7 @@ new file mode 100644
 index 0000000000..75920c189d
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
-@@ -0,0 +1,270 @@
+@@ -0,0 +1,267 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Vision-apps: device-tree overlay
@@ -68,9 +73,6 @@ index 0000000000..75920c189d
 + */
 +
 +#include <dt-bindings/soc/ti,sci_pm_domain.h>
-+
-+/dts-v1/;
-+/plugin/;
 +
 +&{/} {
 +	dma_buf_phys {
@@ -335,7 +337,7 @@ new file mode 100644
 index 0000000000..a1860839a6
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j721e-vision-apps.dtso
-@@ -0,0 +1,39 @@
+@@ -0,0 +1,58 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * vision-apps: device-tree overlay
@@ -345,6 +347,25 @@ index 0000000000..a1860839a6
 +
 +/dts-v1/;
 +/plugin/;
++
++#include <dt-bindings/mux/ti-serdes.h>
++
++&main_r5fss0_core0_shared_memory_queue_region {
++	status = "disabled";
++};
++
++&main_r5fss0_core0_shared_memory_bufpool_region {
++	status = "disabled";
++};
++
++&serdes_ln_ctrl {
++	idle-states = <J721E_SERDES0_LANE0_PCIE0_LANE0>, <J721E_SERDES0_LANE1_QSGMII_LANE2>,
++		      <J721E_SERDES1_LANE0_PCIE1_LANE0>, <J721E_SERDES1_LANE1_PCIE1_LANE1>,
++		      <J721E_SERDES2_LANE0_PCIE2_LANE0>, <J721E_SERDES2_LANE1_PCIE2_LANE1>,
++		      <J721E_SERDES3_LANE0_USB3_0_SWAP>, <J721E_SERDES3_LANE1_USB3_0>,
++		      <J721E_SERDES4_LANE0_EDP_LANE0>, <J721E_SERDES4_LANE1_EDP_LANE1>,
++		      <J721E_SERDES4_LANE2_EDP_LANE2>, <J721E_SERDES4_LANE3_EDP_LANE3>;
++};
 +
 +#include "k3-j721e-rtos-memory-map.dtsi"
 +
