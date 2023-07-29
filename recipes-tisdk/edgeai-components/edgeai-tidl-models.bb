@@ -6,7 +6,7 @@ export http_proxy
 export https_proxy
 
 BRANCH = "develop"
-SRCREV = "HEAD"
+SRCREV = "${AUTOREV}"
 
 SOC = ""
 SOC:j721e = "j721e"
@@ -20,7 +20,12 @@ COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm
 do_fetch() {
     mkdir -p ${WORKDIR}/script
     cd ${WORKDIR}/script
-    wget https://raw.githubusercontent.com/TexasInstruments/edgeai-gst-apps/${SRCREV}/download_models.sh
+    if [ "${SRCREV}" = "${AUTOREV}" ]; then
+        VERSION="${BRANCH}"
+    else
+        VERSION="${SRCREV}"
+    fi
+    wget https://raw.githubusercontent.com/TexasInstruments/edgeai-gst-apps/${VERSION}/download_models.sh
     chmod +x ./download_models.sh
     SOC=${SOC} ./download_models.sh --recommended
 }
