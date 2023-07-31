@@ -4,6 +4,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/meta-ti-bsp/licenses/TI-TFL;md
 
 export http_proxy
 export https_proxy
+export no_proxy
 
 BRANCH = "develop"
 SRCREV = "${AUTOREV}"
