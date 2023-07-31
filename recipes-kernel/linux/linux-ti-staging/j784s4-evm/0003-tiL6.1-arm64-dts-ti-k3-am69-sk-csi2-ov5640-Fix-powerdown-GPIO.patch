@@ -1,0 +1,53 @@
+From: Vaishnav Achath <vaishnav.a@ti.com>
+Subject: [tiL6.1 PATCH] arm64: dts: ti: k3-am69-sk-csi2-ov5640: Fix powerdown
+ GPIO
+Date: Mon, 31 Jul 2023 17:27:15 +0530
+
+While adding the overlay for OV5640 with AM69 SK, the powerdown
+GPIO lines were modelled as gpio-hog which was pulled low by default.
+While this results in a working configuration normally, when runtime
+PM is active, the sensor resume sequence is affected which resulted in
+stream failures. Model the power-down GPIOs properly so that it can be
+controlled from OV5640 driver properly.
+
+Fixes: 2441d6174947 ("arm64: dts: ti: Add DT overlay for OV5640 sensor")
+
+Signed-off-by: Vaishnav Achath <vaishnav.a@ti.com>
+---
+ arch/arm64/boot/dts/ti/k3-am69-sk-csi2-ov5640.dtso | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-am69-sk-csi2-ov5640.dtso b/arch/arm64/boot/dts/ti/k3-am69-sk-csi2-ov5640.dtso
+index 9e24b51629a5..b805647f8d30 100644
+--- a/arch/arm64/boot/dts/ti/k3-am69-sk-csi2-ov5640.dtso
++++ b/arch/arm64/boot/dts/ti/k3-am69-sk-csi2-ov5640.dtso
+@@ -32,13 +32,6 @@
+ 		output-high;
+ 		line-name = "CSI_MUX_SEL_2";
+ 	};
+-	p02-hog{
+-		/* P02 - CSI2_RSTz */
+-		gpio-hog;
+-		gpios = <2 GPIO_ACTIVE_HIGH>;
+-		output-high;
+-		line-name = "CSI2_RSTz";
+-	};
+ };
+ 
+ &pca9543 {
+@@ -60,6 +53,7 @@
+ 			/* MCU_CLKOUT0 WKUP_GPIO0_11 (M38) */
+ 			clocks = <&k3_clks 157 174>;
+ 			clock-names = "xclk";
++			powerdown-gpios = <&exp2 2 GPIO_ACTIVE_LOW>;
+ 
+ 			/* HSDIV4_16FFT_MCU_2_HSDIVOUT0_CLK10 -> REFCLK2 */
+ 			assigned-clocks = <&k3_clks 157 174>;
+@@ -89,6 +83,7 @@
+ 			/* MCU_CLKOUT0 WKUP_GPIO0_11 (M38) */
+ 			clocks = <&k3_clks 157 174>;
+ 			clock-names = "xclk";
++			powerdown-gpios = <&exp2 2 GPIO_ACTIVE_LOW>;
+ 
+ 			/* HSDIV4_16FFT_MCU_2_HSDIVOUT0_CLK10 -> REFCLK2 */
+ 			assigned-clocks = <&k3_clks 157 174>;
