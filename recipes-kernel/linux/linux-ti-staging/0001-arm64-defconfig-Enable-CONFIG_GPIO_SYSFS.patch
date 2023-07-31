@@ -6,19 +6,24 @@ Subject: [PATCH] arm64: defconfig: Enable CONFIG_GPIO_SYSFS
 Required for gpio lib
 
 Signed-off-by: Rahul T R <r-ravikumar@ti.com>
+----------------------------------------------
+arm64: defconfig: Enable temperature mesurment
+
+Signed-off-by: Rahul T R <r-ravikumar@ti.com>
 ---
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/configs/defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
 index e56a47228ac3..251fae4a676d 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
-@@ -1497,3 +1497,4 @@ CONFIG_MEMTEST=y
+@@ -1497,3 +1497,5 @@ CONFIG_MEMTEST=y
  CONFIG_SAMPLES=y
  CONFIG_SAMPLE_RPMSG_CLIENT=m
  CONFIG_OMAP2PLUS_MBOX=y
 +CONFIG_GPIO_SYSFS=y
++CONFIG_K3_THERMAL=y
 -- 
 2.17.1
 
