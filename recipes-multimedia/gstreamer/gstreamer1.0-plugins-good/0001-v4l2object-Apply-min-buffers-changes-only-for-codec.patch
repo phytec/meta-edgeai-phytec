@@ -1,0 +1,51 @@
+From 3c1fcc26739a1df346ddb699d88b79e0f5345485 Mon Sep 17 00:00:00 2001
+From: Rahul T R <r-ravikumar@ti.com>
+Date: Mon, 31 Jul 2023 22:05:36 +0530
+Subject: [PATCH] v4l2object: Apply min buffers changes only for codec
+
+since v4l2 object is common among v4l2 codec and capture,
+min buffer changes done for to fix dmabuf import is breaking
+capture with dmabuf-import
+Fix this by applying changes only when v4l2 object type is output
+
+Signed-off-by: Rahul T R <r-ravikumar@ti.com>
+---
+ sys/v4l2/gstv4l2object.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/sys/v4l2/gstv4l2object.c b/sys/v4l2/gstv4l2object.c
+index fdc84eb..aa78ad1 100644
+--- a/sys/v4l2/gstv4l2object.c
++++ b/sys/v4l2/gstv4l2object.c
+@@ -5040,7 +5040,11 @@ gst_v4l2_object_decide_allocation (GstV4l2Object * obj, GstQuery * query)
+   } else {
+     /* In this case we'll have to configure two buffer pool. For our buffer
+      * pool, we'll need what the driver one, and one more, so we can dequeu */
+-    own_min = obj->min_buffers + 3;
++    if (0 == strcmp(obj->vcap.driver, "wave5-dec")) {
++        own_min = obj->min_buffers + 3;
++    } else {
++        own_min = obj->min_buffers + 1;
++    }
+     own_min = MAX (own_min, GST_V4L2_MIN_BUFFERS (obj));
+ 
+     /* for the downstream pool, we keep what downstream wants, though ensure
+@@ -5049,8 +5053,13 @@ gst_v4l2_object_decide_allocation (GstV4l2Object * obj, GstQuery * query)
+     min = MAX (min, GST_V4L2_MIN_BUFFERS (obj));
+ 
+     /* To import we need the other pool to hold at least own_min */
+-    if (obj_pool == pool)
+-      min = own_min;
++    if (obj_pool == pool) {
++        if (0 == strcmp(obj->vcap.driver, "wave5-dec")) {
++            min = own_min;
++        } else {
++            min += own_min;
++        }
++    }
+   }
+ 
+   /* Request a bigger max, if one was suggested but it's too small */
+-- 
+2.17.1
+
