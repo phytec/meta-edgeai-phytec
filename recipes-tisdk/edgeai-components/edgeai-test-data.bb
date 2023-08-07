@@ -6,8 +6,8 @@ export http_proxy
 export https_proxy
 export no_proxy
 
-BRANCH = "develop"
-SRCREV = "${AUTOREV}"
+BRANCH = "main"
+SRCREV = "641946f9746fbbae23f550ddaa972d3e7091525a"
 
 SOC = ""
 SOC:j721e = "j721e"
