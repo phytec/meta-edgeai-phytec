@@ -6,9 +6,9 @@ LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1f7721ee7d288457c5a70d0c8ff44b87"
 
 PV = "${SRCPV}"
-BRANCH = "develop"
+BRANCH = "main"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-gst-plugins.git;branch=${BRANCH};protocol=https"
-SRCREV = "${AUTOREV}"
+SRCREV = "8201082cf590473ecbd95c3f73225968adcdcd89"
 
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"

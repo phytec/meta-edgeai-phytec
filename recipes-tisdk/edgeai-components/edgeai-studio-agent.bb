@@ -6,9 +6,9 @@ LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=3677661f72cd03c7b3c0a35e5fb23e8d"
 
 PV = "${SRCPV}"
-BRANCH = "develop"
+BRANCH = "main"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-studio-agent.git;branch=${BRANCH};protocol=https"
-SRCREV = "${AUTOREV}"
+SRCREV = "6a52f2336dfbf7902dda4ad799d5b15536b7a0b7"
 
 S = "${WORKDIR}/git"
 
