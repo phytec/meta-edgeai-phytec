@@ -19,8 +19,8 @@ PLAT_SOC:am62xx = "am62x"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "edgeai-tiovx-modules edgeai-apps-utils gstreamer1.0-plugins-base"
-DEPENDS:append:edgeai = " edgeai-dl-inferer ti-tidl-osrt"
+DEPENDS = "edgeai-tiovx-modules edgeai-apps-utils gstreamer1.0-plugins-base edgeai-dl-inferer ti-tidl-osrt"
+DEPENDS:remove:adas = " edgeai-dl-inferer ti-tidl-osrt"
 RDEPENDS:${PN}-source = "bash meson ninja"
 
 # Remove edgeai-tiovx-modules dependency for ARM only devices
