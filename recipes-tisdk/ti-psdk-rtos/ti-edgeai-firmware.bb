@@ -149,7 +149,6 @@ ALTERNATIVE:${PN}:j784s4 = "\
                     "
 
 ALTERNATIVE:${PN}:am62axx = "\
-                    am62a-mcu-r5f0_0-fw \
                     am62a-c71_0-fw \
                     "
 
@@ -199,7 +198,6 @@ ALTERNATIVE_LINK_NAME[j784s4-c71_1-fw] = "${nonarch_base_libdir}/firmware/j784s4
 ALTERNATIVE_LINK_NAME[j784s4-c71_2-fw] = "${nonarch_base_libdir}/firmware/j784s4-c71_2-fw"
 ALTERNATIVE_LINK_NAME[j784s4-c71_3-fw] = "${nonarch_base_libdir}/firmware/j784s4-c71_3-fw"
 
-ALTERNATIVE_LINK_NAME[am62a-mcu-r5f0_0-fw] = "${nonarch_base_libdir}/firmware/am62a-mcu-r5f0_0-fw"
 ALTERNATIVE_LINK_NAME[am62a-c71_0-fw] = "${nonarch_base_libdir}/firmware/am62a-c71_0-fw"
 
 # Create the firmware alternatives
@@ -248,10 +246,8 @@ ALTERNATIVE_TARGET[j784s4-c71_1-fw] = "${INSTALL_FW_DIR}/${C7X_2_FW}"
 ALTERNATIVE_TARGET[j784s4-c71_2-fw] = "${INSTALL_FW_DIR}/${C7X_3_FW}"
 ALTERNATIVE_TARGET[j784s4-c71_3-fw] = "${INSTALL_FW_DIR}/${C7X_4_FW}"
 
-ALTERNATIVE_TARGET[am62a-mcu-r5f0_0-fw] = "${INSTALL_FW_DIR}/${MCU_1_0_FW}"
 ALTERNATIVE_TARGET[am62a-c71_0-fw] = "${INSTALL_FW_DIR}/${C7X_1_FW}"
 
-ALTERNATIVE_TARGET[am62a-mcu-r5f0_0-fw-sec] = "${INSTALL_FW_DIR}/${MCU_1_0_FW}.signed"
 ALTERNATIVE_TARGET[am62a-c71_0-fw-sec] = "${INSTALL_FW_DIR}/${C7X_1_FW}.signed"
 
 ALTERNATIVE_PRIORITY = "20"
