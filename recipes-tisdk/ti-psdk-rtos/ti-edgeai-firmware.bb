@@ -250,7 +250,7 @@ ALTERNATIVE_TARGET[am62a-c71_0-fw] = "${INSTALL_FW_DIR}/${C7X_1_FW}"
 
 ALTERNATIVE_TARGET[am62a-c71_0-fw-sec] = "${INSTALL_FW_DIR}/${C7X_1_FW}.signed"
 
-ALTERNATIVE_PRIORITY = "20"
+ALTERNATIVE_PRIORITY = "50"
 
 # make sure that lib/firmware, and all its contents are part of the package
 FILES:${PN} += "${nonarch_base_libdir}/firmware"
