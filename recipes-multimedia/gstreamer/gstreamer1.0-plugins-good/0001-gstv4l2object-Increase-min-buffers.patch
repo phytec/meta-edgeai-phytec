@@ -1,0 +1,29 @@
+From 842a7a34f2d92bc2933ec612dfd37ccafed5e8d4 Mon Sep 17 00:00:00 2001
+From: Rahul T R <r-ravikumar@ti.com>
+Date: Tue, 10 Oct 2023 14:42:13 +0530
+Subject: [PATCH] gstv4l2object: Increase min buffers
+
+This will improve the latency and tolerance
+of CSI pipeline
+
+Signed-off-by: Rahul T R <r-ravikumar@ti.com>
+---
+ sys/v4l2/gstv4l2object.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sys/v4l2/gstv4l2object.h b/sys/v4l2/gstv4l2object.h
+index 33d224b..526c9ff 100644
+--- a/sys/v4l2/gstv4l2object.h
++++ b/sys/v4l2/gstv4l2object.h
+@@ -47,7 +47,7 @@ typedef struct _GstV4l2ObjectClassHelper GstV4l2ObjectClassHelper;
+     ((GST_VIDEO_INFO_INTERLACE_MODE (&obj->info) == \
+       GST_VIDEO_INTERLACE_MODE_ALTERNATE) ? \
+       /* 2x buffers needed with each field in its own buffer */ \
+-      4 : 2)
++      8 : 4)
+ 
+ /* max frame width/height */
+ #define GST_V4L2_MAX_SIZE (1<<15) /* 2^15 == 32768 */
+-- 
+2.34.1
+
