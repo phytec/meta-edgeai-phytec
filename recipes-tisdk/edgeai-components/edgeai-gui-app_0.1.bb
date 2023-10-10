@@ -13,7 +13,7 @@ BRANCH = "master"
 SRCREV = "80ab09d2f6cfab90c85affb32fbf614bf1195a42"
 
 PV = "${SRCPV}"
-SRC_URI = "git://git.ti.com/apps/edgeai-gui-app.git;protocol=git;branch=${BRANCH}"
+SRC_URI = "git://git.ti.com/git/apps/edgeai-gui-app.git;protocol=https;branch=${BRANCH}"
 
 S = "${WORKDIR}/git"
 
