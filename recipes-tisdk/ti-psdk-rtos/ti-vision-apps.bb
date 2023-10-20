@@ -23,6 +23,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/meta-ti-bsp/licenses/TI-TFL;md
                     "
 
 SRC_URI = "repo://git.ti.com/git/processor-sdk/psdk_repo_manifests.git;protocol=https;branch=refs/tags/REL.PSDK.ANALYTICS.09.00.01.01;manifest=vision_apps_yocto.xml"
+SRC_URI = "repo://git.ti.com/git/processor-sdk/psdk_repo_manifests.git;protocol=https;branch=main;manifest=vision_apps_yocto_tip.xml"
 
 FILES:${PN} += "/opt/*"
 
