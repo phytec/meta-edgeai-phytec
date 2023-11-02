@@ -17,8 +17,8 @@ Signed-off-by: Aniket Limaye <a-limaye@ti.com>
 ---
  arch/arm64/boot/dts/ti/Makefile               |   2 +
  .../dts/ti/k3-j784s4-rtos-memory-map.dtsi     | 341 ++++++++++++++++++
- .../boot/dts/ti/k3-j784s4-vision-apps.dtso    |  62 ++++
- 3 files changed, 405 insertions(+)
+ .../boot/dts/ti/k3-j784s4-vision-apps.dtso    |  53 +++
+ 3 files changed, 396 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi
  create mode 100644 arch/arm64/boot/dts/ti/k3-j784s4-vision-apps.dtso
 
@@ -26,15 +26,15 @@ diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
 index 6f7781267267..d1dc8c070c9d 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -102,6 +102,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-csi2-ov5640.dtbo
+@@ -114,6 +114,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-csi2-ov5640.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-quad-port-eth-exp1.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-usxgmii-exp1-exp2.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-virt-mac-client.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j784s4-vision-apps.dtbo
  
- # FPDLink Sensors
- dtb-$(CONFIG_ARCH_K3) += k3-fpdlink-imx390-rcm-0-0.dtbo \
-@@ -135,3 +136,4 @@ DTC_FLAGS_k3-j721s2-common-proc-board += -@
+ # Common overlays across AM62 family of boards
+ dtb-$(CONFIG_ARCH_K3) += k3-am62x-sk-csi2-imx219.dtbo
+@@ -156,3 +157,4 @@ DTC_FLAGS_k3-j721s2-common-proc-board += -@
  DTC_FLAGS_k3-j721s2-evm-fusion += -@
  DTC_FLAGS_k3-j784s4-evm += -@
  DTC_FLAGS_k3-am642-evm += -@
@@ -391,7 +391,7 @@ new file mode 100644
 index 000000000000..8801c3e0b8e1
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j784s4-vision-apps.dtso
-@@ -0,0 +1,62 @@
+@@ -0,0 +1,53 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * vision-apps: device-tree overlay
@@ -410,15 +410,6 @@ index 000000000000..8801c3e0b8e1
 +
 +&main_r5fss0_core0_shared_memory_bufpool_region {
 +	status = "disabled";
-+};
-+
-+&serdes_ln_ctrl {
-+	idle-states = <J784S4_SERDES0_LANE0_PCIE1_LANE0>, <J784S4_SERDES0_LANE1_PCIE1_LANE1>,
-+		      <J784S4_SERDES0_LANE2_IP3_UNUSED>, <J784S4_SERDES0_LANE3_USB>,
-+		      <J784S4_SERDES1_LANE0_PCIE0_LANE0>, <J784S4_SERDES1_LANE1_PCIE0_LANE1>,
-+		      <J784S4_SERDES1_LANE2_PCIE0_LANE2>, <J784S4_SERDES1_LANE3_PCIE0_LANE3>,
-+		      <J784S4_SERDES2_LANE0_IP2_UNUSED>, <J784S4_SERDES2_LANE1_IP2_UNUSED>,
-+		      <J784S4_SERDES2_LANE2_QSGMII_LANE1>, <J784S4_SERDES2_LANE3_QSGMII_LANE2>;
 +};
 +
 +#include "k3-j784s4-rtos-memory-map.dtsi"

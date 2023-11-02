@@ -17,14 +17,14 @@ diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
 index 48fb1abc94..586844359d 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -83,6 +83,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-quad-port-eth-exp1.dtbo
+@@ -115,6 +115,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-quad-port-eth-exp1.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-usxgmii-exp1-exp2.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-virt-mac-client.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-vision-apps.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j784s4-edgeai-apps.dtbo
  
- # FPDLink Sensors
- dtb-$(CONFIG_ARCH_K3) += k3-fpdlink-imx390-rcm-0-0.dtbo \
+ # Common overlays across AM62 family of boards
+ dtb-$(CONFIG_ARCH_K3) += k3-am62x-sk-csi2-imx219.dtbo
 diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-edgeai-apps.dtso b/arch/arm64/boot/dts/ti/k3-j784s4-edgeai-apps.dtso
 new file mode 100644
 index 0000000000..c54a47279f
