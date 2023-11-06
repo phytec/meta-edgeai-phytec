@@ -6,7 +6,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${S}/LICENSE.txt;md5=c514977d484aa7daa306d63effcba9bc"
 
 SRC_URI = "git://github.com/TexasInstruments/ti-gpio-py.git;protocol=https;branch=master"
-SRCREV = "b91d390e71aa1ef134765677f11555cc59b120c1"
+SRCREV = "51b4f1ee8cb4c8c98027300b3064feac17d552d1"
 
 S = "${WORKDIR}/git"
 
