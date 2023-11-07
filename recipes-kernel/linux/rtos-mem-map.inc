@@ -18,4 +18,8 @@ SRC_URI:append:j784s4 = " \
     file://0002-arm64-dts-ti-k3-j784s4-Add-overlay-for-edge-ai.patch \
 "
 
+SRC_URI:append:j722s = " \
+    file://0001-arm64-dts-ti-j722s-Add-DTB-overlay-for-RTOS-memory-m.patch \
+"
+
 PR:append = "_edgeai_7"
