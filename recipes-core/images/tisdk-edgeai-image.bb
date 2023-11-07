@@ -4,7 +4,7 @@ require recipes-core/images/tisdk-default-image.bb
 
 PN:adas = "tisdk-adas-image"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
 
 EDGEAI_STACK = " \
         ti-vision-apps-dev \
