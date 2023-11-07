@@ -10,7 +10,7 @@ SRCREV = "6cfdaa217cdbf56b79d7df27ebda2d0e6094c4c0"
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
 
 EXTRA_OECMAKE = "-DCMAKE_SKIP_RPATH=TRUE"
 

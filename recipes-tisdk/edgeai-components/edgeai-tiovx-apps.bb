@@ -14,6 +14,7 @@ PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
 PLAT_SOC:j721s2 = "j721s2"
 PLAT_SOC:j784s4 = "j784s4"
+PLAT_SOC:j722s = "j722s"
 PLAT_SOC:am62axx = "am62a"
 
 S = "${WORKDIR}/git"
@@ -21,7 +22,7 @@ S = "${WORKDIR}/git"
 DEPENDS = "edgeai-tiovx-modules yaml-cpp glib-2.0"
 RDEPENDS:${PN}-source = "cmake bash python3-core"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
 
 export SOC = "${PLAT_SOC}"
 
