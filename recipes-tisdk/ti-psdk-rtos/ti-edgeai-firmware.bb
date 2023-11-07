@@ -21,15 +21,8 @@ PLAT_SFX:am62axx = "am62a"
 SRCREV = "f11e462e3b3ea40a6b86939783c5dab9876b8e27"
 BRANCH = "main"
 
-K3_IMAGE_GEN_SRCREV ?= "1319f46f3899e62d88e0a5cedad5b454d0432ddb"
-SRCREV_imggen = "${K3_IMAGE_GEN_SRCREV}"
-SRCREV_FORMAT = "imggen"
-
-K3_IMAGE_GEN_BRANCH ?= "master"
-
 SRC_URI = " \
     git://git.ti.com/git/processor-sdk/psdk_fw.git;protocol=https;branch=${BRANCH} \
-    git://git.ti.com/git/k3-image-gen/k3-image-gen.git;protocol=https;branch=${K3_IMAGE_GEN_BRANCH};destsuffix=imggen;name=imggen \
 "
 
 S = "${WORKDIR}/git"
