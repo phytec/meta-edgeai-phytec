@@ -37,12 +37,13 @@ FILES:${PN} += "/opt/*"
 DEPENDS = "glm devil freetype ti-rpmsg-char repo-native mesa-pvr libpam"
 DEPENDS:remove:am62axx = " mesa-pvr"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
 
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
 PLAT_SOC:j721s2 = "j721s2"
 PLAT_SOC:j784s4 = "j784s4"
+PLAT_SOC:j722s = "j722s"
 PLAT_SOC:am62axx = "am62a"
 
 S = "${WORKDIR}"
