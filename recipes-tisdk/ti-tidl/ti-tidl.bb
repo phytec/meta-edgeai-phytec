@@ -77,13 +77,10 @@ INC_DST_DIR="${D}${includedir}"
 OPT_DST_DIR="${D}/opt"
 
 TIDL_SOC_NAME = ""
-TIDL_SOC_NAME:j721e-evm = "J721E"
-TIDL_SOC_NAME:j721e-hs-evm = "J721E"
-TIDL_SOC_NAME:j721s2-evm = "J721S2"
-TIDL_SOC_NAME:j721s2-hs-evm = "J721S2"
-TIDL_SOC_NAME:j784s4-evm = "J784S4"
-TIDL_SOC_NAME:j784s4-hs-evm = "J784S4"
-TIDL_SOC_NAME:am62axx-evm = "AM62A"
+TIDL_SOC_NAME:j721e = "J721E"
+TIDL_SOC_NAME:j721s2 = "J721S2"
+TIDL_SOC_NAME:j784s4 = "J784S4"
+TIDL_SOC_NAME:am62axx = "AM62A"
 
 do_install() {
     install -d ${LIB_DST_DIR}
