@@ -13,20 +13,20 @@ PV="${SRCPV}"
 SRCREV_FORMAT="default"
 SRCREV_arm-tidl="113dbdee90560ba86511b9ec2590430ceca861a7"
 SRCREV_concerto="87009d5386a0d642fcbcf5dccaf52d55898f8dc5"
-SRCREV_onnxruntime="149aea9cb89eae9d6de62d7a00d367c02398ad70"
+SRCREV_onnxruntime="7cae50f3a9660f919ba7ad7859159b65439081d4"
 SRCREV_tensorflow="233657497d2735cae9e840df9e650e268149070d"
 
 SRC_URI = " \
     git://git.ti.com/git/processor-sdk-vision/arm-tidl.git;branch=master;protocol=https;name=arm-tidl;destsuffix=git/arm-tidl \
     git://git.ti.com/git/processor-sdk/concerto.git;branch=main;protocol=https;name=concerto;destsuffix=git/concerto \
-    git://github.com/TexasInstruments/onnxruntime;branch=tidl-j7;protocol=https;name=onnxruntime;destsuffix=git/onnxruntime  \
+    git://github.com/TexasInstruments/onnxruntime;branch=tidl-1.14;protocol=https;name=onnxruntime;destsuffix=git/onnxruntime  \
     git://github.com/TexasInstruments/tensorflow;branch=tidl-j7-2.8;protocol=https;name=tensorflow;destsuffix=git/tensorflow  \
-    https://github.com/protocolbuffers/protobuf/releases/download/v3.11.3/protobuf-cpp-3.11.3.tar.gz;name=protobuf;subdir=git/protobuf-3.11.3 \
+    https://github.com/protocolbuffers/protobuf/releases/download/v3.20.2/protobuf-cpp-3.20.2.tar.gz;name=protobuf;subdir=git/protobuf-3.20.2 \
 "
-SRC_URI[protobuf.sha256sum] = "9ffb1fe6091240f2e7bcaca5b65fb19cb7b951ffc9a60d8b2c9d73f89f0e0a51"
+SRC_URI[protobuf.sha256sum] = "a0167e2ba24bba0a180fbc9392f3a43e749d7a26e630fe9c1a1ba32a53675ac3"
 
 do_cp_downloaded_build_deps() {
-    mv ${S}/protobuf-3.11.3/*/* ${S}/protobuf-3.11.3
+    mv ${S}/protobuf-3.20.2/*/* ${S}/protobuf-3.20.2
 }
 addtask cp_downloaded_build_deps after do_unpack before do_patch
 
@@ -63,7 +63,7 @@ do_compile() {
     CONCERTO_ROOT=${S}/concerto \
     TF_REPO_PATH=${S}/tensorflow \
     ONNX_REPO_PATH=${S}/onnxruntime \
-    TIDL_PROTOBUF_PATH=${S}/protobuf-3.11.3 \
+    TIDL_PROTOBUF_PATH=${S}/protobuf-3.20.2 \
     GCC_LINUX_ARM_ROOT= \
     TARGET_SOC=${PLAT_SOC} \
     CROSS_COMPILE_LINARO=aarch64-oe-linux- \
