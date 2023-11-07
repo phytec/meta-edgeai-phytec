@@ -3,7 +3,7 @@ SUMMARY = "TI RTOS prebuilt binary firmware images for EdgeAI"
 LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/meta-ti-bsp/licenses/TI-TFL;md5=a1b59cb7ba626b9dbbcbf00f3fbc438a"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
@@ -16,6 +16,7 @@ PLAT_SFX = ""
 PLAT_SFX:j721e = "j721e"
 PLAT_SFX:j721s2 = "j721s2"
 PLAT_SFX:j784s4 = "j784s4"
+PLAT_SFX:j722s = "j722s"
 PLAT_SFX:am62axx = "am62a"
 
 SRCREV = "49be344b64460ee50b5e66f4cf73fced298be95b"
@@ -57,6 +58,7 @@ FW_LIST = ""
 FW_LIST:j721e =     "              ${MCU_1_1_FW} ${MCU_2_0_FW} ${MCU_2_1_FW} ${MCU_3_0_FW} ${MCU_3_1_FW}                             ${C66_1_FW} ${C66_2_FW} ${C7X_1_FW}"
 FW_LIST:j721s2 =    "              ${MCU_1_1_FW} ${MCU_2_0_FW} ${MCU_2_1_FW} ${MCU_3_0_FW} ${MCU_3_1_FW}                                                     ${C7X_1_FW} ${C7X_2_FW}"
 FW_LIST:j784s4 =    "              ${MCU_1_1_FW} ${MCU_2_0_FW} ${MCU_2_1_FW} ${MCU_3_0_FW} ${MCU_3_1_FW} ${MCU_4_0_FW} ${MCU_4_1_FW}                         ${C7X_1_FW} ${C7X_2_FW} ${C7X_3_FW} ${C7X_4_FW}"
+FW_LIST:j722s =     "                            ${MCU_2_0_FW}                                                                                               ${C7X_1_FW} ${C7X_2_FW}"
 FW_LIST:am62axx =   "${MCU_1_0_FW}                                                                                                                           ${C7X_1_FW}"
 
 do_install() {
@@ -141,6 +143,15 @@ ALTERNATIVE:${PN}:j784s4 = "\
                     j784s4-c71_3-fw \
                     "
 
+ALTERNATIVE:${PN}:j722s = "\
+                    j722s-main-r5f0_0-fw \
+                    j722s-c71_0-fw \
+                    j722s-c71_1-fw \
+                    j722s-main-r5f0_0-fw-sec \
+                    j722s-c71_0-fw-sec \
+                    j722s-c71_1-fw-sec \
+                    "
+
 ALTERNATIVE:${PN}:am62axx = "\
                     am62a-c71_0-fw \
                     "
@@ -191,6 +202,14 @@ ALTERNATIVE_LINK_NAME[j784s4-c71_1-fw] = "${nonarch_base_libdir}/firmware/j784s4
 ALTERNATIVE_LINK_NAME[j784s4-c71_2-fw] = "${nonarch_base_libdir}/firmware/j784s4-c71_2-fw"
 ALTERNATIVE_LINK_NAME[j784s4-c71_3-fw] = "${nonarch_base_libdir}/firmware/j784s4-c71_3-fw"
 
+ALTERNATIVE_LINK_NAME[j722s-main-r5f0_0-fw] = "${nonarch_base_libdir}/firmware/j722s-main-r5f0_0-fw"
+ALTERNATIVE_LINK_NAME[j722s-c71_0-fw] = "${nonarch_base_libdir}/firmware/j722s-c71_0-fw"
+ALTERNATIVE_LINK_NAME[j722s-c71_1-fw] = "${nonarch_base_libdir}/firmware/j722s-c71_1-fw"
+
+ALTERNATIVE_LINK_NAME[j722s-main-r5f0_0-fw-sec] = "${nonarch_base_libdir}/firmware/j722s-main-r5f0_0-fw-sec"
+ALTERNATIVE_LINK_NAME[j722s-c71_0-fw-sec] = "${nonarch_base_libdir}/firmware/j722s-c71_0-fw-sec"
+ALTERNATIVE_LINK_NAME[j722s-c71_1-fw-sec] = "${nonarch_base_libdir}/firmware/j722s-c71_1-fw-sec"
+
 ALTERNATIVE_LINK_NAME[am62a-c71_0-fw] = "${nonarch_base_libdir}/firmware/am62a-c71_0-fw"
 
 # Create the firmware alternatives
@@ -238,6 +257,14 @@ ALTERNATIVE_TARGET[j784s4-c71_0-fw] = "${INSTALL_FW_DIR}/${C7X_1_FW}"
 ALTERNATIVE_TARGET[j784s4-c71_1-fw] = "${INSTALL_FW_DIR}/${C7X_2_FW}"
 ALTERNATIVE_TARGET[j784s4-c71_2-fw] = "${INSTALL_FW_DIR}/${C7X_3_FW}"
 ALTERNATIVE_TARGET[j784s4-c71_3-fw] = "${INSTALL_FW_DIR}/${C7X_4_FW}"
+
+ALTERNATIVE_TARGET[j722s-main-r5f0_0-fw] = "${INSTALL_FW_DIR}/${MCU_2_0_FW}"
+ALTERNATIVE_TARGET[j722s-c71_0-fw] = "${INSTALL_FW_DIR}/${C7X_1_FW}"
+ALTERNATIVE_TARGET[j722s-c71_1-fw] = "${INSTALL_FW_DIR}/${C7X_2_FW}"
+
+ALTERNATIVE_TARGET[j722s-main-r5f0_0-fw-sec] = "${INSTALL_FW_DIR}/${MCU_2_0_FW}.signed"
+ALTERNATIVE_TARGET[j722s-c71_0-fw-sec] = "${INSTALL_FW_DIR}/${C7X_1_FW}.signed"
+ALTERNATIVE_TARGET[j722s-c71_1-fw-sec] = "${INSTALL_FW_DIR}/${C7X_2_FW}.signed"
 
 ALTERNATIVE_TARGET[am62a-c71_0-fw] = "${INSTALL_FW_DIR}/${C7X_1_FW}"
 
