@@ -9,18 +9,18 @@ PR:append = "_edgeai_2"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 
-SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_01/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.13.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_01/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.8.2-cp310-cp310-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_01/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.7.0-cp310-cp310-linux_aarch64.whl;name=ort;subdir=${S}/ort\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_01/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.8_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_01/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.7.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_00_00_01/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
+SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.13.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.8.2-cp310-cp310-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.14.0-cp310-cp310-linux_aarch64.whl;name=ort;subdir=${S}/ort\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.8_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.14.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
 "
 SRC_URI[dlr.sha256sum] = "fc72d2b4b68ad20912d4cb03927d69b626c3891a6394b137f8639dbf392f7cf3"
 SRC_URI[tflite.sha256sum] = "8ab3d0c00da3f80a538b53701c8cf242f32adba7702a8d18bab6fd49b2c42630"
-SRC_URI[ort.sha256sum] = "9b0b1af1ba9cda886854eef73617ee0a76ba2a6ffc2f7d2c74db7b69ae1e1442"
+SRC_URI[ort.sha256sum] = "648ea4efd0580d48ffb459e8a8b0c82821d6d418e2ebd4bac7917715f9eb0ad6"
 SRC_URI[tfl_lib.sha256sum] = "f954709a5b1ca71e16220b697c3a6f457571d486ac05b00bb3d3e9ae85c422a5"
-SRC_URI[ort_lib.sha256sum] = "f63da1ada5af61c71eadf86a998e0f040461e170ae9ad7a109f89da6ad55e3ef"
+SRC_URI[ort_lib.sha256sum] = "283a4c9cd5214bb6d64e88a4fc37f10695ca044e7048c2155ca29aeb023359df"
 SRC_URI[opencv.sha256sum] = "4122073c37e3dd268fa814b6a53510325a1e6636aa3aea9d02ab79f42b4355bd"
 
 do_cp_downloaded_build_deps() {
@@ -56,7 +56,7 @@ FILES:${PN} += "${includedir}"
 do_install() {
     pip3 install  --no-deps --platform linux_aarch64 ${S}/tflite/tflite_runtime-2.8.2-cp310-cp310-linux_aarch64.whl --target ${PY_DST_DIR} --disable-pip-version-check
     pip3 install  --no-deps --platform linux_aarch64 ${S}/dlr/dlr-1.13.0-py3-none-any.whl  --target ${PY_DST_DIR} --disable-pip-version-check
-    pip3 install  --no-deps --platform linux_aarch64 ${S}/ort/onnxruntime_tidl-1.7.0-cp310-cp310-linux_aarch64.whl  --target ${PY_DST_DIR} --disable-pip-version-check
+    pip3 install  --no-deps --platform linux_aarch64 ${S}/ort/onnxruntime_tidl-1.14.0-cp310-cp310-linux_aarch64.whl  --target ${PY_DST_DIR} --disable-pip-version-check
 
     install -d ${D}${includedir}
     install -d ${LIB_DST_DIR}
@@ -65,8 +65,8 @@ do_install() {
     cp -r ${S}/tfl_lib/tflite_2.8  ${LIB_DST_DIR}/
     cp ${S}/tfl_lib/libtensorflow-lite.a ${LIB_DST_DIR}/
 
-    cp   ${S}/ort_lib/libonnxruntime.so.1.7.0  ${LIB_DST_DIR}/libonnxruntime.so.1.7.0
-    ln -s -r ${LIB_DST_DIR}/libonnxruntime.so.1.7.0 ${LIB_DST_DIR}/libonnxruntime.so
+    cp   ${S}/ort_lib/libonnxruntime.so.1.14.0  ${LIB_DST_DIR}/libonnxruntime.so.1.14.0
+    ln -s -r ${LIB_DST_DIR}/libonnxruntime.so.1.14.0 ${LIB_DST_DIR}/libonnxruntime.so
     rm -rf  ${S}/ort_lib/onnxruntime/csharp
     cp -r  ${S}/ort_lib/onnxruntime ${D}${includedir}/
 
