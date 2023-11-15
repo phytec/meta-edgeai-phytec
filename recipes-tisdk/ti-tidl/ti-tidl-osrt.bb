@@ -16,7 +16,7 @@ SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_T
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.14.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_01_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
 "
-SRC_URI[dlr.sha256sum] = "fc72d2b4b68ad20912d4cb03927d69b626c3891a6394b137f8639dbf392f7cf3"
+SRC_URI[dlr.sha256sum] = "149fe4aef8ee720ee6ebfc50bb6a4d272da477c78a9050e783cee088072ecab2"
 SRC_URI[tflite.sha256sum] = "8ab3d0c00da3f80a538b53701c8cf242f32adba7702a8d18bab6fd49b2c42630"
 SRC_URI[ort.sha256sum] = "648ea4efd0580d48ffb459e8a8b0c82821d6d418e2ebd4bac7917715f9eb0ad6"
 SRC_URI[tfl_lib.sha256sum] = "f954709a5b1ca71e16220b697c3a6f457571d486ac05b00bb3d3e9ae85c422a5"
