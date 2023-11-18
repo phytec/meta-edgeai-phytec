@@ -7,7 +7,7 @@ export https_proxy
 export no_proxy
 
 BRANCH = "main"
-SRCREV = "74c8fb1a7874f7c3a4d730cf6903b057a18bc4f2"
+SRCREV = "2e9b5b5271cd3d716abbe79471f56f67c8f9830a"
 
 SOC = ""
 SOC:j721e = "j721e"
