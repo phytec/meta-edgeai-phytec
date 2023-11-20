@@ -20,7 +20,7 @@ SRC_URI[dlr.sha256sum] = "149fe4aef8ee720ee6ebfc50bb6a4d272da477c78a9050e783cee0
 SRC_URI[tflite.sha256sum] = "8ab3d0c00da3f80a538b53701c8cf242f32adba7702a8d18bab6fd49b2c42630"
 SRC_URI[ort.sha256sum] = "648ea4efd0580d48ffb459e8a8b0c82821d6d418e2ebd4bac7917715f9eb0ad6"
 SRC_URI[tfl_lib.sha256sum] = "f954709a5b1ca71e16220b697c3a6f457571d486ac05b00bb3d3e9ae85c422a5"
-SRC_URI[ort_lib.sha256sum] = "283a4c9cd5214bb6d64e88a4fc37f10695ca044e7048c2155ca29aeb023359df"
+SRC_URI[ort_lib.sha256sum] = "26fdfe7266a0f1c63decedde1a6db3e6ed03dd4141aa965a532191f58a84c338"
 SRC_URI[opencv.sha256sum] = "4122073c37e3dd268fa814b6a53510325a1e6636aa3aea9d02ab79f42b4355bd"
 
 do_cp_downloaded_build_deps() {
