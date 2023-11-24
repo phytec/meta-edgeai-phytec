@@ -19,3 +19,7 @@ ARM_EDGEAI_STACK = " \
 IMAGE_INSTALL:append:am62xx = " \
     ${ARM_EDGEAI_STACK} \
 "
+
+IMAGE_INSTALL:append:am62pxx = " \
+    ${ARM_EDGEAI_STACK} \
+"
