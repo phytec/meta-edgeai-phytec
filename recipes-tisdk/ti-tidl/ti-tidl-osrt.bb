@@ -71,5 +71,9 @@ do_install() {
     cp -r  ${S}/ort_lib/onnxruntime ${D}${includedir}/
 
     cp -r ${S}/opencv/opencv-4.2.0  ${D}${includedir}/
+
+    mkdir -p ${D}/usr/dlr
+    ln -s -r ${libdir}/python3.10/site-packages/dlr/libdlr.so ${D}/usr/dlr/libdlr.so
+    ln -s -r /usr/dlr/libdlr.so ${LIB_DST_DIR}/libdlr.so
 }
 
