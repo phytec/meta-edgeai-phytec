@@ -14,6 +14,10 @@ SRC_URI:append:j721e:k3r5 = " \
     file://0001-Optimal-QoS-Settings.patch \
 "
 
+SRC_URI:append:j721s2 = " \
+    file://0001-binman-j721s2-Remove-firewall-ID-5143-5144.patch \
+"
+
 PACKAGECONFIG[dm-edgeai] = "DM=${STAGING_DIR_HOST}${nonarch_base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_mcu1_0.out,,ti-edgeai-firmware"
 
 PACKAGECONFIG:remove:am62axx = " dm"
