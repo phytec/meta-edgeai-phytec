@@ -55,6 +55,12 @@ IMAGE_INSTALL:remove = "\
     packagegroup-arago-tisdk-matrix-extra \
 "
 
+IMAGE_INSTALL:append = " \
+    resize-rootfs \
+"
+
+IMAGE_INSTALL:append:j721e = " pmic-fix"
+
 WKS_FILE = "tisdk-edgeai-sdimage.wks"
 WIC_CREATE_EXTRA_ARGS += " --no-fstab-update"
 
