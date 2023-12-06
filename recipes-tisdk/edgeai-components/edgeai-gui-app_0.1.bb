@@ -10,7 +10,7 @@ DEPENDS = "qtbase qtquick3d qtmultimedia qtdeclarative-native"
 RDEPENDS:${PN} = "qtbase qtquick3d qtmultimedia"
 
 BRANCH = "master"
-SRCREV = "accff001da3c263348d284105d98ad565f68c27a"
+SRCREV = "6ed5a8606e4c64afa7fba37001302ef084593e9e"
 
 PV = "${SRCPV}"
 SRC_URI = "git://git.ti.com/git/apps/edgeai-gui-app.git;protocol=https;branch=${BRANCH}"
