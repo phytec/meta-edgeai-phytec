@@ -1,0 +1,53 @@
+From f8c34bc1c6b058a7f36feabb1ee1c6c702b14e3a Mon Sep 17 00:00:00 2001
+From: Rahul T R <r-ravikumar@ti.com>
+Date: Fri, 8 Dec 2023 19:44:47 +0530
+Subject: [PATCH] Revert "configs: am62ax: setup the 32k RTC crystal"
+
+This reverts commit 5b41c7c481d1625cd54b593c5dd205ca37f45714.
+This commit is breaking TIDL, revert this for 9.1 release
+
+JIRA: https://jira.itg.ti.com/browse/LCPD-37149
+
+Signed-off-by: Rahul T R <r-ravikumar@ti.com>
+---
+ board/ti/am62ax/evm.c            | 5 -----
+ configs/am62ax_evm_a53_defconfig | 1 -
+ 2 files changed, 6 deletions(-)
+
+diff --git a/board/ti/am62ax/evm.c b/board/ti/am62ax/evm.c
+index 71fbc9e9c2..9065038756 100644
+--- a/board/ti/am62ax/evm.c
++++ b/board/ti/am62ax/evm.c
+@@ -15,17 +15,12 @@
+ #include <fdt_support.h>
+ #include <spl.h>
+ 
+-#include "../common/rtc.c"
+-
+ #define CTRLMMR_USB0_PHY_CTRL  0x43004008
+ #define CTRLMMR_USB1_PHY_CTRL  0x43004018
+ #define CORE_VOLTAGE           0x80000000
+ 
+ int board_init(void)
+ {
+-	if (IS_ENABLED(CONFIG_BOARD_HAS_32K_RTC_CRYSTAL))
+-		board_rtc_init();
+-
+ 	return 0;
+ }
+ 
+diff --git a/configs/am62ax_evm_a53_defconfig b/configs/am62ax_evm_a53_defconfig
+index 45bbffada4..9cb3a17449 100644
+--- a/configs/am62ax_evm_a53_defconfig
++++ b/configs/am62ax_evm_a53_defconfig
+@@ -3,7 +3,6 @@ CONFIG_ARCH_K3=y
+ CONFIG_TI_SECURE_DEVICE=y
+ CONFIG_SPL_GPIO=y
+ CONFIG_SYS_MALLOC_F_LEN=0x8000
+-CONFIG_BOARD_HAS_32K_RTC_CRYSTAL=y
+ CONFIG_SPL_LIBCOMMON_SUPPORT=y
+ CONFIG_SPL_LIBGENERIC_SUPPORT=y
+ CONFIG_NR_DRAM_BANKS=2
+-- 
+2.34.1
+

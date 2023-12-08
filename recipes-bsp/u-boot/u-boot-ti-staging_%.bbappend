@@ -18,6 +18,10 @@ SRC_URI:append:j784s4 = " \
     file://0002-tiU21.01-arm-mach-k3-j784s4-Enable-QoS-for-DSS.patch \
 "
 
+SRC_URI:append:am62axx = " \
+    file://0001-Revert-configs-am62ax-setup-the-32k-RTC-crystal.patch \
+"
+
 PACKAGECONFIG[dm-edgeai] = "DM=${STAGING_DIR_HOST}${nonarch_base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_mcu1_0.out,,ti-edgeai-firmware"
 
 PACKAGECONFIG:remove:am62axx = " dm"
