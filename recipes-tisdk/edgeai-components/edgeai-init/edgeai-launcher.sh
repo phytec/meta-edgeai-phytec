@@ -23,14 +23,7 @@ stop_gui() {
 
 # Use this to wait for weston to be ready & kill it as it comes up
 kill_weston() {
-    for i in `seq 1 50`; do
-        weston-info
-        if [ $? -eq 0 ]; then
-            break
-        fi
-        sleep 0.1
-    done
-    killall weston
+    systemctl stop weston.service
 }
 
 case "$1" in
