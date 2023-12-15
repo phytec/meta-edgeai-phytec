@@ -55,3 +55,6 @@ do_install() {
 }
 
 FILES:${PN} += "/opt/"
+SSTATE_SKIP_CREATION = "1"
+
+PR:append = "_edgeai_0"
