@@ -11,7 +11,6 @@ SRC_URI:append:j721e:k3r5 = " \
 
 SRC_URI:append:j721s2 = " \
     file://0001-tiU21.01-arm-mach-k3-j721s2-Enable-QoS-for-DSS.patch \
-    file://0001-binman-j721s2-Remove-firewall-ID-5143-5144.patch \
 "
 
 SRC_URI:append:j784s4 = " \
