@@ -14,7 +14,6 @@ SRC_URI:append:j721s2 = " \
 "
 
 SRC_URI:append:j721s2:adas = " \
-    file://0001-tiU21.01-arm-mach-k3-j721s2-Enable-QoS-for-DSS.patch \
     file://0001-arm-dts-k3-j721s2-som-Hog-gpio-to-enable-DSI-to-eDP-.patch \
 "
 
@@ -31,4 +30,4 @@ PACKAGECONFIG[dm-edgeai] = "DM=${STAGING_DIR_HOST}${nonarch_base_libdir}/firmwar
 PACKAGECONFIG:remove:am62axx = " dm"
 PACKAGECONFIG:append:am62axx = " dm-edgeai"
 
-PR:append = "_edgeai_3"
+PR:append = "_edgeai_4"
