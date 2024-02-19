@@ -1,4 +1,4 @@
-From 093864a0114d03cfda1b57f95a99d99110424d3a Mon Sep 17 00:00:00 2001
+From 40b22c2a8f2468a47222a0862892e199b3eccfd3 Mon Sep 17 00:00:00 2001
 From: Shyam Jagannathan <shyam.jagannathan@ti.com>
 Date: Wed, 9 Feb 2022 17:16:14 +0530
 Subject: [PATCH] Optimal QoS Settings
@@ -36,12 +36,12 @@ Signed-off-by: Rahul T R <r-ravikumar@ti.com>
  arch/arm/mach-k3/include/mach/hardware.h      |   1 +
  .../mach-k3/include/mach/j721e_qos_params.h   | 221 ++++++++++++++
  arch/arm/mach-k3/j721e_init.c                 | 283 ++++++++++++++++++
- drivers/ram/k3-ddrss/k3-ddrss.c               |  21 ++
- 4 files changed, 526 insertions(+)
+ drivers/ram/k3-ddrss/k3-ddrss.c               |  35 +++
+ 4 files changed, 540 insertions(+)
  create mode 100644 arch/arm/mach-k3/include/mach/j721e_qos_params.h
 
 diff --git a/arch/arm/mach-k3/include/mach/hardware.h b/arch/arm/mach-k3/include/mach/hardware.h
-index 6cd14390ad..02007aa1b8 100644
+index f7f0100358..2e2990ce2c 100644
 --- a/arch/arm/mach-k3/include/mach/hardware.h
 +++ b/arch/arm/mach-k3/include/mach/hardware.h
 @@ -14,6 +14,7 @@
@@ -281,10 +281,10 @@ index 0000000000..3f46a6bed5
 +#endif
 \ No newline at end of file
 diff --git a/arch/arm/mach-k3/j721e_init.c b/arch/arm/mach-k3/j721e_init.c
-index f3fb184c6f..398ba25418 100644
+index 93b4e553a8..87fc44f069 100644
 --- a/arch/arm/mach-k3/j721e_init.c
 +++ b/arch/arm/mach-k3/j721e_init.c
-@@ -193,6 +193,277 @@ void do_dt_magic(void)
+@@ -220,6 +220,277 @@ void do_dt_magic(void)
  }
  #endif
  
@@ -562,7 +562,7 @@ index f3fb184c6f..398ba25418 100644
  void board_init_f(ulong dummy)
  {
  #if defined(CONFIG_K3_J721E_DDRSS) || defined(CONFIG_K3_LOAD_SYSFW)
-@@ -289,6 +560,18 @@ void board_init_f(ulong dummy)
+@@ -332,6 +603,18 @@ void board_init_f(ulong dummy)
  	if (ret)
  		panic("DRAM init failed: %d\n", ret);
  #endif
@@ -582,10 +582,10 @@ index f3fb184c6f..398ba25418 100644
  }
  
 diff --git a/drivers/ram/k3-ddrss/k3-ddrss.c b/drivers/ram/k3-ddrss/k3-ddrss.c
-index 17683bbe73..f0bb5e9c2d 100644
+index 87741d3943..57a6bf22ae 100644
 --- a/drivers/ram/k3-ddrss/k3-ddrss.c
 +++ b/drivers/ram/k3-ddrss/k3-ddrss.c
-@@ -608,6 +608,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
+@@ -765,6 +765,41 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
  	writel(val, base + DDRSS_ECC_CTRL_REG);
  }
  
@@ -606,20 +606,27 @@ index 17683bbe73..f0bb5e9c2d 100644
 +}
 +#endif
 +
++#ifdef CONFIG_K3_J721E_DDRSS
++#define DDRSS_V2A_LPT_DEF_PRI_MAP_REG (0x02980030u)
++#define DDRSS_V2A_HPT_DEF_PRI_MAP_REG (0x0298004Cu)
++#define DDRSS_V2A_LPT_HPT_PRI_MAP_VAL (0x77777777u)
++
++void j721e_lpddr4_priority_map(void)
++{
++	/* Override defaults with a flattened priority */
++	/* This makes VBUSM.C priority take effect */
++    /* LPT */
++    writel(DDRSS_V2A_LPT_HPT_PRI_MAP_VAL, (uintptr_t)DDRSS_V2A_LPT_DEF_PRI_MAP_REG);
++
++    /* HPT */
++    writel(DDRSS_V2A_LPT_HPT_PRI_MAP_VAL, (uintptr_t)DDRSS_V2A_HPT_DEF_PRI_MAP_REG);
++}
++#endif
++
++
  static int k3_ddrss_probe(struct udevice *dev)
  {
  	int ret;
-@@ -640,6 +657,10 @@ static int k3_ddrss_probe(struct udevice *dev)
- 	if (ret)
- 		return ret;
- 
-+#ifdef CONFIG_K3_J721E_DDRSS
-+    j721e_lpddr4_priority_map();
-+#endif
-+
- 	k3_lpddr4_start(ddrss);
- 
- 	if (ddrss->ti_ecc_enabled) {
 -- 
-2.17.1
+2.34.1
 
