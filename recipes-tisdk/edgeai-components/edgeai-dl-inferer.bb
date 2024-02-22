@@ -13,6 +13,8 @@ SRCREV = "744f27adaedae325d41eaac69634578776fb8f9a"
 S = "${WORKDIR}/git"
 
 DEPENDS = "edgeai-apps-utils ti-tidl-osrt yaml-cpp opencv ti-vision-apps"
+DEPENDS:remove:am62xx = "ti-vision-apps"
+DEPENDS:remove:am62pxx = "ti-vision-apps"
 RDEPENDS:${PN} += "ti-tidl-osrt-staticdev"
 RDEPENDS:${PN}-source = "bash python3-core cmake python3-yamlloader python3-numpy opencv opencv-dev"
 
