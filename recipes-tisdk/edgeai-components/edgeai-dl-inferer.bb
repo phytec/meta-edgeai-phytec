@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=4309553a9d3611cdf7a78bd169ec583c"
 PV = "${SRCPV}"
 BRANCH = "main"
 SRC_URI = "git://git.ti.com/git/edgeai/edgeai-dl-inferer.git;protocol=https;branch=${BRANCH}"
-SRCREV = "744f27adaedae325d41eaac69634578776fb8f9a"
+SRCREV = "2276a6bd9423d31d98632679fecd692b2a1c4d75"
 
 S = "${WORKDIR}/git"
 
