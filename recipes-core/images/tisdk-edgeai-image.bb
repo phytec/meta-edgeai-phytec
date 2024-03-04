@@ -17,6 +17,8 @@ EDGEAI_STACK = " \
         edgeai-apps-utils-source \
         edgeai-test-data \
         edgeai-tidl-models \
+        edgeai-tiovx-apps-dev \
+        edgeai-tiovx-apps-source \
 "
 
 EDGEAI_STACK:append:edgeai = " \
@@ -40,8 +42,6 @@ EDGEAI_STACK:append:edgeai = " \
 EDGEAI_STACK:append:adas = " \
         ti-tidl-osrt-staticdev \
         edgeai-gst-plugins \
-        edgeai-tiovx-apps-dev \
-        edgeai-tiovx-apps-source \
 "
 
 IMAGE_INSTALL:append = " \
