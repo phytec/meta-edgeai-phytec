@@ -1,4 +1,4 @@
-From 40b22c2a8f2468a47222a0862892e199b3eccfd3 Mon Sep 17 00:00:00 2001
+From 564b1532e50f7cbe723b3c62504a0ec886db2239 Mon Sep 17 00:00:00 2001
 From: Shyam Jagannathan <shyam.jagannathan@ti.com>
 Date: Wed, 9 Feb 2022 17:16:14 +0530
 Subject: [PATCH] Optimal QoS Settings
@@ -36,8 +36,8 @@ Signed-off-by: Rahul T R <r-ravikumar@ti.com>
  arch/arm/mach-k3/include/mach/hardware.h      |   1 +
  .../mach-k3/include/mach/j721e_qos_params.h   | 221 ++++++++++++++
  arch/arm/mach-k3/j721e_init.c                 | 283 ++++++++++++++++++
- drivers/ram/k3-ddrss/k3-ddrss.c               |  35 +++
- 4 files changed, 540 insertions(+)
+ drivers/ram/k3-ddrss/k3-ddrss.c               |  17 ++
+ 4 files changed, 522 insertions(+)
  create mode 100644 arch/arm/mach-k3/include/mach/j721e_qos_params.h
 
 diff --git a/arch/arm/mach-k3/include/mach/hardware.h b/arch/arm/mach-k3/include/mach/hardware.h
@@ -582,10 +582,10 @@ index 93b4e553a8..87fc44f069 100644
  }
  
 diff --git a/drivers/ram/k3-ddrss/k3-ddrss.c b/drivers/ram/k3-ddrss/k3-ddrss.c
-index 87741d3943..57a6bf22ae 100644
+index 87741d3943..6e99c0af62 100644
 --- a/drivers/ram/k3-ddrss/k3-ddrss.c
 +++ b/drivers/ram/k3-ddrss/k3-ddrss.c
-@@ -765,6 +765,41 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
+@@ -765,6 +765,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
  	writel(val, base + DDRSS_ECC_CTRL_REG);
  }
  
@@ -605,24 +605,6 @@ index 87741d3943..57a6bf22ae 100644
 +    writel(DDRSS_V2A_LPT_HPT_PRI_MAP_VAL, (uintptr_t)DDRSS_V2A_HPT_DEF_PRI_MAP_REG);
 +}
 +#endif
-+
-+#ifdef CONFIG_K3_J721E_DDRSS
-+#define DDRSS_V2A_LPT_DEF_PRI_MAP_REG (0x02980030u)
-+#define DDRSS_V2A_HPT_DEF_PRI_MAP_REG (0x0298004Cu)
-+#define DDRSS_V2A_LPT_HPT_PRI_MAP_VAL (0x77777777u)
-+
-+void j721e_lpddr4_priority_map(void)
-+{
-+	/* Override defaults with a flattened priority */
-+	/* This makes VBUSM.C priority take effect */
-+    /* LPT */
-+    writel(DDRSS_V2A_LPT_HPT_PRI_MAP_VAL, (uintptr_t)DDRSS_V2A_LPT_DEF_PRI_MAP_REG);
-+
-+    /* HPT */
-+    writel(DDRSS_V2A_LPT_HPT_PRI_MAP_VAL, (uintptr_t)DDRSS_V2A_HPT_DEF_PRI_MAP_REG);
-+}
-+#endif
-+
 +
  static int k3_ddrss_probe(struct udevice *dev)
  {
