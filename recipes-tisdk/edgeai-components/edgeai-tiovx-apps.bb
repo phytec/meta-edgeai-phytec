@@ -35,12 +35,16 @@ ALLOW_EMPTY:${PN}-dev = "1"
 
 inherit cmake pkgconfig
 
-do_install() {
+do_install:append() {
     CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
 
     mkdir -p ${D}/opt/edgeai-tiovx-apps
     cp ${CP_ARGS} ${WORKDIR}/git/* ${D}/opt/edgeai-tiovx-apps
     cp ${CP_ARGS} ${WORKDIR}/out/bin ${D}/opt/edgeai-tiovx-apps
+    rm -rf ${D}/usr/cmake
 }
 
-PR:append = "_edgeai_2"
+INSANE_SKIP:${PN} += "dev-deps"
+INSANE_SKIP:${PN}-source += "dev-deps"
+
+PR:append = "_edgeai_3"
