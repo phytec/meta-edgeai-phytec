@@ -30,7 +30,10 @@ do_fetch() {
     fi
     wget https://raw.githubusercontent.com/TexasInstruments/edgeai-gst-apps/${VERSION}/download_models.sh
     chmod +x ./download_models.sh
-    SOC=${SOC} ./download_models.sh --recommended
+
+    export SOC="${SOC}"
+    export EDGEAI_SDK_VERSION=09_01_00
+    ./download_models.sh --recommended
 }
 
 do_install() {
