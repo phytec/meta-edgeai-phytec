@@ -22,4 +22,8 @@ IMAGE_INSTALL:append:am62xx = " \
 
 IMAGE_INSTALL:append:am62pxx = " \
     ${ARM_EDGEAI_STACK} \
+    ti-gpio-py \
+    ti-gpio-py-source \
+    ti-gpio-cpp \
+    ti-gpio-cpp-source \
 "

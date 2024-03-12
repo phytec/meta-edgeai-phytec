@@ -10,7 +10,7 @@ SRCREV = "e2c2baf45d95c03c9dcda0b59f53e55774b17228"
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|am62pxx-evm"
 
 EXTRA_OECMAKE = "-DCMAKE_SKIP_RPATH=TRUE"
 
@@ -28,4 +28,4 @@ do_install:append() {
     rm -rf ${D}/usr/cmake
 }
 
-PR:append = "_edgeai_1"
+PR:append = "_edgeai_2"

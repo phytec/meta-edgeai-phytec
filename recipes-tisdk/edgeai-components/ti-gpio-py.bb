@@ -11,7 +11,7 @@ SRCREV = "3ae1b726c4e1245d93d9d092dff019b7724efa1f"
 S = "${WORKDIR}/git"
 
 DEPENDS = "gpiozero"
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|am62pxx-evm"
 
 inherit setuptools3
 
@@ -25,4 +25,4 @@ do_install:append() {
     cp ${CP_ARGS} ${S}/* ${D}/opt/ti-gpio-py
 }
 
-PR:append = "_edgeai_1"
+PR:append = "_edgeai_2"
