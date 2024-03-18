@@ -51,4 +51,4 @@ do_install:append() {
 INSANE_SKIP:${PN} += "dev-deps"
 INSANE_SKIP:${PN}-source += "dev-deps"
 
-PR:append = "_edgeai_1"
+PR:append = "_edgeai_2"
