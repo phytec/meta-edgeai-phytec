@@ -50,4 +50,4 @@ do_install() {
 
 INSANE_SKIP:${PN}-source += "dev-deps"
 
-PR:append = "_edgeai_1"
+PR:append = "_edgeai_2"
