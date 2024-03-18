@@ -72,4 +72,4 @@ IMAGE_BASENAME:edgeai = "tisdk-edgeai-image"
 IMAGE_BASENAME:adas = "tisdk-adas-image"
 export IMAGE_BASENAME
 
-PR:append = "_edgeai_7"
+PR:append = "_edgeai_8"
