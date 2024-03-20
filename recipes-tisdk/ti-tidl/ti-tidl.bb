@@ -5,7 +5,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 S = "${WORKDIR}/git"
-PR:append = "_edgeai_0"
+PR:append = "_edgeai_1"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 PV="${SRCPV}"
@@ -13,14 +13,14 @@ PV="${SRCPV}"
 SRCREV_FORMAT="default"
 SRCREV_arm-tidl="b00a83a7fab54ffce8dfe372b154e17492f411ca"
 SRCREV_concerto="cf9a22cafa5f212c34c88e8c1d72a8d1455ea7b5"
-SRCREV_onnxruntime="7cae50f3a9660f919ba7ad7859159b65439081d4"
-SRCREV_tensorflow="233657497d2735cae9e840df9e650e268149070d"
+SRCREV_onnxruntime="3489b7962192b15a2c69b9a20af93c7a4bd020c2"
+SRCREV_tensorflow="a5870206f0c6addcb327b6095baab16639c1bd5c"
 
 SRC_URI = " \
     git://git.ti.com/git/processor-sdk-vision/arm-tidl.git;branch=master;protocol=https;name=arm-tidl;destsuffix=git/arm-tidl \
     git://git.ti.com/git/processor-sdk/concerto.git;branch=main;protocol=https;name=concerto;destsuffix=git/concerto \
     git://github.com/TexasInstruments/onnxruntime;branch=tidl-1.14;protocol=https;name=onnxruntime;destsuffix=git/onnxruntime  \
-    git://github.com/TexasInstruments/tensorflow;branch=tidl-j7-2.8;protocol=https;name=tensorflow;destsuffix=git/tensorflow  \
+    git://github.com/TexasInstruments/tensorflow;branch=tidl-j7-2.12-latest;protocol=https;name=tensorflow;destsuffix=git/tensorflow  \
     https://github.com/protocolbuffers/protobuf/releases/download/v3.20.2/protobuf-cpp-3.20.2.tar.gz;name=protobuf;subdir=git/protobuf-3.20.2 \
 "
 SRC_URI[protobuf.sha256sum] = "a0167e2ba24bba0a180fbc9392f3a43e749d7a26e630fe9c1a1ba32a53675ac3"
