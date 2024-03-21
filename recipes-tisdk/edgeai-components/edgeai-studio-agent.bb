@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=3677661f72cd03c7b3c0a35e5f
 PV = "${SRCPV}"
 BRANCH = "main"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-studio-agent.git;branch=${BRANCH};protocol=https"
-SRCREV = "0d3bff5a2251b300ab483ca8bf5c1f6a226e48ee"
+SRCREV = "2930e59add53cc7cf3522e43e4ba4550b77e5036"
 
 S = "${WORKDIR}/git"
 
