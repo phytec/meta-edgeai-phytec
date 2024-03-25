@@ -5,7 +5,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 S = "${WORKDIR}/src"
-PR:append = "_edgeai_3"
+PR:append = "_edgeai_4"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 
@@ -39,19 +39,11 @@ export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 PY_DST_DIR="${D}${libdir}/python3.10/site-packages"
 LIB_DST_DIR="${D}${libdir}"
 
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/*.a"
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/pthreadpool/*.a"
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/farmhash-build/*.a"
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/xnnpack-build/*.a"
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/fft2d-build/*.a"
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/cpuinfo-build/*.a"
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/ruy-build/*.a"
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/flatbuffers-build/*.a"
-FILES:${PN}-staticdev += "${libdir}/tflite_2.12/abseil-cpp-build/*.a"
-FILES:${PN}-staticdev += "${libdir}/*.a"
+FILES:${PN}-staticdev += "${libdir}/tflite_2.12/"
 FILES:${PN} += "${libdir}/*.so*"
 FILES:${PN} += "${libdir}/python3.10/*"
 FILES:${PN} += "${includedir}"
+FILES:${PN} += "/usr/dlr/"
 
 do_install() {
     pip3 install  --no-deps --platform linux_aarch64 ${S}/tflite/tflite_runtime-2.12.0-cp310-cp310-linux_aarch64.whl --target ${PY_DST_DIR} --disable-pip-version-check
