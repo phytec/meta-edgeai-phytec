@@ -10,9 +10,9 @@ Signed-off-by: Rahul T R <r-ravikumar@ti.com>
 ---
  arch/arm64/boot/dts/ti/Makefile               |   2 +
  .../boot/dts/ti/k3-j722s-edgeai-apps.dtso     |  11 ++
- .../boot/dts/ti/k3-j722s-rtos-memory-map.dtsi | 143 ++++++++++++++++++
- .../boot/dts/ti/k3-j722s-vision-apps.dtso     |  35 +++++
- 4 files changed, 191 insertions(+)
+ .../boot/dts/ti/k3-j722s-rtos-memory-map.dtsi | 152 ++++++++++++++++++
+ .../boot/dts/ti/k3-j722s-vision-apps.dtso     |  35 ++++
+ 4 files changed, 200 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-j722s-edgeai-apps.dtso
  create mode 100644 arch/arm64/boot/dts/ti/k3-j722s-rtos-memory-map.dtsi
  create mode 100644 arch/arm64/boot/dts/ti/k3-j722s-vision-apps.dtso
@@ -52,7 +52,7 @@ new file mode 100644
 index 000000000000..ff9c7c9fbd1e
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j722s-rtos-memory-map.dtsi
-@@ -0,0 +1,143 @@
+@@ -0,0 +1,152 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Vision-apps: device-tree overlay
@@ -173,8 +173,17 @@ index 000000000000..ff9c7c9fbd1e
 +	};
 +	vision_apps_shared_region: vision_apps_shared-memories {
 +		compatible = "dma-heap-carveout";
-+		reg = <0x00 0xC0000000 0x00 0x20000000>;
++		reg = <0x09 0x00000000 0x00 0x20000000>;
 +	};
++    linux,cma {
++        status = "disabled";
++    };
++    linux_cma_region: linux-cma-buffers@980000000 {
++        compatible = "shared-dma-pool";
++        reusable;
++        reg = <0x09 0x80000000 0x00 0x38000000>;
++        linux,cma-default;
++    };
 +};
 +
 +&mcu_r5fss0_core0 {
