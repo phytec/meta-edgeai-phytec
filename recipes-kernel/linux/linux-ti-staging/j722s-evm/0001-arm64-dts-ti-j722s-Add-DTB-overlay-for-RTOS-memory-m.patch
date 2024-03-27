@@ -10,9 +10,9 @@ Signed-off-by: Rahul T R <r-ravikumar@ti.com>
 ---
  arch/arm64/boot/dts/ti/Makefile               |   2 +
  .../boot/dts/ti/k3-j722s-edgeai-apps.dtso     |  11 ++
- .../boot/dts/ti/k3-j722s-rtos-memory-map.dtsi | 152 ++++++++++++++++++
+ .../boot/dts/ti/k3-j722s-rtos-memory-map.dtsi | 175 ++++++++++++++++++
  .../boot/dts/ti/k3-j722s-vision-apps.dtso     |  35 ++++
- 4 files changed, 200 insertions(+)
+ 4 files changed, 223 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-j722s-edgeai-apps.dtso
  create mode 100644 arch/arm64/boot/dts/ti/k3-j722s-rtos-memory-map.dtsi
  create mode 100644 arch/arm64/boot/dts/ti/k3-j722s-vision-apps.dtso
@@ -52,7 +52,7 @@ new file mode 100644
 index 000000000000..ff9c7c9fbd1e
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j722s-rtos-memory-map.dtsi
-@@ -0,0 +1,152 @@
+@@ -0,0 +1,175 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Vision-apps: device-tree overlay
@@ -69,6 +69,14 @@ index 000000000000..ff9c7c9fbd1e
 +	dma_buf_phys {
 +		compatible = "ti,dma-buf-phys";
 +	};
++};
++
++&wkup_r5fss0_core0_memory_region {
++	status = "disabled";
++};
++
++&wkup_r5fss0_core0_dma_memory_region {
++	status = "disabled";
 +};
 +
 +&mcu_r5fss0_core0_memory_region {
@@ -111,6 +119,16 @@ index 000000000000..ff9c7c9fbd1e
 +	#address-cells = <2>;
 +	#size-cells = <2>;
 +
++	vision_apps_wkup_r5fss0_core0_dma_memory_region: vision-apps-r5f-dma-memory@a0000000 {
++		compatible = "shared-dma-pool";
++		reg = <0x00 0xa0000000 0x00 0x00100000>;
++		no-map;
++	};
++	vision_apps_wkup_r5fss0_core0_memory_region: vision-apps-r5f-memory@a0100000 {
++		compatible = "shared-dma-pool";
++		reg = <0x00 0xa0100000 0x00 0x00f00000>;
++		no-map;
++	};
 +	vision_apps_mcu_r5fss0_core0_dma_memory_region: vision-apps-r5f-dma-memory@a1000000 {
 +		compatible = "shared-dma-pool";
 +		reg = <0x00 0xa1000000 0x00 0x00100000>;
@@ -184,6 +202,11 @@ index 000000000000..ff9c7c9fbd1e
 +        reg = <0x09 0x80000000 0x00 0x38000000>;
 +        linux,cma-default;
 +    };
++};
++
++&wkup_r5fss0_core0 {
++	memory-region = <&vision_apps_wkup_r5fss0_core0_dma_memory_region>,
++			<&vision_apps_wkup_r5fss0_core0_memory_region>;
 +};
 +
 +&mcu_r5fss0_core0 {
