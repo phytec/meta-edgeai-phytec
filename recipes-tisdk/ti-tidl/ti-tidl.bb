@@ -13,7 +13,7 @@ PV="${SRCPV}"
 SRCREV_FORMAT="default"
 SRCREV_arm-tidl="b00a83a7fab54ffce8dfe372b154e17492f411ca"
 SRCREV_concerto="cf9a22cafa5f212c34c88e8c1d72a8d1455ea7b5"
-SRCREV_onnxruntime="3489b7962192b15a2c69b9a20af93c7a4bd020c2"
+SRCREV_onnxruntime="200f0950fcf0c13e1df132c6cf59534a3121aba5"
 SRCREV_tensorflow="a5870206f0c6addcb327b6095baab16639c1bd5c"
 
 SRC_URI = " \
