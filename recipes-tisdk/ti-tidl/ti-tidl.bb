@@ -5,14 +5,14 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 S = "${WORKDIR}/git"
-PR:append = "_edgeai_1"
+PR:append = "_edgeai_2"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 PV="${SRCPV}"
 
 SRCREV_FORMAT="default"
-SRCREV_arm-tidl="b00a83a7fab54ffce8dfe372b154e17492f411ca"
-SRCREV_concerto="cf9a22cafa5f212c34c88e8c1d72a8d1455ea7b5"
+SRCREV_arm-tidl="edb910c1059379360c7b863e51a1c50ef87fc5c2"
+SRCREV_concerto="b354c73de459a380b45943b1afc7e1b10bc5491d"
 SRCREV_onnxruntime="200f0950fcf0c13e1df132c6cf59534a3121aba5"
 SRCREV_tensorflow="a5870206f0c6addcb327b6095baab16639c1bd5c"
 
