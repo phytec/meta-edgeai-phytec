@@ -9,12 +9,12 @@ PR:append = "_edgeai_4"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 
-SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_04_01/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.13.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_04_01/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.12.0-cp310-cp310-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_04_02/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.14.0-cp310-cp310-linux_aarch64.whl;name=ort;subdir=${S}/ort\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_04_01/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.12_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_04_02/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.14.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_04_01/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
+SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.13.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.12.0-cp310-cp310-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.14.0-cp310-cp310-linux_aarch64.whl;name=ort;subdir=${S}/ort\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.12_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.14.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
 "
 SRC_URI[dlr.sha256sum] = "334321201e8f30daecf18d562f83732dced0bb2efc21e556f45565ba6c3e21ee"
 SRC_URI[tflite.sha256sum] = "8dc66384e2f43af55234425d7a594ebada1bb42c2d2444cef27c2b651ff9887a"
