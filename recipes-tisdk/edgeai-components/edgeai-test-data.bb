@@ -23,11 +23,9 @@ COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm
 do_fetch() {
     mkdir -p ${WORKDIR}/script
     cd ${WORKDIR}/script
-    if [ "${SRCREV}" = "${AUTOREV}" ]; then
-        VERSION="${BRANCH}"
-    else
-        VERSION="${SRCREV}"
-    fi
+
+    VERSION="${SRCREV}"
+
     wget https://raw.githubusercontent.com/TexasInstruments/edgeai-gst-apps/${VERSION}/download_test_data.sh
     chmod +x ./download_test_data.sh
 
