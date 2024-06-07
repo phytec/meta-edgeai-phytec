@@ -8,7 +8,7 @@ S = "${WORKDIR}/git"
 PR:append = "_edgeai_2"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
-PV="${SRCPV}"
+PV="1.0.0"
 
 SRCREV_FORMAT="default"
 SRCREV_arm-tidl="c3a009b2eee74284c75dd5687d766f68f4648498"

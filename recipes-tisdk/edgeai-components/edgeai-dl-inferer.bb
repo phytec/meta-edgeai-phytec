@@ -5,7 +5,7 @@ HOMEPAGE = "https://git.ti.com/cgit/edgeai/edgeai-dl-inferer/about/"
 LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=4309553a9d3611cdf7a78bd169ec583c"
 
-PV = "${SRCPV}"
+PV = "1.0.0"
 BRANCH = "main"
 SRC_URI = "git://git.ti.com/git/edgeai/edgeai-dl-inferer.git;protocol=https;branch=${BRANCH}"
 SRCREV = "d8b41806ebc7b64aad0e0fb5b7a163a339ea90c9"

@@ -5,7 +5,7 @@ HOMEPAGE = "https://git.ti.com/cgit/edgeai/edgeai-tiovx-modules"
 LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1f7721ee7d288457c5a70d0c8ff44b87"
 
-PV = "${SRCPV}"
+PV = "1.0.0"
 BRANCH = "main"
 SRC_URI = "git://git.ti.com/git/edgeai/edgeai-tiovx-modules.git;branch=${BRANCH};protocol=https"
 SRCREV = "1d2c6a739d7367df1db4360820f6d1da6165bd42"

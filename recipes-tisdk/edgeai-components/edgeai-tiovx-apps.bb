@@ -5,7 +5,7 @@ HOMEPAGE = "https://github.com/TexasInstruments/edgeai-tiovx-apps"
 LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=dc68ab0305d85e56491b9a9aed2309f2"
 
-PV = "${SRCPV}"
+PV = "1.0.0"
 BRANCH = "main"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-tiovx-apps.git;branch=${BRANCH};protocol=https"
 SRCREV = "c441577b22d36f6d36068b1bc95af006fdab687b"

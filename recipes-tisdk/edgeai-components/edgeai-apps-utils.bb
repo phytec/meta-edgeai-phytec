@@ -5,7 +5,7 @@ HOMEPAGE = "https://git.ti.com/cgit/edgeai/edgeai-apps-utils"
 LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1f7721ee7d288457c5a70d0c8ff44b87"
 
-PV = "${SRCPV}"
+PV = "1.0.0"
 BRANCH = "main"
 SRC_URI = "git://git.ti.com/git/edgeai/edgeai-apps-utils.git;protocol=https;branch=${BRANCH}"
 SRCREV = "5b55f417d2cee8ecdfc9467f0dc1c4ae28d487b1"

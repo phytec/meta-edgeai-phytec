@@ -28,7 +28,7 @@ SRC_URI = " \
 
 S = "${WORKDIR}/git"
 
-PV = "${SRCPV}"
+PV = "1.0.0"
 
 # Secure Build
 inherit ti-secdev

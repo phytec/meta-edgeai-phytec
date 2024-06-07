@@ -5,7 +5,7 @@ HOMEPAGE = "https://github.com/TexasInstruments/edgeai-gst-plugins"
 LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1f7721ee7d288457c5a70d0c8ff44b87"
 
-PV = "${SRCPV}"
+PV = "1.0.0"
 BRANCH = "main"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-gst-plugins.git;branch=${BRANCH};protocol=https"
 SRCREV = "a8cd06189cf5aa7884c6cc54a120e69773bb608f"
