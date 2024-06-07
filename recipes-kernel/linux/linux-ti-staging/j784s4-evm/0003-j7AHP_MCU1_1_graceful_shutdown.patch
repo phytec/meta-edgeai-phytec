@@ -1,0 +1,141 @@
+From d635de6d8e9c3abce4dec4a370e9da1b76aa001f Mon Sep 17 00:00:00 2001
+From: Beleswar Padhi <b-padhi@ti.com>
+Date: Fri, 19 Apr 2024 16:51:43 +0530
+Subject: [PATCH] remoteproc: k3-r5: Release processor control for device
+ operations
+
+Device Operations like get_device, put_device, is_on are processed by
+Device Manager. This requires Device Manager to acquire processor
+control to execute the operations. Therefore, release processor
+control when executing device operations and acquire it back after
+the operations are over.
+
+Also register the start, stop, prepare and unprepare callbacks for
+remote processors configured in IPC-only mode. These callbacks are
+required to start/stop a remote processor from userspace via sysfs.
+
+Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+---
+ drivers/remoteproc/ti_k3_r5_remoteproc.c | 41 +++++++++++++++++++++---
+ 1 file changed, 36 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/remoteproc/ti_k3_r5_remoteproc.c b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+index 28f973d99f9b..6cdd431e31de 100644
+--- a/drivers/remoteproc/ti_k3_r5_remoteproc.c
++++ b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+@@ -533,6 +533,10 @@ static int r5f_pm_notifier_call(struct notifier_block *bl,
+  */
+ static int k3_r5_rproc_prepare(struct rproc *rproc)
+ {
++	/* Need not prepare rproc if it was booted from some other entity */
++	if (rproc->state == RPROC_DETACHED)
++		return 0;
++
+ 	struct k3_r5_rproc *kproc = rproc->priv;
+ 	struct k3_r5_cluster *cluster = kproc->cluster;
+ 	struct k3_r5_core *core = kproc->core;
+@@ -547,6 +551,10 @@ static int k3_r5_rproc_prepare(struct rproc *rproc)
+ 		return ret;
+ 	mem_init_dis = !!(cfg & PROC_BOOT_CFG_FLAG_R5_MEM_INIT_DIS);
+ 
++	ret = ti_sci_proc_release(core->tsp);
++	if (ret)
++		dev_err(dev, "unable to release processor control from ti-sci handle");
++
+ 	/* Re-use LockStep-mode reset logic for Single-CPU mode */
+ 	ret = (cluster->mode == CLUSTER_MODE_LOCKSTEP ||
+ 	       cluster->mode == CLUSTER_MODE_SINGLECPU) ?
+@@ -556,6 +564,11 @@ static int k3_r5_rproc_prepare(struct rproc *rproc)
+ 			ret);
+ 		return ret;
+ 	}
++
++	ret = ti_sci_proc_request(core->tsp);
++	if (ret)
++		dev_err(dev, "unable to request processor control from ti-sci handle");
++
+ 	core->released_from_reset = true;
+ 	wake_up_interruptible(&cluster->core_transition);
+ 
+@@ -608,6 +621,10 @@ static int k3_r5_rproc_unprepare(struct rproc *rproc)
+ 	struct device *dev = kproc->dev;
+ 	int ret;
+ 
++	ret = ti_sci_proc_release(core->tsp);
++	if (ret)
++		dev_err(dev, "unable to release processor control from ti-sci handle");
++
+ 	/* Re-use LockStep-mode reset logic for Single-CPU mode */
+ 	ret = (cluster->mode == CLUSTER_MODE_LOCKSTEP ||
+ 	       cluster->mode == CLUSTER_MODE_SINGLECPU) ?
+@@ -615,6 +632,10 @@ static int k3_r5_rproc_unprepare(struct rproc *rproc)
+ 	if (ret)
+ 		dev_err(dev, "unable to disable cores, ret = %d\n", ret);
+ 
++	ret = ti_sci_proc_request(core->tsp);
++	if (ret)
++		dev_err(dev, "unable to request processor control from ti-sci handle");
++
+ 	return ret;
+ }
+ 
+@@ -797,6 +818,7 @@ static int k3_r5_rproc_detach(struct rproc *rproc)
+ 	struct k3_r5_rproc *kproc = rproc->priv;
+ 	struct device *dev = kproc->dev;
+ 
++
+ 	mbox_free_channel(kproc->mbox);
+ 	dev_info(dev, "R5F core deinitialized in IPC-only mode\n");
+ 	return 0;
+@@ -1239,6 +1261,10 @@ static int k3_r5_rproc_configure_mode(struct k3_r5_rproc *kproc)
+ 
+ 	core0 = list_first_entry(&cluster->cores, struct k3_r5_core, elem);
+ 
++	ret = ti_sci_proc_release(core->tsp);
++	if (ret)
++		dev_err(cdev, "unable to release processor control from ti-sci handle");
++
+ 	ret = core->ti_sci->ops.dev_ops.is_on(core->ti_sci, core->ti_sci_id,
+ 					      &r_state, &c_state);
+ 	if (ret) {
+@@ -1246,6 +1272,11 @@ static int k3_r5_rproc_configure_mode(struct k3_r5_rproc *kproc)
+ 			ret);
+ 		return ret;
+ 	}
++
++	ret = ti_sci_proc_request(core->tsp);
++	if (ret)
++		dev_err(cdev, "unable to request processor control from ti-sci handle");
++
+ 	if (r_state != c_state) {
+ 		dev_warn(cdev, "R5F core may have been powered on by a different host, programmed state (%d) != actual state (%d)\n",
+ 			 r_state, c_state);
+@@ -1290,10 +1321,10 @@ static int k3_r5_rproc_configure_mode(struct k3_r5_rproc *kproc)
+ 		kproc->rproc->state = RPROC_DETACHED;
+ 		ret = 1;
+ 		/* override rproc ops with only required IPC-only mode ops */
+-		kproc->rproc->ops->prepare = NULL;
+-		kproc->rproc->ops->unprepare = NULL;
+-		kproc->rproc->ops->start = NULL;
+-		kproc->rproc->ops->stop = NULL;
++		kproc->rproc->ops->prepare = k3_r5_rproc_prepare;
++		kproc->rproc->ops->unprepare = k3_r5_rproc_unprepare;
++		kproc->rproc->ops->start = k3_r5_rproc_start;
++		kproc->rproc->ops->stop = k3_r5_rproc_stop;
+ 		kproc->rproc->ops->attach = k3_r5_rproc_attach;
+ 		kproc->rproc->ops->detach = k3_r5_rproc_detach;
+ 		kproc->rproc->ops->get_loaded_rsc_table =
+@@ -1376,9 +1407,9 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+ 			goto err_config;
+ 		}
+ 
++init_rmem:
+ 		init_completion(&kproc->shut_comp);
+ 		init_completion(&kproc->suspend_comp);
+-init_rmem:
+ 		k3_r5_adjust_tcm_sizes(kproc);
+ 
+ 		ret = k3_r5_reserved_mem_init(kproc);
+-- 
+2.34.1
+

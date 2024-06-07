@@ -19,6 +19,7 @@ SRC_URI:append:j721s2:adas = " \
 
 SRC_URI:append:j784s4 = " \
     file://0002-tiU21.01-arm-mach-k3-j784s4-Enable-QoS-for-DSS.patch \
+    file://0003-j7AHP_MCU1_1_graceful_shutdown.patch \
 "
 
 PACKAGECONFIG[dm-edgeai] = "DM=${STAGING_DIR_HOST}${nonarch_base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_mcu1_0.out,,ti-edgeai-firmware"

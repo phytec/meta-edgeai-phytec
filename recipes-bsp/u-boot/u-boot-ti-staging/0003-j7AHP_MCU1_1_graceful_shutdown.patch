@@ -1,0 +1,129 @@
+From c366c0681830b1ae0d0286cd9396e09079dd3713 Mon Sep 17 00:00:00 2001
+From: Beleswar Padhi <b-padhi@ti.com>
+Date: Fri, 19 Apr 2024 17:22:58 +0530
+Subject: [PATCH] remoteproc: k3-r5: Release processor control for device
+ operations
+
+Device Operations like get_device, put_device, is_on are processed by
+Device Manager. This requires Device Manager to acquire processor
+control to execute the operations. Therefore, release processor
+control when executing device operations and acquire it back after
+the operations are over.
+
+Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+---
+ drivers/remoteproc/ti_k3_r5f_rproc.c | 56 ++++++++++------------------
+ 1 file changed, 20 insertions(+), 36 deletions(-)
+
+diff --git a/drivers/remoteproc/ti_k3_r5f_rproc.c b/drivers/remoteproc/ti_k3_r5f_rproc.c
+index cf3ab59be91..b1cbfbce2b7 100644
+--- a/drivers/remoteproc/ti_k3_r5f_rproc.c
++++ b/drivers/remoteproc/ti_k3_r5f_rproc.c
+@@ -211,28 +211,19 @@ static int k3_r5f_split_release(struct k3_r5f_core *core)
+ 
+ 	dev_dbg(core->dev, "%s\n", __func__);
+ 
+-	if (core->ipdata->is_dm_core) {
+-		ret = ti_sci_proc_set_control(&core->tsp,
+-					      PROC_BOOT_CTRL_FLAG_R5_LPSC, 0);
+-		if (ret) {
+-			dev_err(core->dev, "LPSC on failed, ret = %d\n", ret);
+-			return ret;
+-		}
+-	} else {
+-		ret = ti_sci_proc_power_domain_on(&core->tsp);
+-		if (ret) {
+-			dev_err(core->dev, "module-reset deassert failed, ret = %d\n",
++	ret = ti_sci_proc_power_domain_on(&core->tsp);
++	if (ret) {
++		dev_err(core->dev, "module-reset deassert failed, ret = %d\n",
+ 				ret);
+-			return ret;
+-		}
++		return ret;
++	}
+ 
+-		ret = reset_deassert(&core->reset);
+-		if (ret) {
+-			dev_err(core->dev, "local-reset deassert failed, ret = %d\n",
++	ret = reset_deassert(&core->reset);
++	if (ret) {
++		dev_err(core->dev, "local-reset deassert failed, ret = %d\n",
+ 				ret);
+-			if (ti_sci_proc_power_domain_off(&core->tsp))
+-				dev_warn(core->dev, "module-reset assert back failed\n");
+-		}
++		if (ti_sci_proc_power_domain_off(&core->tsp))
++			dev_warn(core->dev, "module-reset assert back failed\n");
+ 	}
+ 
+ 	return ret;
+@@ -338,12 +329,18 @@ static int k3_r5f_load(struct udevice *dev, ulong addr, ulong size)
+ 		return ret;
+ 	mem_auto_init = !(cfg & PROC_BOOT_CFG_FLAG_R5_MEM_INIT_DIS);
+ 
++	k3_r5f_proc_release(core);
++
+ 	ret = k3_r5f_prepare(dev);
+ 	if (ret) {
+ 		dev_err(dev, "R5f prepare failed for core %d\n",
+ 			core->tsp.proc_id);
+ 		goto proc_release;
+ 	}
++	
++	ret = k3_r5f_proc_request(core);
++	if (ret)
++		return ret;
+ 
+ 	k3_r5f_init_tcm_memories(core, mem_auto_init);
+ 
+@@ -454,24 +451,14 @@ proc_release:
+ 
+ static int k3_r5f_split_reset(struct k3_r5f_core *core)
+ {
+-	int ret = 0;
++	int ret;
+ 
+ 	dev_dbg(core->dev, "%s\n", __func__);
+-
+-	if (core->ipdata->is_dm_core) {
+-		ret = ti_sci_proc_set_control(&core->tsp, 0,
+-					      PROC_BOOT_CTRL_FLAG_R5_LPSC);
+-		if (ret) {
+-			dev_err(core->dev, "LPSC off failed, ret = %d\n", ret);
+-			return ret;
+-		}
+-	} else {
+-		if (reset_assert(&core->reset))
++	if (reset_assert(&core->reset))
+ 			ret = -EINVAL;
+ 
+-		if (ti_sci_proc_power_domain_off(&core->tsp))
++	if (ti_sci_proc_power_domain_off(&core->tsp))
+ 			ret = -EINVAL;
+-	}
+ 
+ 	return ret;
+ }
+@@ -524,10 +511,6 @@ static int k3_r5f_stop(struct udevice *dev)
+ 
+ 	dev_dbg(dev, "%s\n", __func__);
+ 
+-	ret = k3_r5f_proc_request(core);
+-	if (ret)
+-		return ret;
+-
+ 	core->in_use = false;
+ 
+ 	if (cluster->mode == CLUSTER_MODE_LOCKSTEP) {
+@@ -544,6 +527,7 @@ static int k3_r5f_stop(struct udevice *dev)
+ 	}
+ 
+ 	ret = k3_r5f_unprepare(dev);
++	return ret;
+ proc_release:
+ 	k3_r5f_proc_release(core);
+ 	return ret;
+-- 
+2.34.1
+
