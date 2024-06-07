@@ -1,9 +1,5 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/linux-ti-staging/${MACHINE}:"
 
-SRC_URI:append = " \
-    file://0001-arm64-defconfig-Enable-CONFIG_GPIO_SYSFS.patch \
-    file://0002-arm64-defconfig-Enable-CONFIG_USB_SERIAL_XR.patch \
-"
 
 SRC_URI:append:j721e = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
