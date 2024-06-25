@@ -22,26 +22,14 @@ EDGEAI_STACK = " \
 "
 
 EDGEAI_STACK:append:edgeai = " \
-        ti-tidl-osrt-dev \
-        ti-tidl-osrt-staticdev \
-        edgeai-init \
         edgeai-gui-app \
-        edgeai-gst-plugins-dev \
-        edgeai-dl-inferer-staticdev \
-        edgeai-gst-apps-source \
-        edgeai-gst-plugins-source \
-        edgeai-gst-apps \
-        edgeai-dl-inferer-source \
         ti-gpio-cpp-dev \
         ti-gpio-py \
         ti-gpio-cpp-source \
         ti-gpio-py-source \
-        edgeai-studio-agent \
 "
 
 EDGEAI_STACK:append:adas = " \
-        ti-tidl-osrt-staticdev \
-        edgeai-gst-plugins \
 "
 
 IMAGE_INSTALL:append = " \
