@@ -32,7 +32,7 @@ EDGEAI_STACK:append:edgeai = " \
         edgeai-gst-plugins-source \
         edgeai-gst-apps \
         edgeai-dl-inferer-source \
-        ti-gpio-cpp \
+        ti-gpio-cpp-dev \
         ti-gpio-py \
         ti-gpio-cpp-source \
         ti-gpio-py-source \
