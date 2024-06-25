@@ -29,7 +29,7 @@ RDEPENDS:${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev"
 
 RDEPENDS:${PN}-source += "bash python3-core edgeai-dl-inferer-dev python3-yamlloader python3-numpy opencv cmake dialog"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|am62xx|am62pxx"
+COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|am62axx|am62xx|am62pxx"
 
 export SOC = "${PLAT_SOC}"
 

@@ -11,7 +11,7 @@ SRCREV = "7da0dbb39dbb99f414dcae3eacdffa9e99f891a8"
 S = "${WORKDIR}/git"
 
 DEPENDS = "gpiozero"
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|am62pxx-evm"
+COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|am62axx|am62pxx"
 
 inherit setuptools3
 
