@@ -3,7 +3,7 @@ PR:append = "_edgeai_0"
 ARM_EDGEAI_STACK = " \
     ti-tidl-osrt-dev \
     ti-tidl-osrt-staticdev \
-    edgeai-gst-apps \
+    edgeai-gst-apps-dev \
     edgeai-studio-agent \
     edgeai-gst-plugins-dev \
     edgeai-dl-inferer-staticdev \
