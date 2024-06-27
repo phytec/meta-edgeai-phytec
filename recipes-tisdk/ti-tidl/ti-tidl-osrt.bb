@@ -10,15 +10,15 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 
 SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.13.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.12.0-cp310-cp310-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.14.0-cp310-cp310-linux_aarch64.whl;name=ort;subdir=${S}/ort\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.12.0-cp312-cp312-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.14.0-py3-none-any.whl;name=ort;subdir=${S}/ort\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.12_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.14.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
 "
 SRC_URI[dlr.sha256sum] = "334321201e8f30daecf18d562f83732dced0bb2efc21e556f45565ba6c3e21ee"
-SRC_URI[tflite.sha256sum] = "8dc66384e2f43af55234425d7a594ebada1bb42c2d2444cef27c2b651ff9887a"
-SRC_URI[ort.sha256sum] = "1ffec602551015062dc51557ca406252ec781d7115b4f15de7b7ef8130c7c60f"
+SRC_URI[tflite.sha256sum] = "feb00e834c537bc0c5195eefcacca14d03b16d697ae93138136a13cc73328c2e"
+SRC_URI[ort.sha256sum] = "8578ac3f8ef677e1941073b48eb4f515a2ef0f3e62cd2859540c139cc0b96d69"
 SRC_URI[tfl_lib.sha256sum] = "439ee74eb4e7da842709c645c96cfd5fe0c44c89a49bd1e9fd650e6e6a8d3400"
 SRC_URI[ort_lib.sha256sum] = "7efbad0cb6d0793ba4db843055774b7a2bb746d8265058983482581305de3cd8"
 SRC_URI[opencv.sha256sum] = "4122073c37e3dd268fa814b6a53510325a1e6636aa3aea9d02ab79f42b4355bd"
@@ -36,19 +36,19 @@ COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|am62axx|am62xx|am62pxx"
 
 export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 
-PY_DST_DIR="${D}${libdir}/python3.10/site-packages"
+PY_DST_DIR="${D}${libdir}/python3.12/site-packages"
 LIB_DST_DIR="${D}${libdir}"
 
 FILES:${PN}-staticdev += "${libdir}/tflite_2.12/"
 FILES:${PN} += "${libdir}/*.so*"
-FILES:${PN} += "${libdir}/python3.10/*"
+FILES:${PN} += "${libdir}/python3.12/*"
 FILES:${PN} += "${includedir}"
 FILES:${PN} += "/usr/dlr/"
 
 do_install() {
-    pip3 install  --no-deps --platform linux_aarch64 ${S}/tflite/tflite_runtime-2.12.0-cp310-cp310-linux_aarch64.whl --target ${PY_DST_DIR} --disable-pip-version-check
+    pip3 install  --no-deps --platform linux_aarch64 ${S}/tflite/tflite_runtime-2.12.0-cp312-cp312-linux_aarch64.whl --target ${PY_DST_DIR} --disable-pip-version-check
     pip3 install  --no-deps --platform linux_aarch64 ${S}/dlr/dlr-1.13.0-py3-none-any.whl  --target ${PY_DST_DIR} --disable-pip-version-check
-    pip3 install  --no-deps --platform linux_aarch64 ${S}/ort/onnxruntime_tidl-1.14.0-cp310-cp310-linux_aarch64.whl  --target ${PY_DST_DIR} --disable-pip-version-check
+    pip3 install  --no-deps --platform linux_aarch64 ${S}/ort/onnxruntime_tidl-1.14.0-py3-none-any.whl  --target ${PY_DST_DIR} --disable-pip-version-check
 
     install -d ${D}${includedir}
     install -d ${LIB_DST_DIR}
