@@ -23,11 +23,11 @@ do_install() {
     install -d ${D}${sysconfdir}/systemd/system
     install -m 0644 ${WORKDIR}/edgeai-init.service ${D}${sysconfdir}/systemd/system
 
-    mkdir -p ${D}/home/root
-    install -m 0755 ${WORKDIR}/dot.profile ${D}/home/root/.profile
+    install -d ${D}/root
+    install -m 0755 ${WORKDIR}/dot.profile ${D}/root/.profile
 }
 
-FILES:${PN} += " /home/root/.profile"
+FILES:${PN} += "/root/.profile"
 
 PR:append = "_edgeai_0"
 
