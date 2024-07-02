@@ -1,5 +1,9 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/linux-ti-staging/${MACHINE}:"
 
+SRC_URI:append = " \
+    file://0001-remoteproc-k3-dsp-Set-dma-mask-to-48-bit.patch \
+    file://0002-remoteproc-k3-r5-Set-dma-mask-to-48-bit.patch \
+"
 
 SRC_URI:append:j721e = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
