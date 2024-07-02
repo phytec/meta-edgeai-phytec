@@ -20,8 +20,8 @@ do_install() {
     install -d ${D}${sysconfdir}/init.d
     install -m 755 ${WORKDIR}/edgeai-launcher.sh ${D}${sysconfdir}/init.d/edgeai-launcher.sh
 
-    install -d ${D}${sysconfdir}/systemd/system
-    install -m 0644 ${WORKDIR}/edgeai-init.service ${D}${sysconfdir}/systemd/system
+    install -d ${D}${systemd_system_unitdir}
+    install -m 0644 ${WORKDIR}/edgeai-init.service ${D}${systemd_system_unitdir}
 
     mkdir -p ${D}/home/root
     install -m 0755 ${WORKDIR}/dot.profile ${D}/home/root/.profile
