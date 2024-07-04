@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=1f7721ee7d288457c5a70d0c8ff44b87"
 PV = "1.0.0"
 BRANCH = "main"
 SRC_URI = "git://git.ti.com/git/edgeai/edgeai-apps-utils.git;protocol=https;branch=${BRANCH}"
-SRCREV = "a815ef4fe1f1ce65eb7fa1a7d65ffa3f67a617e9"
+SRCREV = "2d3be5e777668ef5a9de710fabcabc68a5807654"
 
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
