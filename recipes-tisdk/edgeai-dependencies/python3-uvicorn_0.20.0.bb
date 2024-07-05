@@ -10,10 +10,10 @@ PYPI_PACKAGE = "uvicorn"
 PV = "0.20.0"
 inherit pypi
 
-FILES:${PN} += "${libdir}/python3.10/*"
+FILES:${PN} += "${libdir}/python3.12/*"
 
 do_install() {
   CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
-  mkdir -p ${D}/${libdir}/python3.10/site-packages/
-  cp ${CP_ARGS} ${S}/uvicorn ${D}/${libdir}/python3.10/site-packages/
+  mkdir -p ${D}/${libdir}/python3.12/site-packages/
+  cp ${CP_ARGS} ${S}/uvicorn ${D}/${libdir}/python3.12/site-packages/
 }

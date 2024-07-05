@@ -8,10 +8,10 @@ PYPI_PACKAGE = "typing_extensions"
 PV = "4.5.0"
 inherit pypi
 
-FILES:${PN} += "${libdir}/python3.10/*"
+FILES:${PN} += "${libdir}/python3.12/*"
 
 do_install() {
   CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
-  mkdir -p ${D}/${libdir}/python3.10/site-packages/
-  cp ${CP_ARGS} ${S}/src/* ${D}/${libdir}/python3.10/site-packages/
+  mkdir -p ${D}/${libdir}/python3.12/site-packages/
+  cp ${CP_ARGS} ${S}/src/* ${D}/${libdir}/python3.12/site-packages/
 }
