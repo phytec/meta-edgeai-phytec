@@ -10,7 +10,7 @@ SRCREV = "7da0dbb39dbb99f414dcae3eacdffa9e99f891a8"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "gpiozero"
+DEPENDS = "gpiozero libgpiod"
 COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|am62axx|am62pxx"
 
 inherit setuptools3
