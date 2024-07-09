@@ -19,4 +19,4 @@ uenvcmd=if run check_psdk_setup; then echo "Already setup."; else run do_psdk_se
 
 # Setting the right U-Boot environment variables
 dorprocboot=1
-name_overlays=ti/k3-j721e-evm-virt-mac-client.dtbo ti/k3-j721e-vision-apps.dtbo
+name_overlays=ti/k3-j721e-evm-ethfw.dtbo ti/k3-j721e-vision-apps.dtbo
