@@ -15,10 +15,10 @@ the codec to access tiovx buffers through DMABUF IMPORT feature.
 
 Signed-off-by: Aniket Limaye <a-limaye@ti.com>
 ---
- arch/arm64/boot/dts/ti/Makefile               |   1 +
+ arch/arm64/boot/dts/ti/Makefile               |   2 +
  .../dts/ti/k3-j784s4-rtos-memory-map.dtsi     | 341 ++++++++++++++++++
  .../boot/dts/ti/k3-j784s4-vision-apps.dtso    |  53 +++
- 3 files changed, 395 insertions(+)
+ 3 files changed, 396 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi
  create mode 100644 arch/arm64/boot/dts/ti/k3-j784s4-vision-apps.dtso
 
@@ -26,7 +26,7 @@ diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
 index 054d4349a2b2..2b089058cc39 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -156,6 +156,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-ethfw.dtbo
+@@ -159,6 +159,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-ethfw.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-pcie0-pcie1-ep.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-quad-port-eth-exp1.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-usxgmii-exp1-exp2.dtbo
@@ -34,6 +34,11 @@ index 054d4349a2b2..2b089058cc39 100644
  dtb-$(CONFIG_ARCH_K3) += k3-am69-sk-rpi-hdr-ehrpwm.dtbo
  
  # Build time test only, enabled by CONFIG_OF_ALL_DTBS
+@@ -380,3 +381,4 @@ DTC_FLAGS_k3-j722s-evm += -@
+ DTC_FLAGS_k3-j722s-evm-fpdlink-fusion += -@
+ DTC_FLAGS_k3-j722s-evm-v3link-fusion += -@
+ DTC_FLAGS_k3-j784s4-evm += -@
++DTC_FLAGS_k3-j784s4-evm-ethfw += -@
 diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi
 new file mode 100644
 index 000000000000..9950ce6e3db4
