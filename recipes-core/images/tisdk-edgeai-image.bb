@@ -36,6 +36,7 @@ EDGEAI_STACK:append:edgeai = " \
         ti-gpio-py \
         ti-gpio-cpp-source \
         ti-gpio-py-source \
+        edgeai-studio-agent \
 "
 
 EDGEAI_STACK:append:adas = " \
