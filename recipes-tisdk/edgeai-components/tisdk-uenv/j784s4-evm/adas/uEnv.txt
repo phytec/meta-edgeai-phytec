@@ -18,4 +18,5 @@ do_psdk_setup=env default -f -a; saveenv
 uenvcmd=if test "$board_name" = "am69-sk"; then ; setenv args_all $args_all systemd.hostname=am69a-sk ; fi
 
 # Setting the right U-Boot environment variables
+dorprocboot=1
 name_overlays=ti/k3-j784s4-evm-ethfw.dtbo ti/k3-j784s4-vision-apps.dtbo
