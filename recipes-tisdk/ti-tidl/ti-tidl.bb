@@ -12,7 +12,7 @@ PV="1.0.0"
 
 SRCREV_FORMAT="default"
 SRCREV_arm-tidl="dd172a8500b5e9b0ae5641cdc4fafb5ef85289a1"
-SRCREV_concerto="b354c73de459a380b45943b1afc7e1b10bc5491d"
+SRCREV_concerto="38b9190a5d335e58d81d21e3e058b11e5c47c605"
 SRCREV_onnxruntime="91ce063f122df85e5caa408c3961b8167b25c2e4"
 SRCREV_tensorflow="a5870206f0c6addcb327b6095baab16639c1bd5c"
 
