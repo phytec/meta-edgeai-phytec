@@ -1,7 +1,7 @@
-From 32de2670d3f3643922f754fa1214f0931308f633 Mon Sep 17 00:00:00 2001
+From 42063b201f0d77190bb88b2ab9c5051bc60bccc4 Mon Sep 17 00:00:00 2001
 From: Lucas Weaver <l-weaver@ti.com>
 Date: Tue, 18 Oct 2022 09:23:02 -0500
-Subject: [PATCH 1/2] arm64: dts: ti: Add DTB overlay for vision apps
+Subject: [PATCH] arm64: dts: ti: Add DTB overlay for vision apps
 
 Confine the memory map changes into a separate rtos-memory-map.dts
 which describes the common memory map for all RTOS remoteprocs.
