@@ -11,7 +11,7 @@ LICENSE = "MIT"
 PV="1.0.0"
 
 SRCREV_FORMAT="default"
-SRCREV_arm-tidl="b5602595af03cae7ea0713c522fd8c9a566b49f3"
+SRCREV_arm-tidl="e851340ac64b9835d621e44f4dd119fafbcf24f1"
 SRCREV_concerto="38b9190a5d335e58d81d21e3e058b11e5c47c605"
 SRCREV_onnxruntime="91ce063f122df85e5caa408c3961b8167b25c2e4"
 SRCREV_tensorflow="a5870206f0c6addcb327b6095baab16639c1bd5c"
