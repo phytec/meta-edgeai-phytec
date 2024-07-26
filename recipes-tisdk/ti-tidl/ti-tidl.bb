@@ -11,16 +11,16 @@ LICENSE = "MIT"
 PV="1.0.0"
 
 SRCREV_FORMAT="default"
-SRCREV_arm-tidl="e851340ac64b9835d621e44f4dd119fafbcf24f1"
+SRCREV_arm-tidl="33e5d9a170475c31f2a65e2c83d86465fe21212e"
 SRCREV_concerto="38b9190a5d335e58d81d21e3e058b11e5c47c605"
-SRCREV_onnxruntime="91ce063f122df85e5caa408c3961b8167b25c2e4"
-SRCREV_tensorflow="a5870206f0c6addcb327b6095baab16639c1bd5c"
+SRCREV_onnxruntime="696c7c5074c28b27a8d1d6b70c45eb02bfcea4e5"
+SRCREV_tensorflow="422156a973b23bab6b86176a245a66193dccb995"
 
 SRC_URI = " \
     git://git.ti.com/git/processor-sdk-vision/arm-tidl.git;branch=master;protocol=https;name=arm-tidl;destsuffix=git/arm-tidl \
     git://git.ti.com/git/processor-sdk/concerto.git;branch=main;protocol=https;name=concerto;destsuffix=git/concerto \
     git://github.com/TexasInstruments/onnxruntime;branch=tidl-1.14;protocol=https;name=onnxruntime;destsuffix=git/onnxruntime  \
-    git://github.com/TexasInstruments/tensorflow;branch=tidl-j7-2.12-latest;protocol=https;name=tensorflow;destsuffix=git/tensorflow  \
+    git://github.com/TexasInstruments/tensorflow;branch=tidl-j7-2.12;protocol=https;name=tensorflow;destsuffix=git/tensorflow  \
     https://github.com/protocolbuffers/protobuf/releases/download/v3.20.2/protobuf-cpp-3.20.2.tar.gz;name=protobuf;subdir=git/protobuf-3.20.2 \
 "
 SRC_URI[protobuf.sha256sum] = "a0167e2ba24bba0a180fbc9392f3a43e749d7a26e630fe9c1a1ba32a53675ac3"
