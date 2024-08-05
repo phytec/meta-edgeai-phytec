@@ -5,6 +5,10 @@ SRC_URI:append = " \
     file://0001-net-nfs-Set-mount-version-to-default-2.patch \
 "
 
+SRC_URI:append:j721e = " \
+    file://0001-Optimal-QoS-Settings.patch \
+"
+
 PACKAGECONFIG[dm-edgeai] = "DM=${STAGING_DIR_HOST}${nonarch_base_libdir}/firmware/vision_apps_eaik/vx_app_rtos_linux_mcu1_0.out,,ti-edgeai-firmware"
 
 PACKAGECONFIG:remove:am62axx:edgeai = " dm"
