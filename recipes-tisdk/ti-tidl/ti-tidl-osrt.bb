@@ -9,18 +9,18 @@ PR:append = "_edgeai_4"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 LICENSE = "MIT"
 
-SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_02/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.13.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_02/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.12.0-cp312-cp312-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_02/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.14.0+10000000-cp312-cp312-linux_aarch64.whl;name=ort;subdir=${S}/ort\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_02/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.12_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_02/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.14.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
-           https://software-dl.ti.com/jacinto7/esd/tidl-tools/09_02_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
+SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_05/OSRT_TOOLS/ARM_LINUX/ARAGO/dlr-1.13.0-py3-none-any.whl;name=dlr;subdir=${S}/dlr\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_05/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_runtime-2.12.0-cp312-cp312-linux_aarch64.whl;name=tflite;subdir=${S}/tflite\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_05/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.14.0+10000005-cp312-cp312-linux_aarch64.whl;name=ort;subdir=${S}/ort\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_05/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.12_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_05/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.14.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
+           https://software-dl.ti.com/jacinto7/esd/tidl-tools/10_00_00_05/OSRT_TOOLS/ARM_LINUX/ARAGO/opencv_4.2.0_aragoj7.tar.gz;name=opencv;subdir=${S}/opencv\
 "
 SRC_URI[dlr.sha256sum] = "28683c8a5bc9e52fee09c7af6c48b9135406228f2c5eec421c34f3302180ba43"
 SRC_URI[tflite.sha256sum] = "94c5f0ccbd5458cfa1327b378c7d479dc7d23979df8f26f091720f850dc02364"
-SRC_URI[ort.sha256sum] = "4f889a5b78fa85139d7849b1b879ad1687a537ab655b27a1a9272cf46449de67"
+SRC_URI[ort.sha256sum] = "6ba27f71c274cee24775b5e7997129bb7b20be98de7777fb019dc6490a326dd3"
 SRC_URI[tfl_lib.sha256sum] = "2ff6878f51595395d84830747da6a8ddbb168eab93e84edd9e5f75cfb33b6b55"
-SRC_URI[ort_lib.sha256sum] = "87c11fa0dc6c2e11badb947b7d417d6b96d10ff2421cbe234c10d2e4e3da0615"
+SRC_URI[ort_lib.sha256sum] = "cf3e8a09641d953a48220e1b8f5f897cb7cc4a0c26444d78c49e683618f21466"
 SRC_URI[opencv.sha256sum] = "4122073c37e3dd268fa814b6a53510325a1e6636aa3aea9d02ab79f42b4355bd"
 
 do_cp_downloaded_build_deps() {
@@ -48,7 +48,7 @@ FILES:${PN} += "/usr/dlr/"
 do_install() {
     pip3 install  --no-deps --platform linux_aarch64 ${S}/tflite/tflite_runtime-2.12.0-cp312-cp312-linux_aarch64.whl --target ${PY_DST_DIR} --disable-pip-version-check
     pip3 install  --no-deps --platform linux_aarch64 ${S}/dlr/dlr-1.13.0-py3-none-any.whl  --target ${PY_DST_DIR} --disable-pip-version-check
-    pip3 install  --no-deps --platform linux_aarch64 ${S}/ort/onnxruntime_tidl-1.14.0+10000000-cp312-cp312-linux_aarch64.whl  --target ${PY_DST_DIR} --disable-pip-version-check
+    pip3 install  --no-deps --platform linux_aarch64 ${S}/ort/onnxruntime_tidl-1.14.0+10000005-cp312-cp312-linux_aarch64.whl  --target ${PY_DST_DIR} --disable-pip-version-check
 
     install -d ${D}${includedir}
     install -d ${LIB_DST_DIR}
