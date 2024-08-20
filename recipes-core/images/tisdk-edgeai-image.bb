@@ -68,8 +68,8 @@ WIC_CREATE_EXTRA_ARGS += " --no-fstab-update"
 IMAGE_BOOT_FILES:append:j784s4-evm:adas = " tiboot3-j784s4-gp-evm.bin tiboot3-j784s4-hs-fs-evm.bin"
 IMAGE_BOOT_FILES:append:j721s2-evm:adas = " tiboot3-j721s2-gp-evm.bin tiboot3-j721s2-hs-fs-evm.bin"
 
-IMAGE_BASENAME:edgeai = "tisdk-edgeai-image"
-IMAGE_BASENAME:adas = "tisdk-adas-image"
+IMAGE_BASENAME:edgeai = "tisdk-edgeai-image${ARAGO_IMAGE_SUFFIX}"
+IMAGE_BASENAME:adas = "tisdk-adas-image${ARAGO_IMAGE_SUFFIX}"
 export IMAGE_BASENAME
 
 PR:append = "_edgeai_8"
