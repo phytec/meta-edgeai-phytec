@@ -14,11 +14,12 @@ SOC:j721e = "j721e"
 SOC:j721s2 = "j721s2"
 SOC:j784s4 = "j784s4"
 SOC:j722s = "j722s"
+SOC:j742s2 = "j742s2"
 SOC:am62axx = "am62a"
 SOC:am62xx = "am62x"
 SOC:am62pxx = "am62p"
 
-COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|am62axx|am62xx|am62pxx"
+COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|j742s2|am62axx|am62xx|am62pxx"
 
 do_fetch() {
     mkdir -p ${WORKDIR}/script
