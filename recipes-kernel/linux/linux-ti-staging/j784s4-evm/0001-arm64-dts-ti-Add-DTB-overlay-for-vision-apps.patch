@@ -1,4 +1,4 @@
-From 42063b201f0d77190bb88b2ab9c5051bc60bccc4 Mon Sep 17 00:00:00 2001
+From 84a89a481fea98024323a31aa5216e162cde75c9 Mon Sep 17 00:00:00 2001
 From: Lucas Weaver <l-weaver@ti.com>
 Date: Tue, 18 Oct 2022 09:23:02 -0500
 Subject: [PATCH] arm64: dts: ti: Add DTB overlay for vision apps
@@ -23,7 +23,7 @@ Signed-off-by: Aniket Limaye <a-limaye@ti.com>
  create mode 100644 arch/arm64/boot/dts/ti/k3-j784s4-vision-apps.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 649b338fee0e..6028c60c6870 100644
+index 18ec74a853c5..1c88807d07fe 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
 @@ -159,6 +159,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-ethfw.dtbo
@@ -34,14 +34,15 @@ index 649b338fee0e..6028c60c6870 100644
  dtb-$(CONFIG_ARCH_K3) += k3-am69-sk-rpi-hdr-ehrpwm.dtbo
  
  # Boards with J742S2 SoC
-@@ -383,3 +384,4 @@ DTC_FLAGS_k3-j722s-evm += -@
+@@ -383,4 +384,5 @@ DTC_FLAGS_k3-j722s-evm += -@
  DTC_FLAGS_k3-j722s-evm-fpdlink-fusion += -@
  DTC_FLAGS_k3-j722s-evm-v3link-fusion += -@
  DTC_FLAGS_k3-j784s4-evm += -@
 +DTC_FLAGS_k3-j784s4-evm-ethfw += -@
+ DTC_FLAGS_k3-j742s2-evm += -@
 diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi
 new file mode 100644
-index 000000000000..9950ce6e3db4
+index 000000000000..ee59860125a4
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi
 @@ -0,0 +1,341 @@
@@ -290,19 +291,6 @@ index 000000000000..9950ce6e3db4
 +		reg = <0x00 0xb8100000 0x00 0x00504000>;
 +		no-map;
 +	};
-+	vision_apps_shared_region: vision_apps_shared-memories {
-+		compatible = "dma-heap-carveout";
-+		reg = <0x09 0x00000000 0x00 0x3c000000>;
-+	};
-+	linux,cma {
-+		status = "disabled";
-+	};
-+	linux_cma_region: linux-cma-buffers@980000000 {
-+		compatible = "shared-dma-pool";
-+		reusable;
-+		reg = <0x09 0x80000000 0x00 0x70000000>;
-+		linux,cma-default;
-+	};
 +	vision_apps_core_heaps_lo: vision-apps-core-heap-memory-lo@ba000000 {
 +		compatible = "shared-dma-pool";
 +		reg = <0x00 0xba000000 0x00 0x04000000>;
@@ -322,6 +310,19 @@ index 000000000000..9950ce6e3db4
 +		compatible = "shared-dma-pool";
 +		reg = <0x08 0x80000000 0x00 0x80000000>;
 +		no-map;
++	};
++	vision_apps_shared_region: vision_apps_shared-memories {
++		compatible = "dma-heap-carveout";
++		reg = <0x09 0x00000000 0x00 0x3c000000>;
++	};
++	linux,cma {
++		status = "disabled";
++	};
++	linux_cma_region: linux-cma-buffers@980000000 {
++		compatible = "shared-dma-pool";
++		reusable;
++		reg = <0x09 0x80000000 0x00 0x70000000>;
++		linux,cma-default;
 +	};
 +};
 +
