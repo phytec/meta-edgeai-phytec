@@ -11,9 +11,7 @@ EDGEAI_STACK = " \
         ti-edgeai-firmware \
         ti-tidl-dev \
         edgeai-tiovx-kernels-dev \
-        edgeai-tiovx-modules-dev \
         edgeai-tiovx-kernels-source \
-        edgeai-tiovx-modules-source \
         edgeai-apps-utils-source \
         edgeai-test-data \
         edgeai-tidl-models \
@@ -26,6 +24,8 @@ EDGEAI_STACK:append:edgeai = " \
         ti-tidl-osrt-staticdev \
         edgeai-init \
         edgeai-gui-app \
+        edgeai-tiovx-modules-dev \
+        edgeai-tiovx-modules-source \
         edgeai-gst-plugins-dev \
         edgeai-dl-inferer-staticdev \
         edgeai-gst-apps-source \
