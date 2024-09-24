@@ -20,7 +20,7 @@ PLAT_SOC:am62axx = "am62a"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "edgeai-tiovx-modules yaml-cpp glib-2.0 ffmpeg libdrm"
+DEPENDS = "edgeai-tiovx-kernels yaml-cpp glib-2.0 ffmpeg libdrm"
 RDEPENDS:${PN}-source = "cmake bash python3-core"
 
 COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|j742s2|am62axx"
