@@ -24,6 +24,7 @@ SRC_URI:append:j784s4 = " \
 
 SRC_URI:append:j742s2 = " \
     file://0001-arm64-dts-ti-Add-DTB-overlay-for-vision-apps.patch \
+    file://0002-arm64-dts-ti-Add-DTC_FLAGS-for-J742S2.patch \
 "
 
 SRC_URI:append:j722s = " \

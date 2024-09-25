@@ -1,0 +1,26 @@
+From 0740fae4066772eb5c6725a74d358ed3a903580c Mon Sep 17 00:00:00 2001
+From: Manorit Chawdhry <m-chawdhry@ti.com>
+Date: Wed, 28 Aug 2024 11:12:55 +0530
+Subject: [PATCH 2/2] arm64: dts: ti: Add DTC_FLAGS for J742S2
+
+The DT file doesn't have symbols, add DTC_FLAGS to generate symbols so
+that the overlays can be applied.
+
+Fixes: 8636139a4976 ("arm64: dts: ti: Introduce J742S2 SoC and EVM")
+Signed-off-by: Manorit Chawdhry <m-chawdhry@ti.com>
+---
+ arch/arm64/boot/dts/ti/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index dc390b09219f..65e321c616fc 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -384,3 +384,4 @@ DTC_FLAGS_k3-j722s-evm += -@
+ DTC_FLAGS_k3-j722s-evm-fpdlink-fusion += -@
+ DTC_FLAGS_k3-j722s-evm-v3link-fusion += -@
+ DTC_FLAGS_k3-j784s4-evm += -@
++DTC_FLAGS_k3-j742s2-evm += -@
+-- 
+2.34.1
+
