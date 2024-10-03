@@ -1,4 +1,4 @@
-From f2d71cb2060abf0a179aab7056a12f1963846638 Mon Sep 17 00:00:00 2001
+From 0ad22aef2af2ece9fe80c52f1e78f4b413d794c3 Mon Sep 17 00:00:00 2001
 From: Shyam Jagannathan <shyam.jagannathan@ti.com>
 Date: Mon, 5 Aug 2024 17:14:17 +0530
 Subject: [PATCH] Optimal QoS Settings
@@ -6,7 +6,7 @@ Subject: [PATCH] Optimal QoS Settings
 - In a multi-initiator use-case the defaults in the SoC to arbitrate system traffic is not sufficient
 - Systematic analysis of various traffic on the basis of type, route and priority is critical to reach device entitlement performance
 - These settings are arrived at after multiple iterations of tuning the AVP4 use-case (Auto Valet Parking) which comprise of multiple initiators
-- CSI-Rx (RT), VISS, LDC, MSC, DOF, C66x_1, C66_2, C71x, GPU, ENC, DSS (RT), Main R5F 2_0(RT), Main R5F 2_1 (RT) are the participating initiators in AVP4 use-case
+- CSI-Rx (RT), VISS, LDC, MSC, DOF, C66x_1, C66_2, C71x, GPU, ENC, DSS (RT), Main R5F 2_0, Main R5F 2_1 are the participating initiators in AVP4 use-case
 
 At a high level, the below is required
 - Mark accelerator traffic as atype=3 which makes the traffic take the non-coherent path and not contest with coherent traffic from A72/C71x
@@ -23,7 +23,7 @@ Signed-off-by: Shyam Jagannathan <shyam.jagannathan@ti.com>
  create mode 100644 arch/arm/mach-k3/include/mach/j721e_qos_params.h
 
 diff --git a/arch/arm/mach-k3/include/mach/hardware.h b/arch/arm/mach-k3/include/mach/hardware.h
-index 804bdd59..5af49855 100644
+index 42790320ffb..5b521806dc0 100644
 --- a/arch/arm/mach-k3/include/mach/hardware.h
 +++ b/arch/arm/mach-k3/include/mach/hardware.h
 @@ -50,6 +50,7 @@
@@ -36,7 +36,7 @@ index 804bdd59..5af49855 100644
  #ifdef CONFIG_SOC_K3_J721S2
 diff --git a/arch/arm/mach-k3/include/mach/j721e_qos_params.h b/arch/arm/mach-k3/include/mach/j721e_qos_params.h
 new file mode 100644
-index 00000000..bcc4a653
+index 00000000000..e011e43e355
 --- /dev/null
 +++ b/arch/arm/mach-k3/include/mach/j721e_qos_params.h
 @@ -0,0 +1,215 @@
@@ -83,10 +83,10 @@ index 00000000..bcc4a653
 +#define QOS_GPU0_M1_WR_ORDER_ID              (7U)
 +#define QOS_DSS0_DMA_ORDER_ID                (9U)
 +#define QOS_DSS0_FBDC_ORDER_ID               (9U)
-+#define QOS_R5FSS0_CORE0_MEM_RD_ORDER_ID     (11U)
-+#define QOS_R5FSS0_CORE0_MEM_WR_ORDER_ID     (11U)
-+#define QOS_R5FSS0_CORE1_MEM_RD_ORDER_ID     (11U)
-+#define QOS_R5FSS0_CORE1_MEM_WR_ORDER_ID     (11U)
++#define QOS_R5FSS0_CORE0_MEM_RD_ORDER_ID     (7U)
++#define QOS_R5FSS0_CORE0_MEM_WR_ORDER_ID     (7U)
++#define QOS_R5FSS0_CORE1_MEM_RD_ORDER_ID     (7U)
++#define QOS_R5FSS0_CORE1_MEM_WR_ORDER_ID     (7U)
 +
 +#define QOS_DSS0_DMA_PRIORITY                (1U)
 +#define QOS_DSS0_FBDC_PRIORITY               (1U)
@@ -256,7 +256,7 @@ index 00000000..bcc4a653
 +
 +#endif
 diff --git a/arch/arm/mach-k3/j721e_init.c b/arch/arm/mach-k3/j721e_init.c
-index dedef505..0ec25233 100644
+index dedef505441..fe0585fec8c 100644
 --- a/arch/arm/mach-k3/j721e_init.c
 +++ b/arch/arm/mach-k3/j721e_init.c
 @@ -241,6 +241,271 @@ void do_dt_magic(void)
@@ -545,12 +545,12 @@ index dedef505..0ec25233 100644
 +		setup_gpu_qos();
 +		setup_encoder_qos();
 +	}
-+	
++
  	spl_enable_cache();
  
  	if (IS_ENABLED(CONFIG_CPU_V7R))
 diff --git a/drivers/ram/k3-ddrss/k3-ddrss.c b/drivers/ram/k3-ddrss/k3-ddrss.c
-index 0a91c8d5..16d1509b 100644
+index 0a91c8d5539..16d1509b4a2 100644
 --- a/drivers/ram/k3-ddrss/k3-ddrss.c
 +++ b/drivers/ram/k3-ddrss/k3-ddrss.c
 @@ -782,6 +782,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
