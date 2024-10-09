@@ -1,4 +1,4 @@
-From 7be76d2991d22770d31797a3544410bd40c9e295 Mon Sep 17 00:00:00 2001
+From 85199f00f55c674c6216e333f0bebfdc1e86deec Mon Sep 17 00:00:00 2001
 From: Lucas Weaver <l-weaver@ti.com>
 Date: Mon, 12 Jul 2021 08:46:24 -0500
 Subject: [PATCH] arm64: dts: ti: Add DTB overlays for vision apps and edgeai
@@ -17,18 +17,18 @@ Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 ---
  arch/arm64/boot/dts/ti/Makefile               |   3 +
  .../boot/dts/ti/k3-j721e-edgeai-apps.dtso     |  11 +
- .../boot/dts/ti/k3-j721e-rtos-memory-map.dtsi | 267 ++++++++++++++++++
+ .../boot/dts/ti/k3-j721e-rtos-memory-map.dtsi | 261 ++++++++++++++++++
  .../boot/dts/ti/k3-j721e-vision-apps.dtso     |  49 ++++
- 4 files changed, 330 insertions(+)
+ 4 files changed, 324 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-edgeai-apps.dtso
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-vision-apps.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 18ec74a853c5..3e07612c559e 100644
+index ff0d7a0c205b..c31cb5ea1b27 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -124,6 +124,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-ov5640.dtbo
+@@ -128,6 +128,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-ov5640.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-dual-imx219.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-fpdlink-fusion.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-rpi-hdr-ehrpwm.dtbo
@@ -37,7 +37,7 @@ index 18ec74a853c5..3e07612c559e 100644
  
  # Boards with J721s2 SoC
  dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
-@@ -357,6 +359,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-v3link-imx219-0-0.dtbo \
+@@ -368,6 +370,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-v3link-imx219-0-0.dtbo \
  			 k3-v3link-imx219-0-3.dtbo
  
  # Enable support for device-tree overlays
@@ -64,10 +64,10 @@ index 000000000000..adcd2ed6b987
 +#include "k3-j721e-rtos-memory-map.dtsi"
 diff --git a/arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi b/arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
 new file mode 100644
-index 000000000000..a059ff6678c2
+index 000000000000..3e4e1ca8fe54
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
-@@ -0,0 +1,267 @@
+@@ -0,0 +1,261 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Vision-apps: device-tree overlay
@@ -76,12 +76,6 @@ index 000000000000..a059ff6678c2
 + */
 +
 +#include <dt-bindings/soc/ti,sci_pm_domain.h>
-+
-+&{/} {
-+	dma_buf_phys {
-+		compatible = "ti,dma-buf-phys";
-+	};
-+};
 +
 +&mcu_r5fss0_core0_memory_region {
 +	status = "disabled";

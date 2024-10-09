@@ -1,4 +1,4 @@
-From 7a14f70c57d7c2d90512d8f629becdac4a0a540d Mon Sep 17 00:00:00 2001
+From 2218130ead0854d1b408ef4c49820a5a18fd5ffc Mon Sep 17 00:00:00 2001
 From: Rahul T R <r-ravikumar@ti.com>
 Date: Tue, 26 Mar 2024 15:48:27 +0530
 Subject: [PATCH] arm64: dts: ti: Add DTB overlay for vision apps
@@ -17,17 +17,17 @@ Signed-off-by: Aniket Limaye <a-limaye@ti.com>
 Signed-off-by: Rahul T R <r-ravikumar@ti.com>
 ---
  arch/arm64/boot/dts/ti/Makefile               |   1 +
- .../dts/ti/k3-j721s2-rtos-memory-map.dtsi     | 244 ++++++++++++++++++
+ .../dts/ti/k3-j721s2-rtos-memory-map.dtsi     | 238 ++++++++++++++++++
  .../boot/dts/ti/k3-j721s2-vision-apps.dtso    |  49 ++++
- 3 files changed, 294 insertions(+)
+ 3 files changed, 288 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-rtos-memory-map.dtsi
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-vision-apps.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 18ec74a853c5..157dee212b61 100644
+index ff0d7a0c205b..2cbc98f328bc 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -137,6 +137,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-gesi-exp-board.dtbo
+@@ -141,6 +141,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-gesi-exp-board.dtbo
  k3-j721s2-evm-dtbs := k3-j721s2-common-proc-board.dtb k3-j721s2-evm-gesi-exp-board.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm.dtb
  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-pcie1-ep.dtbo
@@ -37,10 +37,10 @@ index 18ec74a853c5..157dee212b61 100644
  dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm.dtb
 diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-rtos-memory-map.dtsi b/arch/arm64/boot/dts/ti/k3-j721s2-rtos-memory-map.dtsi
 new file mode 100644
-index 000000000000..702055e6c2f4
+index 000000000000..a814ebd62a27
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j721s2-rtos-memory-map.dtsi
-@@ -0,0 +1,244 @@
+@@ -0,0 +1,238 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Vision-apps: device-tree overlay
@@ -52,12 +52,6 @@ index 000000000000..702055e6c2f4
 +
 +/dts-v1/;
 +/plugin/;
-+
-+&{/} {
-+	dma_buf_phys {
-+		compatible = "ti,dma-buf-phys";
-+	};
-+};
 +
 +&mcu_r5fss0_core0_memory_region {
 +	status = "disabled";
