@@ -1,4 +1,4 @@
-From ea2c7d1065a7f0b44e9482df06a75420e59bf199 Mon Sep 17 00:00:00 2001
+From 7eab34504520fa9fc3e9ea6d0ac3a952f4f9ac29 Mon Sep 17 00:00:00 2001
 From: Rahul T R <r-ravikumar@ti.com>
 Date: Thu, 10 Oct 2024 00:05:13 +0530
 Subject: [PATCH] arch: arm: dts: k3-j722s-*: Update memory map for PSDK RTOS
@@ -9,8 +9,8 @@ remote core memory needs
 Signed-off-by: Rahul T R <r-ravikumar@ti.com>
 ---
  arch/arm/dts/k3-j722s-evm.dts              |   2 +
- arch/arm/dts/k3-j722s-rtos-memory-map.dtsi | 169 +++++++++++++++++++++
- 2 files changed, 171 insertions(+)
+ arch/arm/dts/k3-j722s-rtos-memory-map.dtsi | 166 +++++++++++++++++++++
+ 2 files changed, 168 insertions(+)
  create mode 100644 arch/arm/dts/k3-j722s-rtos-memory-map.dtsi
 
 diff --git a/arch/arm/dts/k3-j722s-evm.dts b/arch/arm/dts/k3-j722s-evm.dts
@@ -25,10 +25,10 @@ index 93333b29b37..ab46ab1a858 100644
 +#include "k3-j722s-rtos-memory-map.dtsi"
 diff --git a/arch/arm/dts/k3-j722s-rtos-memory-map.dtsi b/arch/arm/dts/k3-j722s-rtos-memory-map.dtsi
 new file mode 100644
-index 00000000000..e630cbb60de
+index 00000000000..a352f1ebbc6
 --- /dev/null
 +++ b/arch/arm/dts/k3-j722s-rtos-memory-map.dtsi
-@@ -0,0 +1,169 @@
+@@ -0,0 +1,166 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Vision-apps: device-tree overlay
@@ -37,9 +37,6 @@ index 00000000000..e630cbb60de
 + */
 +
 +#include <dt-bindings/soc/ti,sci_pm_domain.h>
-+
-+/dts-v1/;
-+/plugin/;
 +
 +&wkup_r5fss0_core0_memory_region {
 +	status = "disabled";
