@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=1f7721ee7d288457c5a70d0c8ff44b87"
 PV = "1.0.0"
 BRANCH = "main"
 SRC_URI = "git://git.ti.com/git/edgeai/edgeai-tiovx-modules.git;branch=${BRANCH};protocol=https"
-SRCREV = "a5bd23587247fead99cc8bf69d3e19713d1b6739"
+SRCREV = "52029e683977db565e4860ee4098a37cc2741355"
 
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
