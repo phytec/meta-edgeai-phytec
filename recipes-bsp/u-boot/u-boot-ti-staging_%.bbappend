@@ -2,7 +2,6 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI:append = " \
     file://0001-configs-j7-Enable-the-NFS-command-by-default.patch \
-    file://0001-net-nfs-Set-mount-version-to-default-2.patch \
 "
 
 SRC_URI:append:j721e = " \
