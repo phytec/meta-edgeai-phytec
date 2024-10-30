@@ -1,4 +1,4 @@
-From 0ad22aef2af2ece9fe80c52f1e78f4b413d794c3 Mon Sep 17 00:00:00 2001
+From 6d074d5bb1fc4fd578fcf805ac0a5bd64f52f7f4 Mon Sep 17 00:00:00 2001
 From: Shyam Jagannathan <shyam.jagannathan@ti.com>
 Date: Mon, 5 Aug 2024 17:14:17 +0530
 Subject: [PATCH] Optimal QoS Settings
@@ -550,10 +550,10 @@ index dedef505441..fe0585fec8c 100644
  
  	if (IS_ENABLED(CONFIG_CPU_V7R))
 diff --git a/drivers/ram/k3-ddrss/k3-ddrss.c b/drivers/ram/k3-ddrss/k3-ddrss.c
-index 0a91c8d5539..16d1509b4a2 100644
+index 3d488e3857d..8b093b9a26c 100644
 --- a/drivers/ram/k3-ddrss/k3-ddrss.c
 +++ b/drivers/ram/k3-ddrss/k3-ddrss.c
-@@ -782,6 +782,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
+@@ -832,6 +832,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
  	writel(val, base + DDRSS_ECC_CTRL_REG);
  }
  
@@ -576,7 +576,7 @@ index 0a91c8d5539..16d1509b4a2 100644
 +
  static int k3_ddrss_probe(struct udevice *dev)
  {
- 	int ret;
+ 	u64 end;
 -- 
 2.34.1
 
