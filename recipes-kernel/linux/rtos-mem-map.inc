@@ -4,10 +4,6 @@ SRC_URI:append:edgeai = " \
     file://0001-arm64-Enable-docker-support-in-defconfig.patch \
 "
 
-SRC_URI:append = " \
-    file://0001-remoteproc-k3-dsp-assert-reset-in-probe.patch \
-"
-
 SRC_URI:append:j721e = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
 "
