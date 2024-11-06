@@ -1,4 +1,4 @@
-From fc56ece3b3b65d3bc1a320355f44bbaec707d656 Mon Sep 17 00:00:00 2001
+From 91607a7051f93e01850a18255d0661dda0dafcde Mon Sep 17 00:00:00 2001
 From: Rahul T R <r-ravikumar@ti.com>
 Date: Tue, 18 Oct 2022 10:40:25 -0500
 Subject: [PATCH] arm64: dts: ti: j722s: Add DTB overlay for RTOS memory map
@@ -19,10 +19,10 @@ Signed-off-by: Shreyash Sinha <s-sinha@ti.com>
  create mode 100644 arch/arm64/boot/dts/ti/k3-j722s-vision-apps.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index ff0d7a0c205b..fd6ea0f78881 100644
+index 6bd06bd76..b2bb1c95a 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -152,6 +152,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-fpdlink-fusion.dtbo
+@@ -154,6 +154,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-fpdlink-fusion.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-microtips-mf101hie-panel.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-v3link-fusion.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-pwm.dtbo
@@ -33,7 +33,7 @@ index ff0d7a0c205b..fd6ea0f78881 100644
  dtb-$(CONFIG_ARCH_K3) += k3-am69-sk.dtb
 diff --git a/arch/arm64/boot/dts/ti/k3-j722s-edgeai-apps.dtso b/arch/arm64/boot/dts/ti/k3-j722s-edgeai-apps.dtso
 new file mode 100644
-index 000000000000..44e7b6e7d72e
+index 000000000..44e7b6e7d
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j722s-edgeai-apps.dtso
 @@ -0,0 +1,11 @@
@@ -50,7 +50,7 @@ index 000000000000..44e7b6e7d72e
 +#include "k3-j722s-rtos-memory-map.dtsi"
 diff --git a/arch/arm64/boot/dts/ti/k3-j722s-rtos-memory-map.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-rtos-memory-map.dtsi
 new file mode 100644
-index 000000000000..2cbb170e83c4
+index 000000000..1e79eef6a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j722s-rtos-memory-map.dtsi
 @@ -0,0 +1,169 @@
@@ -144,42 +144,42 @@ index 000000000000..2cbb170e83c4
 +		reg = <0x00 0xa2100000 0x00 0x01f00000>;
 +		no-map;
 +	};
-+	vision_apps_rtos_ipc_memory_region: vision-apps-rtos-ipc-memory-region@a6000000 {
++	vision_apps_rtos_ipc_memory_region: vision-apps-rtos-ipc-memory-region@a5000000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xa6000000 0x00 0x02000000>;
++		reg = <0x00 0xa5000000 0x00 0x02000000>;
 +		no-map;
 +	};
-+	vision_apps_memory_region: vision-apps-dma-memory@a8000000 {
++	vision_apps_memory_region: vision-apps-dma-memory@a7000000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xa8000000 0x00 0x06000000>;
++		reg = <0x00 0xa7000000 0x00 0x06000000>;
 +		no-map;
 +	};
-+	vision_apps_c71_0_dma_memory_region: vision-apps-c71-dma-memory@ae000000 {
++	vision_apps_c71_0_dma_memory_region: vision-apps-c71-dma-memory@ad000000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xae000000 0x00 0x00100000>;
++		reg = <0x00 0xad000000 0x00 0x00100000>;
 +		no-map;
 +	};
-+	vision_apps_c71_0_memory_region: vision-apps-c71_0-memory@ae100000 {
++	vision_apps_c71_0_memory_region: vision-apps-c71_0-memory@ad100000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xae100000 0x00 0x03f00000>;
++		reg = <0x00 0xad100000 0x00 0x03f00000>;
 +		no-map;
 +	};
-+	vision_apps_c71_1_dma_memory_region: vision-apps-c71_1-dma-memory@b2000000 {
++	vision_apps_c71_1_dma_memory_region: vision-apps-c71_1-dma-memory@b1000000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xb2000000 0x00 0x00100000>;
++		reg = <0x00 0xb1000000 0x00 0x00100000>;
 +		no-map;
 +	};
-+	vision_apps_c71_1_memory_region: vision-apps-c71_1-memory@b2100000 {
++	vision_apps_c71_1_memory_region: vision-apps-c71_1-memory@b1100000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xb2100000 0x00 0x03f00000>;
++		reg = <0x00 0xb1100000 0x00 0x03f00000>;
 +		no-map;
 +	};
-+	vision_apps_core_heaps_lo: vision-apps-core-heap-memory-lo@b6000000 {
++	vision_apps_core_heaps_lo: vision-apps-core-heap-memory-lo@b5000000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xb6000000 0x00 0x02800000>;
++		reg = <0x00 0xb5000000 0x00 0x02800000>;
 +		no-map;
 +	};
-+	vision_apps_core_heaps_hi: vision-apps-core-heap-memory-hi@880000000 {
++	c7x_ddr_heaps_hi: c7x-ddr-heaps-hi@880000000 {
 +		compatible = "shared-dma-pool";
 +		reg = <0x08 0x80000000 0x00 0x20000000>;
 +		no-map;
@@ -225,7 +225,7 @@ index 000000000000..2cbb170e83c4
 +};
 diff --git a/arch/arm64/boot/dts/ti/k3-j722s-vision-apps.dtso b/arch/arm64/boot/dts/ti/k3-j722s-vision-apps.dtso
 new file mode 100644
-index 000000000000..f4b5ad1136aa
+index 000000000..f4b5ad113
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j722s-vision-apps.dtso
 @@ -0,0 +1,35 @@
