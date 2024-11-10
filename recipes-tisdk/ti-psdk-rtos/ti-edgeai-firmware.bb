@@ -20,7 +20,7 @@ PLAT_SFX:j722s = "j722s"
 PLAT_SFX:j742s2 = "j742s2"
 PLAT_SFX:am62axx = "am62a"
 
-SRCREV = "5dff8b21229e88e42b0282b9607021b7d0573e30"
+SRCREV = "3d27efb98f6283bf5472c5de91adf5a7010faccf"
 BRANCH = "main"
 
 SRC_URI = " \
