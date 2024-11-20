@@ -1,0 +1,470 @@
+From 887dad26d616850655ab83dc616855c18a843c2a Mon Sep 17 00:00:00 2001
+From: Vaishnav Achath <vaishnav.a@ti.com>
+Date: Tue, 19 Nov 2024 15:04:33 +0530
+Subject: [PATCH 3/3] arm64: dts: ti: k3-v3link: Add overlays for 8x
+ IMX219+UB953 serializer
+
+Arducam V3Link camera adapter (Tx) is a dedicated board with UB953
+serializer, that support RPi 22-pin compatible sensors. It is shipped
+with an IMX219 sensor. [1]
+
+Add overlays for interfacing these boards with the 4x different RX ports
+on second V3Link mini fusion board connected to CSI Port 1 in a  dual
+V3Link mini fusion board configuration. AM68 SK, AM69 SK and J722S SK
+can support dual V3Link mini fusion board up to 8 cameras.
+
+[1]: https://docs.arducam.com/V3Link-Camera-Solution/V3Link-Camera-Solution-on-TI-Platform/Introduction/
+
+Signed-off-by: Vaishnav Achath <vaishnav.a@ti.com>
+---
+ arch/arm64/boot/dts/ti/Makefile               |  6 +-
+ .../boot/dts/ti/k3-v3link-imx219-1-0.dtso     | 99 +++++++++++++++++++
+ .../boot/dts/ti/k3-v3link-imx219-1-1.dtso     | 99 +++++++++++++++++++
+ .../boot/dts/ti/k3-v3link-imx219-1-2.dtso     | 99 +++++++++++++++++++
+ .../boot/dts/ti/k3-v3link-imx219-1-3.dtso     | 99 +++++++++++++++++++
+ 5 files changed, 401 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-v3link-imx219-1-0.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-v3link-imx219-1-1.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-v3link-imx219-1-2.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-v3link-imx219-1-3.dtso
+
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 6419939d8b77..4f874b7240d7 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -386,7 +386,11 @@ dtb-$(CONFIG_ARCH_K3) += k3-fpdlink-ov2312-0-0.dtbo \
+ dtb-$(CONFIG_ARCH_K3) += k3-v3link-imx219-0-0.dtbo \
+ 			 k3-v3link-imx219-0-1.dtbo \
+ 			 k3-v3link-imx219-0-2.dtbo \
+-			 k3-v3link-imx219-0-3.dtbo
++			 k3-v3link-imx219-0-3.dtbo \
++			 k3-v3link-imx219-1-0.dtbo \
++			 k3-v3link-imx219-1-1.dtbo \
++			 k3-v3link-imx219-1-2.dtbo \
++			 k3-v3link-imx219-1-3.dtbo
+ 
+ # Enable support for device-tree overlays
+ DTC_FLAGS_k3-am625-beagleplay += -@
+diff --git a/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-0.dtso b/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-0.dtso
+new file mode 100644
+index 000000000000..3d0abe4b84c4
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-0.dtso
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * IMX219 Camera Module for V3-Link d-ch Adapter Board
++ * https://docs.arducam.com/V3Link-Camera-Solution/V3Link-Camera-Solution-on-TI-Platform/Introduction/
++ *
++ * Copyright (c) 2024 Texas Instruments Incorporated - http://www.ti.com/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	clk_imx219_fixed_10: imx219-xclk-10 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <24000000>;
++	};
++};
++
++&ds90ub960_1_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	/* FPDLink RX 0 */
++	port@0 {
++		reg = <0>;
++
++		ub960_fpd3_1_in: endpoint {
++			remote-endpoint = <&ub953_1_out>;
++		};
++	};
++};
++
++&ds90ub960_1_links {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	link@0 {
++		reg = <0>;
++		i2c-alias = <0x54>;
++
++		ti,rx-mode = <3>;
++
++		serializer: serializer {
++			compatible = "ti,ds90ub953-q1";
++			gpio-controller;
++			#gpio-cells = <2>;
++
++			#clock-cells = <0>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					ub953_1_in: endpoint {
++						clock-lanes = <0>;
++						data-lanes = <1 2>;
++						remote-endpoint = <&sensor_1_out>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					ub953_1_out: endpoint {
++						remote-endpoint = <&ub960_fpd3_1_in>;
++					};
++				};
++			};
++
++			i2c {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				sensor@10 {
++					compatible = "sony,imx219";
++					reg = <0x10>;
++
++					clocks = <&clk_imx219_fixed_10>;
++					clock-names = "xclk";
++					reset-gpios = <&serializer 1 GPIO_ACTIVE_HIGH>;
++
++					port {
++						sensor_1_out: endpoint {
++							remote-endpoint = <&ub953_1_in>;
++							link-frequencies = /bits/ 64 <456000000>;
++							clock-lanes = <0>;
++							data-lanes = <1 2>;
++						};
++					};
++				};
++			};
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-1.dtso b/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-1.dtso
+new file mode 100644
+index 000000000000..986cdb4fc0c2
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-1.dtso
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * IMX219 Camera Module for V3-Link d-ch Adapter Board
++ * https://docs.arducam.com/V3Link-Camera-Solution/V3Link-Camera-Solution-on-TI-Platform/Introduction/
++ *
++ * Copyright (c) 2024 Texas Instruments Incorporated - http://www.ti.com/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	clk_imx219_fixed_11: imx219-xclk-11 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <24000000>;
++	};
++};
++
++&ds90ub960_1_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	/* FPDLink RX 1 */
++	port@1 {
++		reg = <1>;
++
++		ub960_fpd3_1_in: endpoint {
++			remote-endpoint = <&ub953_1_out>;
++		};
++	};
++};
++
++&ds90ub960_1_links {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	link@1 {
++		reg = <1>;
++		i2c-alias = <0x55>;
++
++		ti,rx-mode = <3>;
++
++		serializer: serializer {
++			compatible = "ti,ds90ub953-q1";
++			gpio-controller;
++			#gpio-cells = <2>;
++
++			#clock-cells = <0>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					ub953_1_in: endpoint {
++						clock-lanes = <0>;
++						data-lanes = <1 2>;
++						remote-endpoint = <&sensor_1_out>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					ub953_1_out: endpoint {
++						remote-endpoint = <&ub960_fpd3_1_in>;
++					};
++				};
++			};
++
++			i2c {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				sensor@10 {
++					compatible = "sony,imx219";
++					reg = <0x10>;
++
++					clocks = <&clk_imx219_fixed_11>;
++					clock-names = "xclk";
++					reset-gpios = <&serializer 1 GPIO_ACTIVE_HIGH>;
++
++					port {
++						sensor_1_out: endpoint {
++							remote-endpoint = <&ub953_1_in>;
++							link-frequencies = /bits/ 64 <456000000>;
++							clock-lanes = <0>;
++							data-lanes = <1 2>;
++						};
++					};
++				};
++			};
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-2.dtso b/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-2.dtso
+new file mode 100644
+index 000000000000..ce48f06d550a
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-2.dtso
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * IMX219 Camera Module for V3-Link d-ch Adapter Board
++ * https://docs.arducam.com/V3Link-Camera-Solution/V3Link-Camera-Solution-on-TI-Platform/Introduction/
++ *
++ * Copyright (c) 2024 Texas Instruments Incorporated - http://www.ti.com/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	clk_imx219_fixed_12: imx219-xclk-12 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <24000000>;
++	};
++};
++
++&ds90ub960_1_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	/* FPDLink RX 2 */
++	port@2 {
++		reg = <2>;
++
++		ub960_fpd3_1_in: endpoint {
++			remote-endpoint = <&ub953_1_out>;
++		};
++	};
++};
++
++&ds90ub960_1_links {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	link@2 {
++		reg = <2>;
++		i2c-alias = <0x56>;
++
++		ti,rx-mode = <3>;
++
++		serializer: serializer {
++			compatible = "ti,ds90ub953-q1";
++			gpio-controller;
++			#gpio-cells = <2>;
++
++			#clock-cells = <0>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					ub953_1_in: endpoint {
++						clock-lanes = <0>;
++						data-lanes = <1 2>;
++						remote-endpoint = <&sensor_1_out>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					ub953_1_out: endpoint {
++						remote-endpoint = <&ub960_fpd3_1_in>;
++					};
++				};
++			};
++
++			i2c {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				sensor@10 {
++					compatible = "sony,imx219";
++					reg = <0x10>;
++
++					clocks = <&clk_imx219_fixed_12>;
++					clock-names = "xclk";
++					reset-gpios = <&serializer 1 GPIO_ACTIVE_HIGH>;
++
++					port {
++						sensor_1_out: endpoint {
++							remote-endpoint = <&ub953_1_in>;
++							link-frequencies = /bits/ 64 <456000000>;
++							clock-lanes = <0>;
++							data-lanes = <1 2>;
++						};
++					};
++				};
++			};
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-3.dtso b/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-3.dtso
+new file mode 100644
+index 000000000000..28916c4c0939
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-v3link-imx219-1-3.dtso
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * IMX219 Camera Module for V3-Link d-ch Adapter Board
++ * https://docs.arducam.com/V3Link-Camera-Solution/V3Link-Camera-Solution-on-TI-Platform/Introduction/
++ *
++ * Copyright (c) 2024 Texas Instruments Incorporated - http://www.ti.com/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	clk_imx219_fixed_13: imx219-xclk-13 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <24000000>;
++	};
++};
++
++&ds90ub960_1_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	/* FPDLink RX 3 */
++	port@3 {
++		reg = <3>;
++
++		ub960_fpd3_1_in: endpoint {
++			remote-endpoint = <&ub953_1_out>;
++		};
++	};
++};
++
++&ds90ub960_1_links {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	link@3 {
++		reg = <3>;
++		i2c-alias = <0x57>;
++
++		ti,rx-mode = <3>;
++
++		serializer: serializer {
++			compatible = "ti,ds90ub953-q1";
++			gpio-controller;
++			#gpio-cells = <2>;
++
++			#clock-cells = <0>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					ub953_1_in: endpoint {
++						clock-lanes = <0>;
++						data-lanes = <1 2>;
++						remote-endpoint = <&sensor_1_out>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					ub953_1_out: endpoint {
++						remote-endpoint = <&ub960_fpd3_1_in>;
++					};
++				};
++			};
++
++			i2c {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				sensor@10 {
++					compatible = "sony,imx219";
++					reg = <0x10>;
++
++					clocks = <&clk_imx219_fixed_13>;
++					clock-names = "xclk";
++					reset-gpios = <&serializer 1 GPIO_ACTIVE_HIGH>;
++
++					port {
++						sensor_1_out: endpoint {
++							remote-endpoint = <&ub953_1_in>;
++							link-frequencies = /bits/ 64 <456000000>;
++							clock-lanes = <0>;
++							data-lanes = <1 2>;
++						};
++					};
++				};
++			};
++		};
++	};
++};
+-- 
+2.34.1
+
