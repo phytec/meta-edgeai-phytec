@@ -11,22 +11,22 @@ LICENSE = "MIT"
 PV="1.0.0"
 
 SRCREV_FORMAT="default"
-SRCREV_arm-tidl="78a9795ab5a4acb070f7ef91072114fdaf1e968e"
+SRCREV_arm-tidl="d165b9ba24c28d23c28bc2f3eed15edc2569ee76"
 SRCREV_concerto="68d69c7d7623590b7f0311277708699428387709"
-SRCREV_onnxruntime="b07b733888500a37064f560f3d61d5c8ab1201c7"
+SRCREV_onnxruntime="f145bec7bee26b9dfa43b3e07645ee1a5f8b8140"
 SRCREV_tensorflow="422156a973b23bab6b86176a245a66193dccb995"
 
 SRC_URI = " \
     git://git.ti.com/git/processor-sdk-vision/arm-tidl.git;branch=master;protocol=https;name=arm-tidl;destsuffix=git/arm-tidl \
     git://git.ti.com/git/processor-sdk/concerto.git;branch=main;protocol=https;name=concerto;destsuffix=git/concerto \
-    git://github.com/TexasInstruments/onnxruntime;branch=tidl-1.14;protocol=https;name=onnxruntime;destsuffix=git/onnxruntime  \
+    git://github.com/TexasInstruments/onnxruntime;branch=tidl-1.15;protocol=https;name=onnxruntime;destsuffix=git/onnxruntime  \
     git://github.com/TexasInstruments/tensorflow;branch=tidl-j7-2.12;protocol=https;name=tensorflow;destsuffix=git/tensorflow  \
-    https://github.com/protocolbuffers/protobuf/releases/download/v3.20.2/protobuf-cpp-3.20.2.tar.gz;name=protobuf;subdir=git/protobuf-3.20.2 \
+    https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.21.12.tar.gz;name=protobuf;subdir=git/protobuf-3.21.12 \
 "
-SRC_URI[protobuf.sha256sum] = "a0167e2ba24bba0a180fbc9392f3a43e749d7a26e630fe9c1a1ba32a53675ac3"
+SRC_URI[protobuf.sha256sum] = "930c2c3b5ecc6c9c12615cf5ad93f1cd6e12d0aba862b572e076259970ac3a53"
 
 do_cp_downloaded_build_deps() {
-    mv ${S}/protobuf-3.20.2/*/* ${S}/protobuf-3.20.2
+    mv ${S}/protobuf-3.21.12/*/* ${S}/protobuf-3.21.12
 }
 addtask cp_downloaded_build_deps after do_unpack before do_patch
 
@@ -66,7 +66,7 @@ do_compile() {
     CONCERTO_ROOT=${S}/concerto \
     TF_REPO_PATH=${S}/tensorflow \
     ONNX_REPO_PATH=${S}/onnxruntime \
-    TIDL_PROTOBUF_PATH=${S}/protobuf-3.20.2 \
+    TIDL_PROTOBUF_PATH=${S}/protobuf-3.21.12 \
     GCC_LINUX_ARM_ROOT= \
     TARGET_SOC=${PLAT_SOC} \
     CROSS_COMPILE_LINARO=aarch64-oe-linux- \
