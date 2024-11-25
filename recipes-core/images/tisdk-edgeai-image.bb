@@ -44,8 +44,6 @@ EDGEAI_STACK:append:adas = " \
         edgeai-gst-plugins \
 "
 
-EDGEAI_STACK:remove:j742s2 = "edgeai-gst-plugins"
-
 IMAGE_INSTALL:append = " \
     ${EDGEAI_STACK} \
     packagegroup-arago-gst-sdk-target \
