@@ -1,4 +1,4 @@
-From 153453b2ae796d474c918df411f46155b8a65e41 Mon Sep 17 00:00:00 2001
+From 6d074d5bb1fc4fd578fcf805ac0a5bd64f52f7f4 Mon Sep 17 00:00:00 2001
 From: Shyam Jagannathan <shyam.jagannathan@ti.com>
 Date: Mon, 5 Aug 2024 17:14:17 +0530
 Subject: [PATCH] Optimal QoS Settings
@@ -23,7 +23,7 @@ Signed-off-by: Shyam Jagannathan <shyam.jagannathan@ti.com>
  create mode 100644 arch/arm/mach-k3/include/mach/j721e_qos_params.h
 
 diff --git a/arch/arm/mach-k3/include/mach/hardware.h b/arch/arm/mach-k3/include/mach/hardware.h
-index 68e0631c92e..25c97a01eed 100644
+index 42790320ffb..5b521806dc0 100644
 --- a/arch/arm/mach-k3/include/mach/hardware.h
 +++ b/arch/arm/mach-k3/include/mach/hardware.h
 @@ -50,6 +50,7 @@
@@ -550,10 +550,10 @@ index dedef505441..fe0585fec8c 100644
  
  	if (IS_ENABLED(CONFIG_CPU_V7R))
 diff --git a/drivers/ram/k3-ddrss/k3-ddrss.c b/drivers/ram/k3-ddrss/k3-ddrss.c
-index 6fd8584f4f9..c8e43118320 100644
+index 3d488e3857d..8b093b9a26c 100644
 --- a/drivers/ram/k3-ddrss/k3-ddrss.c
 +++ b/drivers/ram/k3-ddrss/k3-ddrss.c
-@@ -870,6 +870,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
+@@ -832,6 +832,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
  	writel(val, base + DDRSS_ECC_CTRL_REG);
  }
  
@@ -574,9 +574,9 @@ index 6fd8584f4f9..c8e43118320 100644
 +}
 +#endif
 +
- static void k3_ddrss_reg_update_bits(void __iomem *addr, u32 offset, u32 mask, u32 set)
+ static int k3_ddrss_probe(struct udevice *dev)
  {
- 	u32 val = readl(addr + offset);
+ 	u64 end;
 -- 
 2.34.1
 
