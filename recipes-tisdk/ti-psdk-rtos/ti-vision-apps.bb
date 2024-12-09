@@ -54,18 +54,20 @@ EXTRA_OEMAKE += "-C ${S}/repo/sdk_builder"
 do_fetch[depends] += "repo-native:do_populate_sysroot"
 
 do_compile() {
-    CROSS_COMPILE_LINARO=aarch64-oe-linux- \
-    LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET} \
-    TREAT_WARNINGS_AS_ERROR=0 \
-    GCC_LINUX_ARM_ROOT= \
-    GCC_LINUX_ARM_ROOT_A72= \
-    LINUX_FS_PATH=${STAGING_DIR_TARGET} \
-    SOC=${PLAT_SOC} \
+    export CROSS_COMPILE_LINARO=aarch64-oe-linux-
+    export LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET}
+    export TREAT_WARNINGS_AS_ERROR=0
+    export GCC_LINUX_ARM_ROOT=
+    export GCC_LINUX_ARM_ROOT_A72=
+    export LINUX_FS_PATH=${STAGING_DIR_TARGET}
+    export SOC=${PLAT_SOC}
     oe_runmake yocto_build
 }
 
 do_install() {
-    SOC=${PLAT_SOC} LINUX_FS_STAGE_PATH=${D} oe_runmake yocto_install
+    export SOC=${PLAT_SOC}
+    export LINUX_FS_STAGE_PATH=${D}
+    oe_runmake yocto_install
 }
 
 INSANE_SKIP:${PN} += "ldflags"
