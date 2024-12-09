@@ -38,6 +38,7 @@ DEPENDS = "glm devil freetype ti-rpmsg-char repo-native mesa-pvr libpam"
 DEPENDS:remove:am62axx = " mesa-pvr"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
 
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
