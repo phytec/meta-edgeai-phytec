@@ -26,7 +26,7 @@ diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
 index ff0d7a0c205b..cd0691013ab5 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -163,6 +163,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-ethfw.dtbo
+@@ -167,6 +167,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-ethfw.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-pcie0-pcie1-ep.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-quad-port-eth-exp1.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-usxgmii-exp1-exp2.dtbo
@@ -34,7 +34,7 @@ index ff0d7a0c205b..cd0691013ab5 100644
  dtb-$(CONFIG_ARCH_K3) += k3-am69-sk-rpi-hdr-ehrpwm.dtbo
  
  # Boards with J742S2 SoC
-@@ -395,5 +396,6 @@ DTC_FLAGS_k3-j722s-evm += -@
+@@ -415,5 +416,6 @@ DTC_FLAGS_k3-j722s-evm += -@
  DTC_FLAGS_k3-j722s-evm-fpdlink-fusion += -@
  DTC_FLAGS_k3-j722s-evm-v3link-fusion += -@
  DTC_FLAGS_k3-j784s4-evm += -@
@@ -253,7 +253,7 @@ index 000000000000..4f8ce9d9f59b
 +	};
 +	vision_apps_c71_0_memory_region: vision-apps-c71_0-memory@b2100000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xb2100000 0x00 0x00504000>;
++		reg = <0x00 0xb2100000 0x00 0x01f00000>;
 +		no-map;
 +	};
 +	vision_apps_c71_1_dma_memory_region: vision-apps-c71_1-dma-memory@b4000000 {
@@ -263,7 +263,7 @@ index 000000000000..4f8ce9d9f59b
 +	};
 +	vision_apps_c71_1_memory_region: vision-apps-c71_1-memory@b4100000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xb4100000 0x00 0x00504000>;
++		reg = <0x00 0xb4100000 0x00 0x01f00000>;
 +		no-map;
 +	};
 +	vision_apps_c71_2_dma_memory_region: vision-apps-c71_2-dma-memory@b6000000 {
@@ -273,7 +273,7 @@ index 000000000000..4f8ce9d9f59b
 +	};
 +	vision_apps_c71_2_memory_region: vision-apps-c71_2-memory@b6100000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xb6100000 0x00 0x00504000>;
++		reg = <0x00 0xb6100000 0x00 0x01f00000>;
 +		no-map;
 +	};
 +	vision_apps_c71_3_dma_memory_region: vision-apps-c71_3-dma-memory@b8000000 {
@@ -283,7 +283,7 @@ index 000000000000..4f8ce9d9f59b
 +	};
 +	vision_apps_c71_3_memory_region: vision-apps-c71_3-memory@b8100000 {
 +		compatible = "shared-dma-pool";
-+		reg = <0x00 0xb8100000 0x00 0x00504000>;
++		reg = <0x00 0xb8100000 0x00 0x01f00000>;
 +		no-map;
 +	};
 +	vision_apps_core_heaps_lo: vision-apps-core-heap-memory-lo@ba000000 {
