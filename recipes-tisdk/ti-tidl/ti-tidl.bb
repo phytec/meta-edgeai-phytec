@@ -69,7 +69,7 @@ do_compile() {
     TIDL_PROTOBUF_PATH=${S}/protobuf-3.20.2 \
     GCC_LINUX_ARM_ROOT= \
     TARGET_SOC=${PLAT_SOC} \
-    CROSS_COMPILE_LINARO=aarch64-oe-linux- \
+    CROSS_COMPILE_LINARO=aarch64-phytec-linux- \
     LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET} \
     TREAT_WARNINGS_AS_ERROR=0 \
     oe_runmake
