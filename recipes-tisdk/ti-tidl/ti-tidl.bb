@@ -57,21 +57,21 @@ EXTRA_OEMAKE += "-C ${S}/arm-tidl"
 do_compile() {
     ln -snf ${TARGET_FS} ${WORKDIR}/targetfs
 
-    PSDK_INSTALL_PATH=${WORKDIR} \
-    IVISION_PATH=${TARGET_FS}${includedir}/processor_sdk/ivision \
-    VISION_APPS_PATH=${TARGET_FS}${includedir}/processor_sdk/vision_apps \
-    APP_UTILS_PATH=${TARGET_FS}${includedir}/processor_sdk/app_utils \
-    TIOVX_PATH=${TARGET_FS}${includedir}/processor_sdk/tiovx \
-    LINUX_FS_PATH=${TARGET_FS} \
-    CONCERTO_ROOT=${S}/concerto \
-    TF_REPO_PATH=${S}/tensorflow \
-    ONNX_REPO_PATH=${S}/onnxruntime \
-    TIDL_PROTOBUF_PATH=${S}/protobuf-3.20.2 \
-    GCC_LINUX_ARM_ROOT= \
-    TARGET_SOC=${PLAT_SOC} \
-    CROSS_COMPILE_LINARO=aarch64-phytec-linux- \
-    LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET} \
-    TREAT_WARNINGS_AS_ERROR=0 \
+    export PSDK_INSTALL_PATH=${WORKDIR}
+    export IVISION_PATH=${TARGET_FS}${includedir}/processor_sdk/ivision
+    export VISION_APPS_PATH=${TARGET_FS}${includedir}/processor_sdk/vision_apps
+    export APP_UTILS_PATH=${TARGET_FS}${includedir}/processor_sdk/app_utils
+    export TIOVX_PATH=${TARGET_FS}${includedir}/processor_sdk/tiovx
+    export LINUX_FS_PATH=${TARGET_FS}
+    export CONCERTO_ROOT=${S}/concerto
+    export TF_REPO_PATH=${S}/tensorflow
+    export ONNX_REPO_PATH=${S}/onnxruntime
+    export TIDL_PROTOBUF_PATH=${S}/protobuf-3.20.2
+    export GCC_LINUX_ARM_ROOT=
+    export TARGET_SOC=${PLAT_SOC}
+    export CROSS_COMPILE_LINARO=aarch64-phytec-linux-
+    export LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET}
+    export TREAT_WARNINGS_AS_ERROR=0
     oe_runmake
 }
 
