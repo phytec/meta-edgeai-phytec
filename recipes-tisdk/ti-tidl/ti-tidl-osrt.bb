@@ -40,6 +40,7 @@ RDEPENDS:${PN} += " \
 "
 
 COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|j742s2|am62axx"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
 
 inherit python3-dir
 
