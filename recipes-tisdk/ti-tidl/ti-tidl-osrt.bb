@@ -33,6 +33,7 @@ addtask cp_downloaded_build_deps after do_unpack before do_patch
 DEPENDS += "python3-pip-native"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|am62xx|am62pxx"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
 
 export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 
