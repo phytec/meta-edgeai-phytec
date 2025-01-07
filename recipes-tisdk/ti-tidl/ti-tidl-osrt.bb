@@ -44,7 +44,6 @@ FILES:${PN}-staticdev += "${libdir}/tflite_2.12/"
 FILES:${PN} += "${libdir}/*.so*"
 FILES:${PN} += "${libdir}/python3.10/*"
 FILES:${PN} += "${includedir}"
-FILES:${PN} += "/usr/dlr/"
 
 do_install() {
     pip3 install  --no-deps --platform linux_aarch64 ${S}/tflite/tflite_runtime-2.12.0-cp310-cp310-linux_aarch64.whl --target ${PY_DST_DIR} --disable-pip-version-check
@@ -65,7 +64,6 @@ do_install() {
 
     cp -r ${S}/opencv/opencv-4.2.0  ${D}${includedir}/
 
-    mkdir -p ${D}/usr/dlr
     ln -s -r ${libdir}/python3.10/site-packages/dlr/libdlr.so ${LIB_DST_DIR}/libdlr.so
 }
 
