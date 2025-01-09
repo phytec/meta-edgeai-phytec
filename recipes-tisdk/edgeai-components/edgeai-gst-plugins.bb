@@ -10,6 +10,11 @@ BRANCH = "main"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-gst-plugins.git;branch=${BRANCH};protocol=https"
 SRCREV = "2186d723fcc84e404ade1f07f93ecb3b1154789e"
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+SRC_URI += " \
+    file://0001-WIP-Fix-build-issues.patch \
+"
+
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
 PLAT_SOC:j721s2 = "j721s2"

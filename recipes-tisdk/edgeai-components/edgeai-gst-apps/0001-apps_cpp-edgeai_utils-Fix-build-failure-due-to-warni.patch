@@ -1,0 +1,50 @@
+From 2fe4fb6cc0ba3591fb67e8c6542ff4d6819e79e6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20Riedm=C3=BCller?= <s.riedmueller@phytec.de>
+Date: Thu, 7 Dec 2023 11:00:52 +0100
+Subject: [PATCH] apps_cpp: edgeai_utils: Fix build failure due to warning
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Stefan Riedmüller <s.riedmueller@phytec.de>
+---
+ apps_cpp/common/src/edgeai_utils.cpp | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/apps_cpp/common/src/edgeai_utils.cpp b/apps_cpp/common/src/edgeai_utils.cpp
+index 264982bf67bd..1c86de8b0779 100644
+--- a/apps_cpp/common/src/edgeai_utils.cpp
++++ b/apps_cpp/common/src/edgeai_utils.cpp
+@@ -273,19 +273,19 @@ void Statistics::reportingLoop(const string &demoName)
+         clear();
+         int row = 1;
+ 
+-        mvprintw(row++, 1, border.c_str());
++        mvprintw(row++, 1, "%s", border.c_str());
+         mvprintw(row++, 1, fmt.c_str(), demoName.c_str());
+-        mvprintw(row++, 1, border.c_str());
++        mvprintw(row++, 1, "%s", border.c_str());
+ 
+         for (uint64_t i = 0; i < statsDb.size(); i++)
+         {
+             auto const s = &statsDb[i];
+ 
+-            mvprintw(row++, 1, border.c_str());
++            mvprintw(row++, 1, "%s", border.c_str());
+             mvprintw(row++, 1, fmt.c_str(), s->m_inputName.c_str());
+             mvprintw(row++, 1, fmt.c_str(), s->m_modelName.c_str());
+             mvprintw(row++, 1, fmt.c_str(), s->m_modelType.c_str());
+-            mvprintw(row++, 1, border.c_str());
++            mvprintw(row++, 1, "%s", border.c_str());
+ 
+             for (auto &key : gStatKeys)
+             {
+@@ -304,7 +304,7 @@ void Statistics::reportingLoop(const string &demoName)
+                             m->unit.c_str(), m->samples, len+2);
+             }
+ 
+-            mvprintw(row++, 1, border.c_str());
++            mvprintw(row++, 1, "%s", border.c_str());
+         }
+ 
+         refresh();
