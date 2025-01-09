@@ -24,6 +24,7 @@ DEPENDS = "edgeai-tiovx-kernels yaml-cpp glib-2.0 ffmpeg libdrm"
 RDEPENDS:${PN}-source = "cmake bash python3-core"
 
 COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|j742s2|am62axx"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
 
 export SOC = "${PLAT_SOC}"
 
