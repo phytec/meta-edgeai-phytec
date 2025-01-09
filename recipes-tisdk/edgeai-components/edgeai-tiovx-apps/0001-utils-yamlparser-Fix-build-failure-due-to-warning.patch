@@ -1,0 +1,211 @@
+From 7ada3d905a94d01e385f3754f91c23dd959f8c4c Mon Sep 17 00:00:00 2001
+From: Steffen Hemer <s.hemer@phytec.de>
+Date: Tue, 4 Feb 2025 15:15:28 +0100
+Subject: [PATCH 1/3] utils: yamlparser: Fix build failure due to warning
+
+sprintf second argument should be a format string.
+
+Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
+---
+ utils/src/yaml_parser.cpp | 46 +++++++++++++++++++--------------------
+ 1 file changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/utils/src/yaml_parser.cpp b/utils/src/yaml_parser.cpp
+index 5adf05ce7145..cfe71e60e11b 100644
+--- a/utils/src/yaml_parser.cpp
++++ b/utils/src/yaml_parser.cpp
+@@ -40,7 +40,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+         return -1;
+     }
+ 
+-    sprintf(input_info->source_name, source.data());
++    sprintf(input_info->source_name, "%s", source.data());
+ 
+     input_info->width = input_node["width"].as<uint32_t>();
+     input_info->height = input_node["height"].as<uint32_t>();
+@@ -63,7 +63,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+         /* Parse sensor-name. */
+         if (input_node["sensor-name"])
+         {
+-            sprintf(input_info->sensor_name,
++            sprintf(input_info->sensor_name, "%s",
+                     input_node["sensor-name"].as<std::string>().data());
+         }
+         else
+@@ -104,7 +104,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+         /* Parse sensor-name. */
+         if (input_node["sensor-name"])
+         {
+-            sprintf(input_info->sensor_name,
++            sprintf(input_info->sensor_name, "%s",
+                     input_node["sensor-name"].as<std::string>().data());
+         }
+         else
+@@ -117,7 +117,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+         /* Parse device. */
+         if (input_node["device"])
+         {
+-            sprintf(input_info->device,
++            sprintf(input_info->device, "%s",
+                     input_node["device"].as<std::string>().data());
+         }
+         else
+@@ -130,7 +130,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+         /* Parse subdev. */
+         if (input_node["subdev"])
+         {
+-            sprintf(input_info->subdev,
++            sprintf(input_info->subdev, "%s",
+                     input_node["subdev"].as<std::string>().data());
+         }
+         else
+@@ -153,7 +153,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+                 return -1;
+             }
+ 
+-            sprintf(input_info->video_path, video_path.data());
++            sprintf(input_info->video_path, "%s", video_path.data());
+         }
+         else
+         {
+@@ -186,7 +186,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+                 for(const auto &filename : std::filesystem::directory_iterator(image_path))
+                 {
+                     std::string path(filename.path());
+-                    sprintf(input_info->raw_img_paths[input_info->num_raw_img],
++                    sprintf(input_info->raw_img_paths[input_info->num_raw_img], "%s",
+                             path.data());
+                     input_info->num_raw_img++;
+                 }
+@@ -207,7 +207,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+             }
+             else
+             {
+-                sprintf(input_info->raw_img_paths[0], image_path.data());
++                sprintf(input_info->raw_img_paths[0], "%s", image_path.data());
+                 input_info->num_raw_img = 1;
+             }
+         }
+@@ -223,7 +223,7 @@ int32_t parse_input_node(InputInfo *input_info, const YAML::Node &input_node)
+         {
+             std::string format = input_node["format"].as<std::string>();
+             transform(format.begin(), format.end(), format.begin(), ::toupper);
+-            sprintf(input_info->format,format.data());
++            sprintf(input_info->format, "%s", format.data());
+         }
+         else
+         {
+@@ -259,7 +259,7 @@ int32_t parse_model_node(ModelInfo *model_info, const YAML::Node &model_node)
+         return -1;
+     }
+ 
+-    sprintf(model_info->model_path, model_path.data());
++    sprintf(model_info->model_path, "%s", model_path.data());
+ 
+     /* Parse params.yaml to get io_confing and network file paths. */
+     const std::string params_path = model_path + "/param.yaml";
+@@ -315,12 +315,12 @@ int32_t parse_model_node(ModelInfo *model_info, const YAML::Node &model_node)
+         std::string x(filename.path());
+         if(ends_with(x, "_tidl_io_1.bin"))
+         {
+-            sprintf(model_info->io_config_path, x.data());
++            sprintf(model_info->io_config_path, "%s", x.data());
+         }
+ 
+         if(ends_with(x, "_tidl_net.bin"))
+         {
+-            sprintf(model_info->network_path, x.data());
++            sprintf(model_info->network_path, "%s", x.data());
+         }
+     }
+ 
+@@ -489,7 +489,7 @@ int32_t parse_model_node(ModelInfo *model_info, const YAML::Node &model_node)
+         }
+     }
+ 
+-    sprintf(model_info->post_proc_info.task_type, task_node.as<std::string>().data());
++    sprintf(model_info->post_proc_info.task_type, "%s", task_node.as<std::string>().data());
+ 
+     if (model_node["topN"])
+     {
+@@ -548,7 +548,7 @@ int32_t parse_output_node(OutputInfo *output_info, const YAML::Node &output_node
+         return -1;
+     }
+ 
+-    sprintf(output_info->sink_name, sink.data());
++    sprintf(output_info->sink_name, "%s", sink.data());
+ 
+     output_info->width = output_node["width"].as<uint32_t>();
+ 
+@@ -580,7 +580,7 @@ int32_t parse_output_node(OutputInfo *output_info, const YAML::Node &output_node
+         if(output_node["output_path"])
+         {
+             std::string output_path = output_node["output_path"].as<std::string>();
+-            sprintf(output_info->output_path, output_path.data());
++            sprintf(output_info->output_path, "%s", output_path.data());
+         }
+         else
+         {
+@@ -605,7 +605,7 @@ int32_t parse_output_node(OutputInfo *output_info, const YAML::Node &output_node
+                     return -1;
+                 }
+             }
+-            sprintf(output_info->output_path, output_path.data());
++            sprintf(output_info->output_path, "%s", output_path.data());
+         }
+         else
+         {
+@@ -731,7 +731,7 @@ int32_t parse_yaml_file(char       *input_filename,
+         }
+ 
+         /* Populate InputInfo*/
+-        sprintf(flow_infos[i].input_info.name, input_name.data());
++        sprintf(flow_infos[i].input_info.name, "%s", input_name.data());
+ 
+         status = parse_input_node(&flow_infos[i].input_info,
+                                   yaml["inputs"][input_name]);
+@@ -770,7 +770,7 @@ int32_t parse_yaml_file(char       *input_filename,
+                     return status;
+                 }
+ 
+-                sprintf(flow_infos[i].subflow_infos[s_idx].model_info.name,
++                sprintf(flow_infos[i].subflow_infos[s_idx].model_info.name, "%s",
+                         model_name.data());
+ 
+                 status = parse_model_node(&flow_infos[i].subflow_infos[s_idx].model_info,
+@@ -790,17 +790,17 @@ int32_t parse_yaml_file(char       *input_filename,
+                 return status;
+             }
+ 
+-            sprintf(flow_infos[i].subflow_infos[s_idx].output_info.name,
++            sprintf(flow_infos[i].subflow_infos[s_idx].output_info.name, "%s",
+                     output_name.data());
+ 
+             if(yaml["title"])
+             {
+-                sprintf(flow_infos[i].subflow_infos[s_idx].output_info.title,
++                sprintf(flow_infos[i].subflow_infos[s_idx].output_info.title, "%s",
+                         yaml["title"].as<std::string>().data());
+             }
+             else
+             {
+-                sprintf(flow_infos[i].subflow_infos[s_idx].output_info.title,
++                sprintf(flow_infos[i].subflow_infos[s_idx].output_info.title, "%s",
+                         "No title");
+             }
+ 
+@@ -941,8 +941,8 @@ int32_t get_classname(char *model_path, char (*classnames)[256])
+             name = data["supercategory"].as<std::string>() + "/" + name;
+         }
+ 
+-        sprintf(classnames[id], name.data());
++        sprintf(classnames[id], "%s", name.data());
+     }
+ 
+     return 0;
+-}
+\ No newline at end of file
++}
+-- 
+2.43.0
+
