@@ -1,0 +1,50 @@
+From 635a784f0eb252789b87f80ba4ddc6836643fd93 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20Riedm=C3=BCller?= <s.riedmueller@phytec.de>
+Date: Thu, 7 Dec 2023 11:41:17 +0100
+Subject: [PATCH] common: edgeai-camera: Fix build failure due to warning
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+common/src/edgeai_camera.cpp:117:13: error: format not a string literal and no format arguments [-Werror=format-security]
+|   117 |     snprintf(vissObj.dcc_config_file_path,
+|       |     ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+|   118 |              TIVX_FILEIO_FILE_PATH_LENGTH,
+|       |              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+|   119 |              camInputInfo->m_vissDccPath.c_str());
+|       |              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Signed-off-by: Stefan Riedmüller <s.riedmueller@phytec.de>
+---
+ common/src/edgeai_camera.cpp | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/common/src/edgeai_camera.cpp b/common/src/edgeai_camera.cpp
+index b18c8de47544..f102b5d86e7c 100644
+--- a/common/src/edgeai_camera.cpp
++++ b/common/src/edgeai_camera.cpp
+@@ -116,7 +116,7 @@ int32_t camera::getConfig(InputInfo* camInputInfo, int32_t chMask)
+ 
+     snprintf(vissObj.dcc_config_file_path,
+              TIVX_FILEIO_FILE_PATH_LENGTH,
+-             camInputInfo->m_vissDccPath.c_str());
++             "%s", camInputInfo->m_vissDccPath.c_str());
+ 
+     vissObj.input.bufq_depth = 1;
+ 
+@@ -143,7 +143,7 @@ int32_t camera::getConfig(InputInfo* camInputInfo, int32_t chMask)
+     /* LDC Module params init */
+     snprintf(ldcObj.dcc_config_file_path,
+              TIVX_FILEIO_FILE_PATH_LENGTH,
+-             camInputInfo->m_ldcDccPath.c_str());
++             "%s", camInputInfo->m_ldcDccPath.c_str());
+ 
+     /* Configuring LDC in DCC mode */
+     ldcObj.ldc_mode = TIOVX_MODULE_LDC_OP_MODE_DCC_DATA;
+@@ -264,4 +264,4 @@ int32_t camera::cameraCreate(vx_graph graph, InputInfo* camInputInfo)
+     return status;
+ }
+ 
+-} /* namespace ti::edgeai::common */
+\ No newline at end of file
++} /* namespace ti::edgeai::common */

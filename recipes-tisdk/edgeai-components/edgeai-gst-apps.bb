@@ -10,6 +10,11 @@ BRANCH = "main"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-gst-apps.git;branch=${BRANCH};protocol=https"
 SRCREV = "21dce9bd8daa40722a3483adf586f8499f52262c"
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+SRC_URI += "\
+    file://0001-apps_cpp-edgeai_utils-Fix-build-failure-due-to-warni.patch;patchdir=.. \
+"
+
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
 PLAT_SOC:j721s2 = "j721s2"

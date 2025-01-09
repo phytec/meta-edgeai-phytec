@@ -10,6 +10,13 @@ BRANCH = "main"
 SRC_URI = "git://github.com/TexasInstruments/edgeai-tiovx-apps.git;branch=${BRANCH};protocol=https"
 SRCREV = "c441577b22d36f6d36068b1bc95af006fdab687b"
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+SRC_URI += " \
+    file://0001-utils-yamlparser-Fix-build-failure-due-to-warning.patch \
+    file://0002-apps-Fix-build-failure-due-to-warning.patch \
+    file://0003-modules-core-tiovx_modules-Fix-build-failure-due-to-.patch \
+"
+
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
 PLAT_SOC:j721s2 = "j721s2"
