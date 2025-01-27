@@ -1,9 +1,9 @@
-SUMMARY = "TI RTOS prebuilt binary firmware images for EdgeAI"
+SUMMARY = "TI RTOS prebuilt binary firmware images for EdgeAI on Phytec PCM-074"
 
 LICENSE = "TI-TFL"
 LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/meta-ti-bsp/licenses/TI-TFL;md5=a1b59cb7ba626b9dbbcbf00f3fbc438a"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "phyboard-izar-am68x-2"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
@@ -19,25 +19,21 @@ PLAT_SFX:j784s4 = "j784s4"
 PLAT_SFX:j722s = "j722s"
 PLAT_SFX:am62axx = "am62a"
 
-SRCREV = "ec1690dcca251594b49f5dc60793d35cf3674ec1"
-BRANCH = "main"
-
 SRC_URI = " \
-    git://git.ti.com/git/processor-sdk/psdk_fw.git;protocol=https;branch=${BRANCH} \
+    https://download.phytec.de/Software/Linux/Driver/phytec_pcm074_psdk_fw.tar.gz \
 "
+SRC_URI[sha256sum] = "e98c3822de10f5911906b4479d65b3a1155a9fdede4163a665a4303a0dc0d0dc"
 
-S = "${WORKDIR}/git"
+S = "${WORKDIR}/psdk_fw"
 
-PV = "${SRCPV}"
+PV = "09.02.00.05-phy1"
 
 # Secure Build
 inherit ti-secdev
 
-FW_DIR:edgeai = "${PLAT_SFX}/vision_apps_eaik"
-FW_DIR:adas = "${PLAT_SFX}/vision_apps_evm"
+FW_DIR = "${PLAT_SFX}/vision_apps_phyboard-izar"
 
-INSTALL_FW_DIR:edgeai = "${nonarch_base_libdir}/firmware/vision_apps_eaik/"
-INSTALL_FW_DIR:adas = "${nonarch_base_libdir}/firmware/vision_apps_evm/"
+INSTALL_FW_DIR = "${nonarch_base_libdir}/firmware/vision_apps_phyboard-izar"
 
 MCU_1_0_FW = "vx_app_rtos_linux_mcu1_0.out"
 MCU_1_1_FW = "vx_app_rtos_linux_mcu1_1.out"
