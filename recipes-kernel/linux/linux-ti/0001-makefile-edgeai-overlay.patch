@@ -1,0 +1,13 @@
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index ae12481637f0..03d4a1a23f96 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -139,6 +139,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-csi2-ov5640.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-fusion.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-gesi-exp-board.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-pcie1-ep.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-j721s2-vision-apps.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-j721s2-edgeai-apps.dtbo
+ 
+ # Boards with J722s SoC
+ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm.dtb
