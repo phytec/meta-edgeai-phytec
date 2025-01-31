@@ -4,11 +4,11 @@ require recipes-core/images/tisdk-default-image.bb
 
 PN:adas = "tisdk-adas-image"
 
-COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
+COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|phyboard-izar-am68x-2"
 
 EDGEAI_STACK = " \
         ti-vision-apps-dev \
-        ti-edgeai-firmware \
+        phytec-edgeai-firmware \
         ti-tidl-dev \
         edgeai-tiovx-kernels-dev \
         edgeai-tiovx-modules-dev \
