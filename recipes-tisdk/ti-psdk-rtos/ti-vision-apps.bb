@@ -24,6 +24,15 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/meta-ti-bsp/licenses/TI-TFL;md
 
 SRC_URI = "repo://git.ti.com/git/processor-sdk/psdk_repo_manifests.git;protocol=https;branch=refs/tags/REL.PSDK.ANALYTICS.09.02.00.05;manifest=vision_apps_yocto.xml"
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+
+SRC_URI:append = " \
+    file://0001-makerules-makefile_linux_arm-Add-makefile-part-for-p.patch \
+    https://download.phytec.de/Software/Linux/BSP-Yocto-AM68x/resources/phycam_vm016_dcc-calib_v0_1.tar.gz;name=vm016;subdir=repo/imaging/sensor_drv/src/ \
+"
+
+SRC_URI[vm016.sha256sum] = "aa2e7e1e7ea15de0c5f6e76b5b7da51c30f82e44a082daabc92430b450ed89e1"
+
 FILES:${PN} += "/opt/*"
 
 #PTK needs:
