@@ -54,6 +54,10 @@ FILES:${PN} += "${includedir}/*"
 
 EXTRA_OEMAKE += "-C ${S}/arm-tidl"
 
+AARCH64_GCC = "${@bb.utils.contains('DISTRO', 'ampliphy', 'aarch64-phytec-linux-', \
+                 bb.utils.contains('DISTRO', 'arago', 'aarch64-oe-linux-', \
+                 'aarch64-oe-linux-', d), d)}"
+
 do_compile() {
     ln -snf ${TARGET_FS} ${WORKDIR}/targetfs
 
@@ -69,7 +73,7 @@ do_compile() {
     export TIDL_PROTOBUF_PATH=${S}/protobuf-3.20.2
     export GCC_LINUX_ARM_ROOT=
     export TARGET_SOC=${PLAT_SOC}
-    export CROSS_COMPILE_LINARO=aarch64-phytec-linux-
+    export CROSS_COMPILE_LINARO=${AARCH64_GCC}
     export LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET}
     export TREAT_WARNINGS_AS_ERROR=0
     oe_runmake
