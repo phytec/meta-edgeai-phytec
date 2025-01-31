@@ -21,7 +21,7 @@ EDGEAI_STACK = " \
         edgeai-tiovx-apps-source \
 "
 
-EDGEAI_STACK:append:edgeai = " \
+EDGEAI_DEMO_STACK = " \
         ti-tidl-osrt-dev \
         ti-tidl-osrt-staticdev \
         edgeai-init \
@@ -61,6 +61,10 @@ IMAGE_INSTALL:append = " \
     lmsensors-fancontrol \
 "
 
+IMAGE_INSTALL:append:arago = " \
+    ${EDGEAI_DEMO_STACK} \
+"
+
 IMAGE_INSTALL:append:j721e = " pmic-fix"
 
 WKS_FILE = "tisdk-edgeai-sdimage.wks"
@@ -70,7 +74,7 @@ WIC_CREATE_EXTRA_ARGS += " --no-fstab-update"
 IMAGE_BOOT_FILES:append:j784s4-evm:adas = " tiboot3-j784s4-gp-evm.bin tiboot3-j784s4-hs-fs-evm.bin"
 IMAGE_BOOT_FILES:append:j721s2-evm:adas = " tiboot3-j721s2-gp-evm.bin tiboot3-j721s2-hs-fs-evm.bin"
 
-IMAGE_BASENAME:edgeai = "tisdk-edgeai-image"
+IMAGE_BASENAME = "tisdk-edgeai-image"
 IMAGE_BASENAME:adas = "tisdk-adas-image"
 export IMAGE_BASENAME
 
