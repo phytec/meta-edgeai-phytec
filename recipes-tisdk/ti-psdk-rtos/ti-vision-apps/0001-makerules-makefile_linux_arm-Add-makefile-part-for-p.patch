@@ -1,0 +1,46 @@
+From d15e5cb12144d4a9bfaf1d2e916cc17e4406dd4f Mon Sep 17 00:00:00 2001
+From: Steffen Hemer <s.hemer@phytec.de>
+Date: Mon, 17 Feb 2025 16:03:27 +0100
+Subject: [PATCH sdk_builder] makerules: makefile_linux_arm: Add makefile part
+ for phyCAM VM-016 12bit calibration files
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+    This adds support for VM-016 12bit default calibration files. The
+    files themselves are provides via tarball download.
+
+Signed-off-by: Stefan Riedmüller <s.riedmueller@phytec.de>
+[split patch and adopt to release 09.02.00.05]
+Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
+---
+ makerules/makefile_linux_arm.mak | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/repo/sdk_builder/makerules/makefile_linux_arm.mak b/repo/sdk_builder/makerules/makefile_linux_arm.mak
+index cfa36038c3eb..98decf657ce0 100644
+--- a/repo/sdk_builder/makerules/makefile_linux_arm.mak
++++ b/repo/sdk_builder/makerules/makefile_linux_arm.mak
+@@ -77,6 +77,9 @@ endif
+ 	install -m 775 -d $(LINUX_FS_STAGE_PATH)/opt/imaging/ar0233/wdr
+ 
+ 	install -m 775 -d $(LINUX_FS_STAGE_PATH)/opt/imaging/imx219/linear
++
++	install -m 775 -d $(LINUX_FS_STAGE_PATH)/opt/imaging/ar0144_12bit/linear
++
+ ifeq ($(SOC), $(filter $(SOC), am62a j722s))
+ 	install -m 775 -d $(LINUX_FS_STAGE_PATH)/opt/imaging/ov2312/linear
+ 	install -m 775 -d $(LINUX_FS_STAGE_PATH)/opt/imaging/ox05b1s/linear
+@@ -92,6 +95,9 @@ endif
+ 	cp $(IMAGING_PATH)/sensor_drv/src/ar0233/dcc_bins/wdr/*.bin $(LINUX_FS_STAGE_PATH)/opt/imaging/ar0233/wdr
+ 
+ 	cp $(IMAGING_PATH)/sensor_drv/src/imx219/dcc_bins/linear/*.bin $(LINUX_FS_STAGE_PATH)/opt/imaging/imx219/linear
++
++	cp $(IMAGING_PATH)/sensor_drv/src/ar0144_12bit/dcc_bins/*.bin $(LINUX_FS_STAGE_PATH)/opt/imaging/ar0144_12bit/linear
++
+ ifeq ($(SOC), $(filter $(SOC), am62a j722s))
+ 	cp $(IMAGING_PATH)/sensor_drv/src/ov2312/dcc_bins/linear/*.bin $(LINUX_FS_STAGE_PATH)/opt/imaging/ov2312/linear
+ 	cp $(IMAGING_PATH)/sensor_drv/src/ox05b1s/dcc_bins/linear/*.bin $(LINUX_FS_STAGE_PATH)/opt/imaging/ox05b1s/linear
+-- 
+2.43.0
+
