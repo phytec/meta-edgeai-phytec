@@ -53,8 +53,12 @@ EXTRA_OEMAKE += "-C ${S}/repo/sdk_builder"
 
 do_fetch[depends] += "repo-native:do_populate_sysroot"
 
+AARCH64_GCC = "${@bb.utils.contains('DISTRO', 'ampliphy', 'aarch64-phytec-linux-', \
+                 bb.utils.contains('DISTRO', 'arago', 'aarch64-oe-linux-', \
+                 'aarch64-oe-linux-', d), d)}"
+
 do_compile() {
-    export CROSS_COMPILE_LINARO=aarch64-phytec-linux-
+    export CROSS_COMPILE_LINARO=${AARCH64_GCC}
     export LINUX_SYSROOT_ARM=${STAGING_DIR_TARGET}
     export TREAT_WARNINGS_AS_ERROR=0
     export GCC_LINUX_ARM_ROOT=
