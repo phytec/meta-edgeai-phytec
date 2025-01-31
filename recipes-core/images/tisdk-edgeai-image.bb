@@ -57,6 +57,8 @@ IMAGE_INSTALL:remove = "\
 
 IMAGE_INSTALL:append = " \
     resize-rootfs \
+    phycam-setup \
+    lmsensors-fancontrol \
 "
 
 IMAGE_INSTALL:append:j721e = " pmic-fix"
