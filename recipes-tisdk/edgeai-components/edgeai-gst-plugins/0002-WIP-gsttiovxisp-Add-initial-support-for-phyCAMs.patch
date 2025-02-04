@@ -1,0 +1,252 @@
+From 7749564268d854a3ed0345e3d77bc0797cde9e64 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20Riedm=C3=BCller?= <s.riedmueller@phytec.de>
+Date: Tue, 12 Dec 2023 15:53:40 +0100
+Subject: [PATCH] gsttiovxisp: Add initial support for phyCAMs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Stefan Riedmüller <s.riedmueller@phytec.de>
+---
+ ext/tiovx/gsttiovxisp.c | 164 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 158 insertions(+), 6 deletions(-)
+
+diff --git a/ext/tiovx/gsttiovxisp.c b/ext/tiovx/gsttiovxisp.c
+index b85fc7d198a7..a9761ae0aae2 100644
+--- a/ext/tiovx/gsttiovxisp.c
++++ b/ext/tiovx/gsttiovxisp.c
+@@ -657,9 +657,17 @@ static int32_t get_ov2312_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms);
+ 
+ static int32_t get_ox05b1s_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms);
+ 
++static int32_t get_ov2312_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms);
++
++static int32_t get_ar0144_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms);
++
++static int32_t get_ar0234_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms);
++
++static int32_t get_ar0521_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms);
++
+ static void gst_tiovx_isp_map_2A_values (GstTIOVXISP * self, int exposure_time,
+-    int analog_gain, gint32 * exposure_time_mapped,
+-    gint32 * analog_gain_mapped);
++    int analog_gain, guint64 pixclk, guint32 hlength,
++    gint32 * exposure_time_mapped, gint32 * analog_gain_mapped);
+ 
+ /* Initialize the plugin's class */
+ static void
+@@ -706,7 +714,10 @@ gst_tiovx_isp_class_init (GstTIOVXISPClass * klass)
+           "                                   SENSOR_ONSEMI_AR0233_UB953_MARS\n"
+           "                                   SENSOR_SONY_IMX219_RPI\n"
+           "                                   SENSOR_OX05B1S\n"
+-          "                                   SENSOR_OV2312_UB953_LI",
++          "                                   SENSOR_OV2312_UB953_LI\n"
++          "                                   SENSOR_AR0144_PHYCAM\n"
++          "                                   SENSOR_AR0234_PHYCAM\n"
++          "                                   SENSOR_AR0521_PHYCAM",
+           NULL,
+           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS |
+           GST_PARAM_MUTABLE_READY));
+@@ -1808,6 +1819,8 @@ gst_tiovx_isp_postprocess (GstTIOVXMiso * miso)
+   GList *l = NULL;
+   gboolean ret = FALSE;
+   struct v4l2_control control;
++  struct v4l2_ext_controls ext_ctrls;
++  struct v4l2_ext_control ctrls[2];
+   gchar *video_dev = NULL;
+   vx_map_id h3a_buf_map_id;
+   vx_map_id aewb_buf_map_id;
+@@ -1855,6 +1868,12 @@ gst_tiovx_isp_postprocess (GstTIOVXMiso * miso)
+       get_ov2312_ae_dyn_params (&sink_pad->sensor_in_data.ae_dynPrms);
+     } else if (g_strcmp0 (self->sensor_name, "SENSOR_OX05B1S") == 0) {
+       get_ox05b1s_ae_dyn_params (&sink_pad->sensor_in_data.ae_dynPrms);
++    } else if (g_strcmp0 (self->sensor_name, "SENSOR_AR0144_PHYCAM") == 0) {
++      get_ar0144_ae_dyn_params (&sink_pad->sensor_in_data.ae_dynPrms);
++    } else if (g_strcmp0 (self->sensor_name, "SENSOR_AR0234_PHYCAM") == 0) {
++      get_ar0234_ae_dyn_params (&sink_pad->sensor_in_data.ae_dynPrms);
++    } else if (g_strcmp0 (self->sensor_name, "SENSOR_AR0521_PHYCAM") == 0) {
++      get_ar0521_ae_dyn_params (&sink_pad->sensor_in_data.ae_dynPrms);
+     } else {
+       get_imx219_ae_dyn_params (&sink_pad->sensor_in_data.ae_dynPrms);
+     }
+@@ -1883,16 +1902,55 @@ gst_tiovx_isp_postprocess (GstTIOVXMiso * miso)
+       int ret_val = -1;
+       gint32 analog_gain = 0;
+       gint32 coarse_integration_time = 0;
++      gint32 hblank;
++      guint32 hlength;
++      guint32 width;
++      guint64 pixclk;
++
++      width = self->viss_obj.input.params.width;
++
++      memset(&ctrls, 0, sizeof(ctrls));
++      memset(&ext_ctrls, 0, sizeof(ext_ctrls));
+ 
+       fd = open (video_dev, O_RDWR | O_NONBLOCK);
+       if (-1 == fd) {
+         GST_ERROR_OBJECT (self, "Unable to open video device: %s", video_dev);
+         goto exit;
+       }
++
++      ctrls[0].id = V4L2_CID_PIXEL_RATE;
++      ctrls[1].id = V4L2_CID_HBLANK;
++
++      ext_ctrls.count = 2;
++      ext_ctrls.which = V4L2_CTRL_WHICH_CUR_VAL;
++      ext_ctrls.controls = ctrls;
++
++      ret_val = ioctl (fd, VIDIOC_G_EXT_CTRLS, &ext_ctrls);
++      if (ret_val < 0) {
++        GST_ERROR_OBJECT (self, "Unable to get controls: (%s) %s",
++                          video_dev, strerror(errno));
++        goto close_fd;
++      }
++
++      pixclk = ctrls[0].value64;
++      hblank = ctrls[1].value;
++
++      GST_LOG_OBJECT (sink_pad, "%s sensor pixel clock: %llu",
++          self->sensor_name, pixclk);
++
++      if (hblank == 0) {
++        GST_ERROR_OBJECT (self, "horizontal blanking is zero");
++        goto close_fd;
++      }
++
++      hlength = width + hblank;
++      GST_LOG_OBJECT (sink_pad, "%s sensor horizontal length: %u (%u + %d)",
++                      self->sensor_name, hlength, width, hblank);
++
+       gst_tiovx_isp_map_2A_values (self,
+           sink_pad->sensor_out_data.aePrms.exposureTime[0],
+           sink_pad->sensor_out_data.aePrms.analogGain[0],
+-          &coarse_integration_time, &analog_gain);
++          pixclk, hlength, &coarse_integration_time, &analog_gain);
+ 
+       GST_LOG_OBJECT (sink_pad, "%s sensor specific exposure time: %d",
+           self->sensor_name, coarse_integration_time);
+@@ -1934,6 +1992,90 @@ exit:
+ }
+ 
+ /* Typically this is obtained by querying the sensor */
++static int32_t
++get_ar0144_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms)
++{
++  int32_t status = -1;
++  uint8_t count = 0;
++
++  g_return_val_if_fail (p_ae_dynPrms, status);
++
++  p_ae_dynPrms->targetBrightnessRange.min = 40;
++  p_ae_dynPrms->targetBrightnessRange.max = 50;
++  p_ae_dynPrms->targetBrightness = 45;
++  p_ae_dynPrms->threshold = 1;
++  p_ae_dynPrms->enableBlc = 0;
++  p_ae_dynPrms->exposureTimeStepSize = 1;
++
++  p_ae_dynPrms->exposureTimeRange[count].min = 100;
++  p_ae_dynPrms->exposureTimeRange[count].max = 16033;
++  p_ae_dynPrms->analogGainRange[count].min = 1724;
++  p_ae_dynPrms->analogGainRange[count].max = 16384;
++  p_ae_dynPrms->digitalGainRange[count].min = 256;
++  p_ae_dynPrms->digitalGainRange[count].max = 256;
++  count++;
++
++  p_ae_dynPrms->numAeDynParams = count;
++  status = 0;
++  return status;
++}
++
++static int32_t
++get_ar0234_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms)
++{
++  int32_t status = -1;
++  uint8_t count = 0;
++
++  g_return_val_if_fail (p_ae_dynPrms, status);
++
++  p_ae_dynPrms->targetBrightnessRange.min = 40;
++  p_ae_dynPrms->targetBrightnessRange.max = 50;
++  p_ae_dynPrms->targetBrightness = 45;
++  p_ae_dynPrms->threshold = 1;
++  p_ae_dynPrms->enableBlc = 1;
++  p_ae_dynPrms->exposureTimeStepSize = 1;
++
++  p_ae_dynPrms->exposureTimeRange[count].min = 100;
++  p_ae_dynPrms->exposureTimeRange[count].max = 8129;
++  p_ae_dynPrms->analogGainRange[count].min = 1724;
++  p_ae_dynPrms->analogGainRange[count].max = 16384;
++  p_ae_dynPrms->digitalGainRange[count].min = 256;
++  p_ae_dynPrms->digitalGainRange[count].max = 256;
++  count++;
++
++  p_ae_dynPrms->numAeDynParams = count;
++  status = 0;
++  return status;
++}
++
++static int32_t
++get_ar0521_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms)
++{
++  int32_t status = -1;
++  uint8_t count = 0;
++
++  g_return_val_if_fail (p_ae_dynPrms, status);
++
++  p_ae_dynPrms->targetBrightnessRange.min = 40;
++  p_ae_dynPrms->targetBrightnessRange.max = 50;
++  p_ae_dynPrms->targetBrightness = 45;
++  p_ae_dynPrms->threshold = 1;
++  p_ae_dynPrms->enableBlc = 1;
++  p_ae_dynPrms->exposureTimeStepSize = 1;
++
++  p_ae_dynPrms->exposureTimeRange[count].min = 100;
++  p_ae_dynPrms->exposureTimeRange[count].max = 33333;
++  p_ae_dynPrms->analogGainRange[count].min = 1024;
++  p_ae_dynPrms->analogGainRange[count].max = 8192;
++  p_ae_dynPrms->digitalGainRange[count].min = 256;
++  p_ae_dynPrms->digitalGainRange[count].max = 256;
++  count++;
++
++  p_ae_dynPrms->numAeDynParams = count;
++  status = 0;
++  return status;
++}
++
+ static int32_t
+ get_imx219_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms)
+ {
+@@ -2069,7 +2211,8 @@ get_ox05b1s_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms)
+ 
+ static void
+ gst_tiovx_isp_map_2A_values (GstTIOVXISP * self, int exposure_time,
+-    int analog_gain, gint32 * exposure_time_mapped, gint32 * analog_gain_mapped)
++    int analog_gain, guint64 pixclk, guint32 hlength,
++    gint32 * exposure_time_mapped, gint32 * analog_gain_mapped)
+ {
+   g_return_if_fail (self);
+   g_return_if_fail (exposure_time_mapped);
+@@ -2103,9 +2246,18 @@ gst_tiovx_isp_map_2A_values (GstTIOVXISP * self, int exposure_time,
+     *exposure_time_mapped = (60 * 1300 * exposure_time / 1000000);
+     // ms to row_time conversion - row_time(us) = 1000000/fps/height
+     *analog_gain_mapped = analog_gain;
+-} else if (g_strcmp0 (self->sensor_name, "SENSOR_OX05B1S") == 0) {
++  } else if (g_strcmp0 (self->sensor_name, "SENSOR_OX05B1S") == 0) {
+     *exposure_time_mapped = (int) ((double)exposure_time * 2128 * 60 / 1000000 + 0.5);
+     *analog_gain_mapped = analog_gain / 64;
++  } else if (g_strcmp0 (self->sensor_name, "SENSOR_AR0144_PHYCAM") == 0) {
++    *exposure_time_mapped = pixclk / 1000000 * exposure_time / hlength;
++    *analog_gain_mapped = analog_gain * 1000 / 1024;
++  } else if (g_strcmp0 (self->sensor_name, "SENSOR_AR0234_PHYCAM") == 0) {
++    *exposure_time_mapped = pixclk / 1000000 * exposure_time / hlength;
++    *analog_gain_mapped = analog_gain * 1000 / 1024;
++  } else if (g_strcmp0 (self->sensor_name, "SENSOR_AR0521_PHYCAM") == 0) {
++    *exposure_time_mapped = pixclk / 1000000 * exposure_time / hlength;
++    *analog_gain_mapped = analog_gain * 1000 / 1024;
+   } else {
+     GST_ERROR_OBJECT (self, "Unknown sensor: %s", self->sensor_name);
+   }
+-- 
+2.43.0
+
