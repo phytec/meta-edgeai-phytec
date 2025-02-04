@@ -10,6 +10,11 @@ BRANCH = "main"
 SRC_URI = "git://git.ti.com/git/edgeai/edgeai-tiovx-modules.git;branch=${BRANCH};protocol=https"
 SRCREV = "1d2c6a739d7367df1db4360820f6d1da6165bd42"
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+SRC_URI += " \
+	file://0001-tiovx_sensor_module-Add-support-for-phyCAM.patch \
+"
+
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
 PLAT_SOC:j721s2 = "j721s2"

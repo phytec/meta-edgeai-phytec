@@ -20,13 +20,13 @@ PLAT_SFX:j722s = "j722s"
 PLAT_SFX:am62axx = "am62a"
 
 SRC_URI = " \
-    https://download.phytec.de/Software/Linux/Driver/phytec_pcm074_psdk_fw.tar.gz \
+    https://download.phytec.de/Software/Linux/BSP-Yocto-AM68x/resources/phytec_pcm074_psdk_fw_${PV}.tar.gz \
 "
-SRC_URI[sha256sum] = "e98c3822de10f5911906b4479d65b3a1155a9fdede4163a665a4303a0dc0d0dc"
+SRC_URI[sha256sum] = "e857668ccf11b4bb06e1938d7e7ea820240e811ab0351108ae90ca741091499f"
 
 S = "${WORKDIR}/psdk_fw"
 
-PV = "09.02.00.05-phy1"
+PV = "09_02_00_05-phy1"
 
 # Secure Build
 inherit ti-secdev
