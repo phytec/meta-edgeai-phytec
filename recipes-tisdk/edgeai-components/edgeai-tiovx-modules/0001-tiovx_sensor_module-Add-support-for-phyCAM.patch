@@ -1,0 +1,46 @@
+From 38c56e9418c75ef2a48fe78d5a14f4e259587989 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20Riedm=C3=BCller?= <s.riedmueller@phytec.de>
+Date: Mon, 18 Dec 2023 14:46:01 +0100
+Subject: [PATCH] tiovx_sensor_module: Add support for phyCAM
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Stefan Riedmüller <s.riedmueller@phytec.de>
+---
+ src/tiovx_sensor_module.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/src/tiovx_sensor_module.c b/src/tiovx_sensor_module.c
+index 447fcaf8fe3d..6d9ababdb4cb 100644
+--- a/src/tiovx_sensor_module.c
++++ b/src/tiovx_sensor_module.c
+@@ -450,6 +450,18 @@ vx_status tiovx_init_sensor(SensorObj *sensorObj, char *objName)
+     {
+         sensorObj->sensorParams.dccId=5;
+     }
++    else if(strcmp(sensorObj->sensor_name, "SENSOR_AR0144_PHYCAM") == 0)
++    {
++        sensorObj->sensorParams.dccId=144;
++    }
++    else if(strcmp(sensorObj->sensor_name, "SENSOR_AR0234_PHYCAM") == 0)
++    {
++        sensorObj->sensorParams.dccId=234;
++    }
++    else if(strcmp(sensorObj->sensor_name, "SENSOR_AR0521_PHYCAM") == 0)
++    {
++        sensorObj->sensorParams.dccId=521;
++    }
+     else
+     {
+         TIOVX_MODULE_ERROR("[SENSOR-MODULE] Invalid sensor name\n");
+@@ -464,4 +476,4 @@ vx_status tiovx_init_sensor(SensorObj *sensorObj, char *objName)
+ void tiovx_deinit_sensor(SensorObj *sensorObj)
+ {
+     return;
+-}
+\ No newline at end of file
++}
+-- 
+2.43.0
+

@@ -13,6 +13,7 @@ SRCREV = "a8cd06189cf5aa7884c6cc54a120e69773bb608f"
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 SRC_URI += " \
     file://0001-WIP-Fix-build-issues.patch \
+    file://0002-WIP-gsttiovxisp-Add-initial-support-for-phyCAMs.patch \
 "
 
 PLAT_SOC = ""
