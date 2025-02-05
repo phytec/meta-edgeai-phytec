@@ -1,0 +1,60 @@
+From 99db61baa92a1e3e5957eedafe4df018976f346c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20Riedm=C3=BCller?= <s.riedmueller@phytec.de>
+Date: Fri, 20 Oct 2023 12:04:27 +0200
+Subject: [PATCH 03/12] media: ar0144: Adjust max_fps setting for ISP modes
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Let the max_fsp setting of the ISP modes represent the actual maximum
+FPS setting possible with that mode.
+
+Signed-off-by: Stefan Riedmüller <s.riedmueller@phytec.de>
+Signed-off-by: Christian Hemp <c.hemp@phytec.de>
+---
+ drivers/media/i2c/ar0144.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/i2c/ar0144.c b/drivers/media/i2c/ar0144.c
+index 4c3ec5c73115..769fb1f88129 100644
+--- a/drivers/media/i2c/ar0144.c
++++ b/drivers/media/i2c/ar0144.c
+@@ -451,7 +451,7 @@ static struct vvcam_mode_info_s ar0144_modes[] = {
+ 			.gain_step             = 1,
+ 			.start_exposure        = 2 * 800 * 1024,
+ 			.cur_fps               = 60 * 1024,
+-			.max_fps               = 60 * 1024,
++			.max_fps               = 66 * 1024,
+ 			.min_fps               = 5 * 1024,
+ 			.min_afps              = 30 * 1024,
+ 			.int_update_delay_frm  = 1,
+@@ -540,7 +540,7 @@ static struct vvcam_mode_info_s ar0234_modes[] = {
+ 			.gain_step		= 1,
+ 			.start_exposure		= 2 * 1200 * 1024,
+ 			.cur_fps		= 60 * 1024,
+-			.max_fps		= 60 * 1024,
++			.max_fps		= 198 * 1024,
+ 			.min_fps		= 5 * 1024,
+ 			.min_afps		= 30 * 1024,
+ 			.int_update_delay_frm	= 1,
+@@ -583,7 +583,7 @@ static struct vvcam_mode_info_s ar0234_modes[] = {
+ 			.gain_step		= 1,
+ 			.start_exposure		= 2 * 1200 * 1024,
+ 			.cur_fps		= 60 * 1024,
+-			.max_fps		= 60 * 1024,
++			.max_fps		= 133 * 1024,
+ 			.min_fps		= 5 * 1024,
+ 			.min_afps		= 30 * 1024,
+ 			.int_update_delay_frm	= 1,
+@@ -626,7 +626,7 @@ static struct vvcam_mode_info_s ar0234_modes[] = {
+ 			.gain_step		= 1,
+ 			.start_exposure		= 2 * 1200 * 1024,
+ 			.cur_fps		= 60 * 1024,
+-			.max_fps		= 60 * 1024,
++			.max_fps		= 120 * 1024,
+ 			.min_fps		= 5 * 1024,
+ 			.min_afps		= 30 * 1024,
+ 			.int_update_delay_frm	= 1,
+-- 
+2.25.1
+

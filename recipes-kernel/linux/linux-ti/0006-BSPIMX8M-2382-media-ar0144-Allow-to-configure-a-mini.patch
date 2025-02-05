@@ -1,0 +1,77 @@
+From 2272e08ccea1ca2a9298b1ce5749caa9db09b3f8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20Riedm=C3=BCller?= <s.riedmueller@phytec.de>
+Date: Fri, 20 Oct 2023 12:04:33 +0200
+Subject: [PATCH 06/12] BSPIMX8M-2382 media: ar0144: Allow to configure a
+ minimum FPS when using the ISP
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The ISPs auto exposure algorithm adjusts the exposure value of the
+sensor to get a well exposed image. To maintain a constant frame rate,
+it only increases the exposure value to a point where the exposure time
+does not exceed the frame time and thus does not reduce the frame rate.
+
+Sometimes it can be helpful to run a higher FPS in well exposed
+situations and a lower FPS when the conditions worsen. To allow that,
+introduce a minimum allowed FPS parameter, supplied by the ISP user
+space driver, until which the exposure value can be increased to.
+
+Signed-off-by: Stefan Riedmüller <s.riedmueller@phytec.de>
+Signed-off-by: Christian Hemp <c.hemp@phytec.de>
+---
+ drivers/media/i2c/ar0144.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/ar0144.c b/drivers/media/i2c/ar0144.c
+index 17c973cf74b0..69f85e203ead 100644
+--- a/drivers/media/i2c/ar0144.c
++++ b/drivers/media/i2c/ar0144.c
+@@ -753,10 +753,12 @@ static int ar0144_vv_querymode(struct ar0144 *sensor, void *args)
+ static int ar0144_vv_get_sensormode(struct ar0144 *sensor, void *args)
+ {
+ 	struct device *dev = sensor->subdev.dev;
++	struct vvcam_mode_info_s *mode = (struct vvcam_mode_info_s *) args;
+ 	struct vvcam_ae_info_s *ae_info = &sensor->vvcam_mode.ae_info;
+ 	const struct ar0144_sensor_limits *limits = sensor->model->data->limits;
+ 	unsigned long pix_freq;
+ 	unsigned int pixclk_mhz;
++	unsigned int max_vlen_allowed, min_fps_allowed;
+ 	uint32_t int_lines, exposure_ms, gain;
+ 	int index;
+ 	int ret;
+@@ -764,6 +766,9 @@ static int ar0144_vv_get_sensormode(struct ar0144 *sensor, void *args)
+ 	dev_dbg(dev, "%s\n", __func__);
+ 	dev_dbg(dev, "%s index: %u\n", __func__, sensor->vvcam_cur_mode_index);
+ 
++	ret = copy_from_user(&min_fps_allowed, &mode->ae_info.min_fps,
++			     sizeof(min_fps_allowed));
++
+ 	mutex_lock(&sensor->lock);
+ 
+ 	index = bpp_to_index(sensor, sensor->bpp);
+@@ -774,6 +779,7 @@ static int ar0144_vv_get_sensormode(struct ar0144 *sensor, void *args)
+ 	ae_info->one_line_exp_time_ns = sensor->hlen * 1000 / pixclk_mhz;
+ 	ae_info->cur_fps = div_u64(pix_freq * 1024ULL,
+ 				   sensor->vlen * sensor->hlen);
++
+ 	ae_info->max_fps = div_u64(pix_freq * 1024ULL,
+ 				   sensor->fmt.height +
+ 				   limits->vblank.min *
+@@ -783,7 +789,12 @@ static int ar0144_vv_get_sensormode(struct ar0144 *sensor, void *args)
+ 				   limits->vblank.max *
+ 				   sensor->hlen);
+ 
+-	ae_info->max_integration_line = sensor->vlen;
++	if (min_fps_allowed)
++		max_vlen_allowed = pix_freq / (min_fps_allowed * sensor->hlen);
++	else
++		max_vlen_allowed = sensor->vlen;
++
++	ae_info->max_integration_line = max_vlen_allowed;
+ 	ae_info->max_again = sensor->gains.max_again * 1024 / 1000;
+ 
+ 	int_lines = sensor->exp_ctrl->cur.val;
+-- 
+2.25.1
+
