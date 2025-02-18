@@ -1,0 +1,73 @@
+From 7961fd86fa7653ade6e10cced78467801561524c Mon Sep 17 00:00:00 2001
+From: Beleswar Padhi <b-padhi@ti.com>
+Date: Wed, 26 Jun 2024 18:22:27 +0530
+Subject: [PATCH 2/2] arm64: dts: ti: k3-j7xx-mcu-wakeup: Enable split mode for
+ MCU R5F
+
+All J7 SoCs have one R5F cluster in the MCU voltage domain, and each of
+these are configured for LockStep mode at the moment. Switch the MCU R5F
+cluster to Split mode by default to maximize the number of R5F cores.
+
+Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+---
+ arch/arm64/boot/dts/ti/k3-j7200-mcu-wakeup.dtsi                | 2 +-
+ arch/arm64/boot/dts/ti/k3-j721e-mcu-wakeup.dtsi                | 2 +-
+ arch/arm64/boot/dts/ti/k3-j721s2-mcu-wakeup.dtsi               | 2 +-
+ arch/arm64/boot/dts/ti/k3-j784s4-j742s2-mcu-wakeup-common.dtsi | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-j7200-mcu-wakeup.dtsi b/arch/arm64/boot/dts/ti/k3-j7200-mcu-wakeup.dtsi
+index 56ab144fea07..d8826be4685a 100644
+--- a/arch/arm64/boot/dts/ti/k3-j7200-mcu-wakeup.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j7200-mcu-wakeup.dtsi
+@@ -606,7 +606,7 @@ adc {
+ 
+ 	mcu_r5fss0: r5fss@41000000 {
+ 		compatible = "ti,j7200-r5fss";
+-		ti,cluster-mode = <1>;
++		ti,cluster-mode = <0>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+ 		ranges = <0x41000000 0x00 0x41000000 0x20000>,
+diff --git a/arch/arm64/boot/dts/ti/k3-j721e-mcu-wakeup.dtsi b/arch/arm64/boot/dts/ti/k3-j721e-mcu-wakeup.dtsi
+index b02142b2b460..9a84ef7ca14e 100644
+--- a/arch/arm64/boot/dts/ti/k3-j721e-mcu-wakeup.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j721e-mcu-wakeup.dtsi
+@@ -588,7 +588,7 @@ cpts@3d000 {
+ 
+ 	mcu_r5fss0: r5fss@41000000 {
+ 		compatible = "ti,j721e-r5fss";
+-		ti,cluster-mode = <1>;
++		ti,cluster-mode = <0>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+ 		ranges = <0x41000000 0x00 0x41000000 0x20000>,
+diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-mcu-wakeup.dtsi b/arch/arm64/boot/dts/ti/k3-j721s2-mcu-wakeup.dtsi
+index bc31266126d0..4ba26876aa03 100644
+--- a/arch/arm64/boot/dts/ti/k3-j721s2-mcu-wakeup.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j721s2-mcu-wakeup.dtsi
+@@ -684,7 +684,7 @@ wkup_vtm0: temperature-sensor@42040000 {
+ 
+ 	mcu_r5fss0: r5fss@41000000 {
+ 		compatible = "ti,j721s2-r5fss";
+-		ti,cluster-mode = <1>;
++		ti,cluster-mode = <0>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+ 		ranges = <0x41000000 0x00 0x41000000 0x20000>,
+diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-mcu-wakeup-common.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-mcu-wakeup-common.dtsi
+index 52e2965a3bf5..e51b004c03a2 100644
+--- a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-mcu-wakeup-common.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-mcu-wakeup-common.dtsi
+@@ -589,7 +589,7 @@ cpts@3d000 {
+ 
+ 	mcu_r5fss0: r5fss@41000000 {
+ 		compatible = "ti,j721s2-r5fss";
+-		ti,cluster-mode = <1>;
++		ti,cluster-mode = <0>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+ 		ranges = <0x41000000 0x00 0x41000000 0x20000>,
+-- 
+2.34.1
+
