@@ -30,7 +30,7 @@ DEPENDS = "ti-vision-apps edgeai-dl-inferer yaml-cpp gstreamer1.0 opencv"
 DEPENDS:remove:am62xx = "ti-vision-apps"
 DEPENDS:remove:am62pxx = "ti-vision-apps"
 
-RDEPENDS:${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev"
+RDEPENDS:${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev python3-pygobject python3-core bash"
 
 #FIXME why source? there is a -src package already (and -dev)?!
 RDEPENDS:${PN}-source += "bash python3-core edgeai-dl-inferer-dev python3-yamlloader python3-numpy opencv cmake dialog"
@@ -45,6 +45,8 @@ EXTRA_OECMAKE = "-DTARGET_FS=${WORKDIR}/recipe-sysroot -DCMAKE_SKIP_RPATH=TRUE -
 PACKAGES += "${PN}-source"
 FILES:${PN} += "/opt/edgeai-gst-apps/apps_cpp/ \
                 /opt/edgeai-gst-apps/configs/ \
+                /opt/edgeai-gst-apps/apps_python/ \
+                /opt/edgeai-gst-apps/scripts/ \
 "
 FILES:${PN}-source += "/opt/edgeai-gst-apps/sources"
 # alternatively use separate config package (to share between cpp and python)
@@ -62,6 +64,8 @@ do_install() {
 
     cp ${CP_ARGS} ${WORKDIR}/git/configs ${D}/opt/edgeai-gst-apps/
     cp ${CP_ARGS} ${WORKDIR}/out/bin/Release ${D}/opt/edgeai-gst-apps/apps_cpp
+    cp ${CP_ARGS} ${WORKDIR}/git/scripts ${D}/opt/edgeai-gst-apps/
+    cp ${CP_ARGS} ${WORKDIR}/git/apps_python ${D}/opt/edgeai-gst-apps/
     # cpp app needs /opt/edgeai-gst-apps/configs/gst_plugins_map.yaml
 }
 
