@@ -1,4 +1,4 @@
-From a09b9abae63fa4ab25244533a8bfafc6cc5039d6 Mon Sep 17 00:00:00 2001
+From c0522153f4121518a9f54228a2e7421f07b3c3b2 Mon Sep 17 00:00:00 2001
 From: Rahul T R <r-ravikumar@ti.com>
 Date: Wed, 9 Oct 2024 23:35:20 +0530
 Subject: [PATCH] arch: arm: dts: k3-j784s4-*/k3-am69-*: Update memory map for
@@ -9,32 +9,10 @@ remote core memory needs
 
 Signed-off-by: Rahul T R <r-ravikumar@ti.com>
 ---
- arch/arm/dts/k3-am69-sk.dts                 |   2 +
- arch/arm/dts/k3-j784s4-evm.dts              |   2 +
  arch/arm/dts/k3-j784s4-rtos-memory-map.dtsi | 335 ++++++++++++++++++++
- 3 files changed, 339 insertions(+)
+ 1 file changed, 335 insertions(+)
  create mode 100644 arch/arm/dts/k3-j784s4-rtos-memory-map.dtsi
 
-diff --git a/arch/arm/dts/k3-am69-sk.dts b/arch/arm/dts/k3-am69-sk.dts
-index c352530e3eb..c56d69efe84 100644
---- a/arch/arm/dts/k3-am69-sk.dts
-+++ b/arch/arm/dts/k3-am69-sk.dts
-@@ -1334,3 +1334,5 @@
- 	phys = <&serdes0_usb_link>;
- 	phy-names = "cdns3,usb3-phy";
- };
-+
-+#include "k3-j784s4-rtos-memory-map.dtsi"
-diff --git a/arch/arm/dts/k3-j784s4-evm.dts b/arch/arm/dts/k3-j784s4-evm.dts
-index afd84a6dfae..89e0d4df98f 100644
---- a/arch/arm/dts/k3-j784s4-evm.dts
-+++ b/arch/arm/dts/k3-j784s4-evm.dts
-@@ -1696,3 +1696,5 @@
- 	tx-num-evt = <0>;
- 	rx-num-evt = <0>;
- };
-+
-+#include "k3-j784s4-rtos-memory-map.dtsi"
 diff --git a/arch/arm/dts/k3-j784s4-rtos-memory-map.dtsi b/arch/arm/dts/k3-j784s4-rtos-memory-map.dtsi
 new file mode 100644
 index 00000000000..4f8ce9d9f59

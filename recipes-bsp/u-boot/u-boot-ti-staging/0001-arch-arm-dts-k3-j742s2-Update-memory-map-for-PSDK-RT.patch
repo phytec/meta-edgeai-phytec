@@ -1,4 +1,4 @@
-From 37764c0a8b338c2b5db722b513fe66a47df00a02 Mon Sep 17 00:00:00 2001
+From fac02028fda4706cfa72ba529b52858d218b194c Mon Sep 17 00:00:00 2001
 From: Rahul T R <r-ravikumar@ti.com>
 Date: Wed, 9 Oct 2024 23:29:59 +0530
 Subject: [PATCH] arch: arm: dts: k3-j742s2-*: Update memory map for PSDK RTOS
@@ -8,21 +8,10 @@ remote core memory needs
 
 Signed-off-by: Rahul T R <r-ravikumar@ti.com>
 ---
- arch/arm/dts/k3-j742s2-evm.dts              |   2 +
  arch/arm/dts/k3-j742s2-rtos-memory-map.dtsi | 312 ++++++++++++++++++++
- 2 files changed, 314 insertions(+)
+ 1 file changed, 312 insertions(+)
  create mode 100644 arch/arm/dts/k3-j742s2-rtos-memory-map.dtsi
 
-diff --git a/arch/arm/dts/k3-j742s2-evm.dts b/arch/arm/dts/k3-j742s2-evm.dts
-index 98088ccfd76..510d30247b2 100644
---- a/arch/arm/dts/k3-j742s2-evm.dts
-+++ b/arch/arm/dts/k3-j742s2-evm.dts
-@@ -20,3 +20,5 @@
- 		      <0x00000008 0x80000000 0x00000003 0x80000000>;
- 	};
- };
-+
-+#include "k3-j742s2-rtos-memory-map.dtsi"
 diff --git a/arch/arm/dts/k3-j742s2-rtos-memory-map.dtsi b/arch/arm/dts/k3-j742s2-rtos-memory-map.dtsi
 new file mode 100644
 index 00000000000..cc474ecc824

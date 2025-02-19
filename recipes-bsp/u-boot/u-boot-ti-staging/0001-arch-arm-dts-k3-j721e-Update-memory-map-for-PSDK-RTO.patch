@@ -1,4 +1,4 @@
-From a81ec0d2453953f9e773e256a12e8c4d9fad529b Mon Sep 17 00:00:00 2001
+From 4ba54089c81ee840cfa68ea657f6381f20a3a85f Mon Sep 17 00:00:00 2001
 From: Rahul T R <r-ravikumar@ti.com>
 Date: Wed, 9 Oct 2024 21:11:06 +0530
 Subject: [PATCH] arch/arm/dts/k3-j721e-*: Update memory map for PSDK RTOS
@@ -9,9 +9,7 @@ remote core memory needs
 Signed-off-by: Rahul T R <r-ravikumar@ti.com>
 ---
  arch/arm/dts/k3-j721e-rtos-memory-map.dtsi | 261 +++++++++++++++++++++
- arch/arm/dts/k3-j721e-sk.dts               |   2 +
- arch/arm/dts/k3-j721e-som-p0.dtsi          |   2 +
- 3 files changed, 265 insertions(+)
+ 1 file changed, 261 insertions(+)
  create mode 100644 arch/arm/dts/k3-j721e-rtos-memory-map.dtsi
 
 diff --git a/arch/arm/dts/k3-j721e-rtos-memory-map.dtsi b/arch/arm/dts/k3-j721e-rtos-memory-map.dtsi
@@ -281,26 +279,6 @@ index 00000000000..3e4e1ca8fe5
 +	memory-region = <&vision_apps_c71_0_dma_memory_region>,
 +			<&vision_apps_c71_0_memory_region>;
 +};
-diff --git a/arch/arm/dts/k3-j721e-sk.dts b/arch/arm/dts/k3-j721e-sk.dts
-index ef16b899746..4412f273c55 100644
---- a/arch/arm/dts/k3-j721e-sk.dts
-+++ b/arch/arm/dts/k3-j721e-sk.dts
-@@ -1363,3 +1363,5 @@
- 	memory-region = <&c71_0_dma_memory_region>,
- 			<&c71_0_memory_region>;
- };
-+
-+#include "k3-j721e-rtos-memory-map.dtsi"
-diff --git a/arch/arm/dts/k3-j721e-som-p0.dtsi b/arch/arm/dts/k3-j721e-som-p0.dtsi
-index c16facf3d33..3df301a0ed6 100644
---- a/arch/arm/dts/k3-j721e-som-p0.dtsi
-+++ b/arch/arm/dts/k3-j721e-som-p0.dtsi
-@@ -613,3 +613,5 @@
- 	memory-region = <&c71_0_dma_memory_region>,
- 			<&c71_0_memory_region>;
- };
-+
-+#include "k3-j721e-rtos-memory-map.dtsi"
 -- 
 2.34.1
 
