@@ -1,4 +1,4 @@
-From 4871c7b71b27554ca495d918852fe981e650c6b0 Mon Sep 17 00:00:00 2001
+From 5d0e0d8c4e7683716ec4499211691a8f0446d214 Mon Sep 17 00:00:00 2001
 From: Lucas Weaver <l-weaver@ti.com>
 Date: Mon, 12 Jul 2021 08:46:24 -0500
 Subject: [PATCH] arm64: dts: ti: Add DTB overlays for vision apps and edgeai
@@ -15,26 +15,32 @@ it uses the rtos-memory-map customization only.
 
 Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
 ---
- arch/arm64/boot/dts/ti/Makefile | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/boot/dts/ti/Makefile               |   3 +
+ .../boot/dts/ti/k3-j721e-edgeai-apps.dtso     |  11 +
+ .../boot/dts/ti/k3-j721e-rtos-memory-map.dtsi | 261 ++++++++++++++++++
+ .../boot/dts/ti/k3-j721e-vision-apps.dtso     |  49 ++++
+ 4 files changed, 324 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-edgeai-apps.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-vision-apps.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 6f5353121fc7..5c23f22a6ed6 100644
+index 8d3bd01649bd..151769c27d99 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -136,6 +136,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-ov5640.dtbo
+@@ -131,6 +131,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-ov5640.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-dual-imx219.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-fpdlink-fusion.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-rpi-hdr-ehrpwm.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j721e-edgeai-apps.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j721e-vision-apps.dtbo
-
+ 
  # Boards with J721s2 SoC
  dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
-@@ -424,6 +426,7 @@ DTC_FLAGS_k3-j721e-beagleboneai64 += -@
- DTC_FLAGS_k3-j721e-evm-fusion += -@
+@@ -404,6 +406,7 @@ DTC_FLAGS_k3-j721e-evm-fusion += -@
  DTC_FLAGS_k3-j721e-common-proc-board += -@
  DTC_FLAGS_k3-j721e-evm-pcie0-ep += -@
+ DTC_FLAGS_k3-j721e-evm-ub954 += -@
 +DTC_FLAGS_k3-j721e-evm-ethfw += -@
  DTC_FLAGS_k3-j721e-sk += -@
  DTC_FLAGS_k3-j721e-sk-fpdlink-fusion += -@
@@ -378,5 +384,6 @@ index 000000000000..bcedbe6c6bdc
 +&ti_csi2rx1 {
 +	status = "disabled";
 +};
---
+-- 
 2.34.1
+

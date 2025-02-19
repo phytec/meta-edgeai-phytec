@@ -1,4 +1,4 @@
-From 304f90c10d2969626b7033b40e3b8049840d7d46 Mon Sep 17 00:00:00 2001
+From 737faf91b9009db2d25673d4a08ea5fbd1096ac6 Mon Sep 17 00:00:00 2001
 From: Lucas Weaver <l-weaver@ti.com>
 Date: Tue, 18 Oct 2022 09:23:02 -0500
 Subject: [PATCH] arm64: dts: ti: Add DTB overlay for vision apps
@@ -23,27 +23,26 @@ Signed-off-by: Aniket Limaye <a-limaye@ti.com>
  create mode 100644 arch/arm64/boot/dts/ti/k3-j784s4-vision-apps.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index ff0d7a0c205b..cd0691013ab5 100644
+index 8d3bd01649bd..7405e864ce9c 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -167,6 +167,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-ethfw.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-pcie0-pcie1-ep.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-quad-port-eth-exp1.dtbo
+@@ -165,6 +165,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-quad-port-eth-exp1.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm-usxgmii-exp1-exp2.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-j742s2-evm-pcie-ntb.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-j742s2-evm-usb0-type-a.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j784s4-vision-apps.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-sk-rpi-hdr-ehrpwm.dtbo
  
  # Boards with J742S2 SoC
-@@ -415,5 +416,6 @@ DTC_FLAGS_k3-j722s-evm += -@
- DTC_FLAGS_k3-j722s-evm-fpdlink-fusion += -@
- DTC_FLAGS_k3-j722s-evm-v3link-fusion += -@
+ dtb-$(CONFIG_ARCH_K3) += k3-j742s2-evm.dtb
+@@ -411,4 +412,5 @@ DTC_FLAGS_k3-j721s2-evm-fusion += -@
+ DTC_FLAGS_k3-j721s2-evm-ub954 += -@
+ DTC_FLAGS_k3-j722s-evm += -@
  DTC_FLAGS_k3-j784s4-evm += -@
 +DTC_FLAGS_k3-j784s4-evm-ethfw += -@
  DTC_FLAGS_k3-j742s2-evm += -@
- DTC_FLAGS_k3-j742s2-evm-ethfw += -@
 diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi
 new file mode 100644
-index 000000000000..4f8ce9d9f59b
+index 000000000000..85c1cce2e176
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j784s4-rtos-memory-map.dtsi
 @@ -0,0 +1,335 @@

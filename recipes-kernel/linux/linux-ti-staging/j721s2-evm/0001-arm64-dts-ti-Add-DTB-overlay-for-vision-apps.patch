@@ -1,4 +1,4 @@
-From 2218130ead0854d1b408ef4c49820a5a18fd5ffc Mon Sep 17 00:00:00 2001
+From 54565893ed96eb920393588b048248d818ada01c Mon Sep 17 00:00:00 2001
 From: Rahul T R <r-ravikumar@ti.com>
 Date: Tue, 26 Mar 2024 15:48:27 +0530
 Subject: [PATCH] arm64: dts: ti: Add DTB overlay for vision apps
@@ -24,17 +24,17 @@ Signed-off-by: Rahul T R <r-ravikumar@ti.com>
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-vision-apps.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index ff0d7a0c205b..2cbc98f328bc 100644
+index 8d3bd01649bd..50545df83136 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -141,6 +141,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-gesi-exp-board.dtbo
- k3-j721s2-evm-dtbs := k3-j721s2-common-proc-board.dtb k3-j721s2-evm-gesi-exp-board.dtbo
+@@ -145,6 +145,7 @@ k3-j721s2-evm-dtbs := k3-j721s2-common-proc-board.dtb k3-j721s2-evm-gesi-exp-boa
  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm.dtb
  dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-pcie1-ep.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-ub954.dtbo
 +dtb-$(CONFIG_ARCH_K3) += k3-j721s2-vision-apps.dtbo
  
  # Boards with J722s SoC
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai.dtb
 diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-rtos-memory-map.dtsi b/arch/arm64/boot/dts/ti/k3-j721s2-rtos-memory-map.dtsi
 new file mode 100644
 index 000000000000..a814ebd62a27
