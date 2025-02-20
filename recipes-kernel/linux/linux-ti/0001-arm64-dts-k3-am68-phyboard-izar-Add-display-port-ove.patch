@@ -1,0 +1,167 @@
+From c8b72c33e2650c3aeb44bad905b2dfd4a48b5200 Mon Sep 17 00:00:00 2001
+From: Dominik Haller <d.haller@phytec.de>
+Date: Tue, 4 Jun 2024 13:56:44 +0200
+Subject: [PATCH v6.1.80-09.02.00.009-phy] arm64: dts: k3-am68-phyboard-izar:
+ Add display port overlay
+
+Add an overlay to use the display port on the phyBOARD-Izar.
+
+On the J721S2/AM68x platform there is a pin conflict so main domain
+ethernet and the display port can't be used at the same time.
+Also USB super speed is disabled as SERDES supports only 2 of 3 interfaces
+simultaneously.
+
+Signed-off-by: Dominik Haller <d.haller@phytec.de>
+---
+ arch/arm64/boot/dts/ti/Makefile               |   1 +
+ .../dts/ti/k3-am68-phyboard-izar-edp.dtso     | 126 ++++++++++++++++++
+ 2 files changed, 127 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-edp.dtso
+
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index c6404436dc1d..9cf1f6a34666 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -115,6 +115,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-common-proc-board-infotainment.dtbo
+ # Boards with J721s2 SoC
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-rdk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-rdk-rev0.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-edp.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-lvds-ac200.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-lvds-ac200-rev0.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am68-phyboard-izar-pwm-fan.dtbo
+diff --git a/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-edp.dtso b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-edp.dtso
+new file mode 100644
+index 000000000000..722640b520c2
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am68-phyboard-izar-edp.dtso
+@@ -0,0 +1,126 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2023 PHYTEC Messtechnik GmbH
++ * Author: Dominik Haller <d.haller@phytec.de>
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include "k3-pinctrl.h"
++
++&{/} {
++
++	dp0: dp0-connector {
++		compatible = "dp-connector";
++		label = "DP0";
++		type = "full-size";
++		dp-pwr-supply = <&dp0_pwr_3v3>;
++
++		port {
++			dp0_connector_in: endpoint {
++				remote-endpoint = <&dp0_out>;
++			};
++		};
++	};
++
++	dp0_pwr_3v3: fixedregulator-dp0-prw {
++		compatible = "regulator-fixed";
++		regulator-name = "dp0-pwr";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		enable-active-high;
++	};
++};
++
++&dphy_tx0 {
++	status = "okay";
++};
++
++&dp0_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	port@0 {
++		reg = <0>;
++		dp0_in: endpoint {
++			remote-endpoint = <&dpi0_out>;
++		};
++	};
++
++	port@4 {
++		reg = <4>;
++		dp0_out: endpoint {
++			remote-endpoint = <&dp0_connector_in>;
++		};
++	};
++};
++
++&dss {
++        assigned-clocks = <&k3_clks 158 2>,
++                          <&k3_clks 158 5>,
++                          <&k3_clks 158 14>,
++                          <&k3_clks 158 18>;
++        assigned-clock-parents = <&k3_clks 158 3>,
++                                 <&k3_clks 158 7>,
++                                 <&k3_clks 158 16>,
++                                 <&k3_clks 158 22>;
++
++	status = "okay";
++};
++
++&dss_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	port@0 {
++		reg = <0>;
++		dpi0_out: endpoint {
++			remote-endpoint = <&dp0_in>;
++		};
++	};
++};
++
++&main_cpsw {
++	status = "disabled";
++};
++
++&main_cpsw_mdio {
++	status = "disabled";
++};
++
++&mhdp {
++	status = "okay";
++	cdns,no-hpd;
++	pinctrl-names = "default";
++	pinctrl-0 = <&dp0_pins_default>;
++};
++
++&serdes0_usb_link {
++	status = "disabled";
++};
++
++&torrent_phy_dp {
++	status = "okay";
++};
++
++&usbss0 {
++	ti,usb2-only;
++};
++
++&usb0 {
++        dr_mode = "host";
++        maximum-speed = "high-speed";
++	/delete-node/ phys;
++};
++
++&main_pmx0 {
++	/delete-node/ rgmii1-pins-default;
++
++        dp0_pins_default: dp0-pins-default {
++                pinctrl-single,pins = <
++                        J721S2_IOPAD(0x0b8, PIN_INPUT, 3) /* (AA24) MCASP1_ACLKX.DP0_HPD */
++                >;
++        };
++};
+-- 
+2.25.1
+
