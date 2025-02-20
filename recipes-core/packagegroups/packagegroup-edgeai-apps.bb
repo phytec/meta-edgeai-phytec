@@ -9,8 +9,6 @@ inherit packagegroup
 RDEPENDS:${PN} = "\
         ti-tidl-osrt-dev \
         ti-tidl-osrt-staticdev \
-        edgeai-init \
-        edgeai-gui-app \
         edgeai-gst-plugins-dev \
         edgeai-dl-inferer-staticdev \
         edgeai-gst-apps-source \
