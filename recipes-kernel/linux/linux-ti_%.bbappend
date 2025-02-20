@@ -8,6 +8,7 @@ SRC_URI:append = " \
     file://0003-media-ar0144-Adjust-max_fps-setting-for-ISP-modes.patch \
     file://0005-media-ar0144-Fix-memory-access-from-ISP-ioctls.patch \
     file://0006-BSPIMX8M-2382-media-ar0144-Allow-to-configure-a-mini.patch \
+    file://0001-arm64-dts-k3-am68-phyboard-izar-Add-display-port-ove.patch \
 "
 
 #TODO makefile patch (or dtso_fixup), install/add to KERNEL_DEVICETREE
