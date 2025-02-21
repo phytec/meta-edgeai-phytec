@@ -16,4 +16,5 @@ IMAGE_INSTALL += "\
     packagegroup-edgeai-apps-src \
     edgeai-tiovx-apps \   
     phytec-edgeai-firmware \
+    phytec-edgeai-gst-pipelines \
 "
