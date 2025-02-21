@@ -10,4 +10,5 @@ IMAGE_INSTALL += "\
     packagegroup-edgeai-stack \
     packagegroup-edgeai-apps \
     phytec-edgeai-firmware \
+    phytec-edgeai-gst-pipelines \
 "
