@@ -1,9 +1,5 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI:append = " \
-    file://0001-configs-j7-Enable-the-NFS-command-by-default.patch \
-"
-
 SRC_URI:append:j721e = " \
     file://0001-Optimal-QoS-Settings.patch \
     file://0001-arch-arm-dts-k3-j721e-Update-memory-map-for-PSDK-RTO.patch \
