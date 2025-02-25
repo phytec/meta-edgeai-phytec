@@ -17,7 +17,7 @@ SRC_URI = "git://git.ti.com/git/apps/edgeai-gui-app.git;protocol=https;branch=${
 
 S = "${WORKDIR}/git"
 
-inherit qmake5
+inherit qt6-qmake
 
 do_install:append () {
     install -d ${D}${bindir}
