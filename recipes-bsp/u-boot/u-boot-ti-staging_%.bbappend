@@ -1,5 +1,9 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
+SRC_URI:append = " \
+    file://tiU25.01-TI-HACK-Kconfig-Add-default-bootcmd-for-all-devices-of-ARCH_K3.patch \
+"
+
 SRC_URI:append:j721e = " \
     file://0001-Optimal-QoS-Settings.patch \
     file://0001-arch-arm-dts-k3-j721e-Update-memory-map-for-PSDK-RTO.patch \
