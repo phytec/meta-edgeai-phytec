@@ -23,7 +23,6 @@ EDGEAI_STACK:append:edgeai = " \
         ti-tidl-osrt-dev \
         ti-tidl-osrt-staticdev \
         edgeai-init \
-        edgeai-gui-app \
         edgeai-tiovx-modules-dev \
         edgeai-tiovx-modules-source \
         edgeai-gst-plugins-dev \
