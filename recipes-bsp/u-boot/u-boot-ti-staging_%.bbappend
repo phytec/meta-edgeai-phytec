@@ -21,7 +21,6 @@ SRC_URI:append:j784s4 = " \
     file://0004-include-environment-ti-Add-firmware-for-MCU-R5-core1.patch \
     file://0005-arm-dts-k3-j7xx-binman-Enable-split-mode-for-MCU-R5F.patch \
     file://0006-arm-dts-k3-j7xx-mcu-wakeup-Enable-split-mode-for-MCU.patch \
-    file://tiU25.01-TI-HACK-arm-dts-k3-j784s4-evm-u-boot-Add-PBIST_14-node.patch \
 "
 
 SRC_URI:append:j742s2 = " \
