@@ -1,6 +1,9 @@
 #!/bin/sh
 ulimit -Sn 10240                                                       
 ulimit -Hn 40960 
+export XDG_RUNTIME_DIR=/run/user/0
+export WAYLAND_DISPLAY=/run/wayland-0
+export XDG_SESSION_ID=c2
 
 BITS="12"                                        
 MBUS_FMT="SGRBG${BITS}_1X${BITS}" 

@@ -8,8 +8,13 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 PR = "r0"
 
+inherit systemd
+
+SYSTEMD_SERVICE:${PN} = "phytec-ew25-gst-pipeline.service"
+
 FILES:${PN} = " \
     ${ROOT_HOME} \
+    ${systemd_unitdir}/system/phytec-ew25-gst-pipeline.service \
 "
 
 RDEPENDS:${PN} = " \
@@ -26,6 +31,7 @@ SRC_URI:append:j721s2 = " \
     file://run_vm016_isp_csi0_keypoint_det.sh \
     file://receive_rtp_stream.sh \
     file://ew25_dual-vm016_multi-inference.sh \
+    file://phytec-ew25-gst-pipeline.service \
 "
 
 EXAMPLE_TARGET_FOLDER = "${D}${ROOT_HOME}/phytec_edgeai_examples"
@@ -55,5 +61,10 @@ do_install() {
 
     if [ -e ${WORKDIR}/ew25_dual-vm016_multi-inference.sh ]; then
         install -m 0755 ${WORKDIR}/ew25_dual-vm016_multi-inference.sh ${EXAMPLE_TARGET_FOLDER}
+    fi
+
+    if [ -e ${WORKDIR}/phytec-ew25-gst-pipeline.service ]; then
+        install -d ${D}${systemd_unitdir}/system/
+        install -m 0644 ${WORKDIR}/phytec-ew25-gst-pipeline.service ${D}${systemd_unitdir}/system/
     fi
 }

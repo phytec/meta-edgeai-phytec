@@ -1,0 +1,15 @@
+[Unit]
+Description=start ew25_dual-vm016_multi-inference
+Wants=systemd-udev-settle.service weston.service
+After=systemd-udev-settle.service weston.service
+
+[Service]
+Type=simple
+User=root
+Environment="WAYLAND_DISPLAY=/run/wayland-0"
+Environment="XDG_RUNTIME_DIR=/run/user/$(id -u root)"
+Environment=DISPLAY=:0
+ExecStart=/root/ew25_dual-vm016_multi-inference.sh
+
+[Install]
+WantedBy=multi-user.target
