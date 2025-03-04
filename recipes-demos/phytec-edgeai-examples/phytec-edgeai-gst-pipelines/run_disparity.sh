@@ -35,7 +35,7 @@ tiovxisp sink_0::device=/dev/cam-csi1 sensor-name=${SENSOR_NAME} dcc-isp-file=${
 queue ! video/x-raw,format=NV12,width=${WIDTH},height=${HEIGHT} ! tee name=cam_right \
 cam_right.src_0 ! stereo.right_sink \
 cam_right.src_1 ! mosaic.sink_1 \
-tiovxsde name=stereo ! tiovxsdeviz ! ticolorconvert ! video/x-raw,format=NV12 ! queue ! mosaic.sink_2 \
+tiovxsde name=stereo ! tiovxsdeviz ! ticolorconvert ! queue ! video/x-raw,format=NV12 ! mosaic.sink_2 \
 tiovxmosaic name=mosaic sink_1::starty="<${HEIGHT}>" sink_2::startx="<${WIDTH}>" ! \
-queue ! video/x-raw,format=NV12,width=$((WIDTH*2)),height=$((HEIGHT*2)) !  tiperfoverlay title="Phycam VM-016 Disparity" ! \
+video/x-raw,format=NV12,width=$((WIDTH*2)),height=$((HEIGHT*2)) ! queue ! tiperfoverlay title="Phycam VM-016 Disparity" ! \
 ${REMOTE_SINK}
