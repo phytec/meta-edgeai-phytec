@@ -1,5 +1,9 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/linux-ti-staging/:${THISDIR}/linux-ti-staging/${MACHINE}:"
 
+SRC_URI:append = " \
+    file://0001-remoteproc-core-Make-DMA-BUF-attachment-interface-th.patch \
+"
+
 SRC_URI:append:j721e = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
 "

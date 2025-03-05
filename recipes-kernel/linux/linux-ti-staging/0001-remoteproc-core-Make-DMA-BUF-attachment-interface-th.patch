@@ -1,0 +1,66 @@
+From 754f9a6c434e15755e34d2d15ced692f87288b3d Mon Sep 17 00:00:00 2001
+From: Rahul T R <r-ravikumar@ti.com>
+Date: Tue, 23 Jul 2024 01:59:12 +0530
+Subject: [PATCH] remoteproc: core: Make DMA-BUF attachment interface thread
+ safe
+
+Protect dmabuf attach list access with mutex
+
+Signed-off-by: Rahul T R <r-ravikumar@ti.com>
+Acked-by: Andrew Davis <afd@ti.com>
+---
+ drivers/remoteproc/remoteproc_core.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index b5b8752b3ccb..a13117b48d31 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -47,6 +47,7 @@
+ 
+ static DEFINE_MUTEX(rproc_list_mutex);
+ static LIST_HEAD(rproc_list);
++static DEFINE_MUTEX(dmabuf_list_mutex);
+ static struct notifier_block rproc_panic_nb;
+ 
+ typedef int (*rproc_handle_resource_t)(struct rproc *rproc,
+@@ -901,10 +902,14 @@ static struct rproc_dmabuf_entry *rproc_find_entry_for_dmabuf(struct rproc *rpro
+ {
+ 	struct rproc_dmabuf_entry *dmabuf_entry;
+ 
++	mutex_lock(&dmabuf_list_mutex);
+ 	list_for_each_entry(dmabuf_entry, &rproc->dmabufs, node) {
+-		if (dmabuf_entry->dmabuf == dmabuf)
++		if (dmabuf_entry->dmabuf == dmabuf) {
++			mutex_unlock(&dmabuf_list_mutex);
+ 			return dmabuf_entry;
++		}
+ 	}
++	mutex_unlock(&dmabuf_list_mutex);
+ 
+ 	return NULL;
+ }
+@@ -979,7 +984,9 @@ int rproc_attach_dmabuf(struct rproc *rproc, struct dma_buf *dmabuf)
+ 	dmabuf_entry->sgt = sgt;
+ 	dmabuf_entry->refcount = 1;
+ 
+-	list_add_tail(&dmabuf_entry->node, &rproc->dmabufs);
++	mutex_lock(&dmabuf_list_mutex);
++    list_add_tail(&dmabuf_entry->node, &rproc->dmabufs);
++	mutex_unlock(&dmabuf_list_mutex);
+ 
+ 	mutex_unlock(&rproc->lock);
+ 	return 0;
+@@ -998,7 +1005,9 @@ static void rproc_release_dmabuf(struct rproc *rproc, struct rproc_dmabuf_entry
+ 		dma_buf_unmap_attachment(dmabuf_entry->attachment, dmabuf_entry->sgt, DMA_BIDIRECTIONAL);
+ 	if (dmabuf_entry->dmabuf && dmabuf_entry->attachment)
+ 		dma_buf_detach(dmabuf_entry->dmabuf, dmabuf_entry->attachment);
++	mutex_lock(&dmabuf_list_mutex);
+ 	list_del(&dmabuf_entry->node);
++	mutex_unlock(&dmabuf_list_mutex);
+ 	kfree(dmabuf_entry);
+ }
+ 
+-- 
+2.34.1
+
