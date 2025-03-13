@@ -18,8 +18,8 @@ Signed-off-by: Nikhil Devshatwar <nikhil.nd@ti.com>
  arch/arm64/boot/dts/ti/Makefile               |   3 +
  .../boot/dts/ti/k3-j721e-edgeai-apps.dtso     |  11 +
  .../boot/dts/ti/k3-j721e-rtos-memory-map.dtsi | 261 ++++++++++++++++++
- .../boot/dts/ti/k3-j721e-vision-apps.dtso     |  49 ++++
- 4 files changed, 324 insertions(+)
+ .../boot/dts/ti/k3-j721e-vision-apps.dtso     |  53 ++++
+ 4 files changed, 328 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-edgeai-apps.dtso
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
  create mode 100644 arch/arm64/boot/dts/ti/k3-j721e-vision-apps.dtso
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
 index 8d3bd01649bd..151769c27d99 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -131,6 +131,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk.dtb
+@@ -156,6 +156,8 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk.dtb
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-ov5640.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-csi2-dual-imx219.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-j721e-sk-fpdlink-fusion.dtbo
@@ -37,7 +37,7 @@ index 8d3bd01649bd..151769c27d99 100644
  
  # Boards with J721s2 SoC
  dtb-$(CONFIG_ARCH_K3) += k3-am68-sk-base-board.dtb
-@@ -404,6 +406,7 @@ DTC_FLAGS_k3-j721e-evm-fusion += -@
+@@ -478,6 +480,7 @@ DTC_FLAGS_k3-j721e-evm-fusion += -@
  DTC_FLAGS_k3-j721e-common-proc-board += -@
  DTC_FLAGS_k3-j721e-evm-pcie0-ep += -@
  DTC_FLAGS_k3-j721e-evm-ub954 += -@
@@ -334,7 +334,7 @@ new file mode 100644
 index 000000000000..bcedbe6c6bdc
 --- /dev/null
 +++ b/arch/arm64/boot/dts/ti/k3-j721e-vision-apps.dtso
-@@ -0,0 +1,49 @@
+@@ -0,0 +1,53 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * vision-apps: device-tree overlay
@@ -371,6 +371,10 @@ index 000000000000..bcedbe6c6bdc
 +
 +&dss {
 +	status = "disabled";
++};
++
++&mhdp {
++    status = "disabled";
 +};
 +
 +&main_i2c1 {
