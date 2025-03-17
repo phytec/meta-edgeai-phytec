@@ -12,8 +12,6 @@ SRC_URI:append:j721s2 = " \
 SRC_URI:append:j784s4 = " \
     file://0001-arm64-dts-ti-Add-DTB-overlay-for-vision-apps.patch \
     file://0002-arm64-dts-ti-k3-j784s4-Add-overlay-for-edge-ai.patch \
-    file://0001-HACK-remoteproc-k3-r5-Release-processor-control-for-.patch \
-    file://0002-arm64-dts-ti-k3-j7xx-mcu-wakeup-Enable-split-mode-fo.patch \
 "
 
 SRC_URI:append:j742s2 = " \
