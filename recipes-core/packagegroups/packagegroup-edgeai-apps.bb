@@ -6,14 +6,20 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit packagegroup
 
-RDEPENDS:${PN} = "\
-        ti-tidl-osrt-dev \
-        ti-tidl-osrt-staticdev \
-        edgeai-gst-plugins-dev \
-        edgeai-dl-inferer-staticdev \
-        edgeai-gst-apps-source \
-        edgeai-gst-plugins-source \
-        edgeai-gst-apps \
-        edgeai-dl-inferer-source \
-        edgeai-studio-agent \
+PACKAGES += " \
+        ${PN}-src \
 "
+PROVIDES = "${PACKAGES}"
+
+RDEPENDS:${PN} = "\
+        edgeai-apps-utils \
+        edgeai-gst-apps \
+        edgeai-studio-agent \
+        edgeai-tidl-models \
+        edgeai-test-data \
+"
+
+RDEPENDS:${PN}-src = "\
+        edgeai-gst-apps-source \
+        edgeai-apps-utils-source \
+" 

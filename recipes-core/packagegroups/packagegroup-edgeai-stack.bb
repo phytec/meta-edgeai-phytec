@@ -6,16 +6,32 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit packagegroup
 
-RDEPENDS:${PN} = "\
-        ti-vision-apps-dev \
-        ti-tidl-dev \
-        edgeai-tiovx-kernels-dev \
-        edgeai-tiovx-modules-dev \
-        edgeai-tiovx-kernels-source \
-        edgeai-tiovx-modules-source \
-        edgeai-apps-utils-source \
-        edgeai-test-data \
-        edgeai-tidl-models \
-        edgeai-tiovx-apps-dev \
-        edgeai-tiovx-apps-source \
+PACKAGES += " \
+        ${PN}-src \
 "
+PROVIDES = "${PACKAGES}"
+
+RDEPENDS:${PN} = "\
+        phytec-edgeai-firmware \
+        ti-tidl \
+        ti-tidl-osrt-staticdev \
+        ti-vision-apps \
+        edgeai-dl-inferer-staticdev \
+        edgeai-tidl-models \
+        edgeai-tiovx-kernels \
+        edgeai-tiovx-modules \
+        edgeai-gst-plugins \
+"
+
+RDEPENDS:${PN}-dev = "\
+        ti-tidl-dev \
+        ti-tidl-osrt-dev \
+        ti-vision-apps-dev \
+        edgeai-test-data \
+        edgeai-gst-plugins-dev \    
+"
+
+RDEPENDS:${PN}-src = "\
+        edgeai-gst-plugins-source \
+        edgeai-dl-inferer-source \
+" 

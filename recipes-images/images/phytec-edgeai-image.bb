@@ -7,8 +7,15 @@ LICENSE = "MIT"
 
 IMAGE_INSTALL += "\
     packagegroup-edgeai-tisdk-addons \
+    packagegroup-edgeai-tiovx \
+    packagegroup-edgeai-tiovx-dev \
+    packagegroup-edgeai-tiovx-src \
     packagegroup-edgeai-stack \
+    packagegroup-edgeai-stack-dev \
+    packagegroup-edgeai-stack-src \
     packagegroup-edgeai-apps \
+    packagegroup-edgeai-apps-src \
+    edgeai-tiovx-apps \   
     phytec-edgeai-firmware \
     phytec-edgeai-gst-pipelines \
 "

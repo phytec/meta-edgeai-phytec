@@ -6,15 +6,14 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit packagegroup
 
-PROVIDES = "${PACKAGES}"
 PACKAGES += " \
-        ${PN}-source \
+        ${PN}-src \
 "
+PROVIDES = "${PACKAGES}"
 
 RDEPENDS:${PN} = "\
         edgeai-tiovx-kernels \
         edgeai-tiovx-modules \
-        edgeai-tiovx-apps \
 "
 
 RDEPENDS:${PN}-dev = "\
@@ -23,7 +22,7 @@ RDEPENDS:${PN}-dev = "\
         edgeai-tiovx-apps-dev \
 "
 
-RDEPENDS:${PN}-source = "\
+RDEPENDS:${PN}-src = "\
         edgeai-tiovx-kernels-source \
         edgeai-tiovx-modules-source \
         edgeai-tiovx-apps-source \
