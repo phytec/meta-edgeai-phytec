@@ -7,11 +7,6 @@
 #       default on all newer U-Boot images.  This also means that some
 #       variables such as bootdelay cannot be changed by this file since
 #       it is not evaluated until the bootcmd is run.
-psdk_setup_file=.psdk_setup
-check_psdk_setup=load mmc 1:1 ${loadaddr} ${psdk_setup_file}
-
-# Reset to the default environment
-do_psdk_setup=env default -f -a; saveenv
 
 # Update the Linux hostname based on board_name
 # The SK also requires an additional dtbo to boot. Prepend it to name_overlays depending on board_name
