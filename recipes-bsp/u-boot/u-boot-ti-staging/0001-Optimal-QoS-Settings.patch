@@ -1,4 +1,4 @@
-From 5d20d5893c262d5ef557a7192ea3512783952add Mon Sep 17 00:00:00 2001
+From e37dcb171e8b848f3919fc584aa0cf0f5ac37394 Mon Sep 17 00:00:00 2001
 From: Shyam Jagannathan <shyam.jagannathan@ti.com>
 Date: Mon, 5 Aug 2024 17:14:17 +0530
 Subject: [PATCH] Optimal QoS Settings
@@ -22,7 +22,7 @@ Signed-off-by: Shyam Jagannathan <shyam.jagannathan@ti.com>
  create mode 100644 arch/arm/mach-k3/include/mach/j721e_qos_params.h
 
 diff --git a/arch/arm/mach-k3/include/mach/hardware.h b/arch/arm/mach-k3/include/mach/hardware.h
-index 52d631e2380..d237caa8c77 100644
+index 231c85f6748..73725c40e3a 100644
 --- a/arch/arm/mach-k3/include/mach/hardware.h
 +++ b/arch/arm/mach-k3/include/mach/hardware.h
 @@ -34,6 +34,7 @@
@@ -255,12 +255,12 @@ index 00000000000..e011e43e355
 +
 +#endif
 diff --git a/drivers/ram/k3-ddrss/k3-ddrss.c b/drivers/ram/k3-ddrss/k3-ddrss.c
-index fa6a3ef506b..b4ca97c8bcb 100644
+index 3c5333dc44f..e0aacc55f7c 100644
 --- a/drivers/ram/k3-ddrss/k3-ddrss.c
 +++ b/drivers/ram/k3-ddrss/k3-ddrss.c
-@@ -831,6 +831,23 @@ static void k3_ddrss_lpddr4_ecc_init(struct k3_ddrss_desc *ddrss)
- 	writel(val, base + DDRSS_ECC_CTRL_REG);
+@@ -1021,6 +1021,23 @@ static bool k3_ddrss_wkup_conf_boot_is_resume(struct k3_ddrss_desc *ddrss)
  }
+ #endif
  
 +#ifdef CONFIG_K3_J721E_DDRSS
 +#define DDRSS_V2A_LPT_DEF_PRI_MAP_REG (0x02980030u)
