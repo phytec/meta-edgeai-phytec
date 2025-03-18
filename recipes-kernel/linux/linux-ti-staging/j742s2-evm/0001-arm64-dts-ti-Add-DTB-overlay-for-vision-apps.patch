@@ -378,7 +378,7 @@ index 000000000000..b4edfe977e8d
 +
 +&mhdp {
 +    status = "disabled";
-+}
++};
 +
 +&serdes_wiz4 {
 +    status = "disabled";
