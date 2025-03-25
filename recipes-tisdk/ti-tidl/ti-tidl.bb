@@ -44,7 +44,7 @@ CPU:j722s = "A53"
 DEPENDS += "ti-vision-apps"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 

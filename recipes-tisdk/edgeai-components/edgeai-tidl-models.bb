@@ -19,7 +19,7 @@ SOC:am62xx = "am62x"
 SOC:am62pxx = "am62p"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j722s-evm|j784s4-hs-evm|am62axx-evm|am62xx|am62pxx"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 do_fetch() {
     mkdir -p ${WORKDIR}/script

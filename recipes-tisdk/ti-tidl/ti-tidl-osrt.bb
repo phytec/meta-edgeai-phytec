@@ -22,7 +22,7 @@ SRC_URI[ort_lib.sha256sum] = "7efbad0cb6d0793ba4db843055774b7a2bb746d82650589834
 DEPENDS += "python3-pip-native"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|am62xx|am62pxx"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 
