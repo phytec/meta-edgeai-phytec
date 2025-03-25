@@ -36,7 +36,7 @@ RDEPENDS:${PN} += "edgeai-gst-plugins edgeai-dl-inferer-staticdev python3-pygobj
 RDEPENDS:${PN}-source += "bash python3-core edgeai-dl-inferer-dev python3-yamlloader python3-numpy opencv cmake dialog"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|am62xx|am62pxx"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 export SOC = "${PLAT_SOC}"
 
