@@ -40,7 +40,7 @@ RDEPENDS:${PN}-source:remove:am62xx = "edgeai-tiovx-modules-dev"
 RDEPENDS:${PN}-source:remove:am62pxx = "edgeai-tiovx-modules-dev"
 
 COMPATIBLE_MACHINE = "j721e-evm|j721e-hs-evm|j721s2-evm|j721s2-hs-evm|j784s4-evm|j784s4-hs-evm|j722s-evm|am62axx-evm|am62xx|am62pxx"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 export SOC = "${PLAT_SOC}"
 
