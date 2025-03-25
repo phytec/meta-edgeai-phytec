@@ -51,7 +51,7 @@ DEPENDS = "glm freetype ti-rpmsg-char repo-native virtual/egl libpam"
 DEPENDS:append:adas = " nlohmann-json stb"
 
 COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|j742s2|am62axx"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"

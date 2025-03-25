@@ -24,7 +24,7 @@ RDEPENDS:${PN} += "ti-tidl-osrt-staticdev"
 RDEPENDS:${PN}-source = "bash python3-core cmake python3-yamlloader python3-numpy opencv opencv-dev"
 
 COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|am62axx"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 export SOC = "${PLAT_SOC}"
 

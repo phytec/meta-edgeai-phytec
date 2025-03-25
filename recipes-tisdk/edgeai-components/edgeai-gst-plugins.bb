@@ -30,7 +30,7 @@ DEPENDS = "edgeai-tiovx-modules edgeai-apps-utils gstreamer1.0-plugins-base edge
 RDEPENDS:${PN}-source = "bash meson ninja"
 
 COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j742s2|j722s|am62axx"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 export SOC = "${PLAT_SOC}"
 

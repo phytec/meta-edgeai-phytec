@@ -24,7 +24,7 @@ DEPENDS = "ti-vision-apps"
 RDEPENDS:${PN}-source += "python3-core cmake"
 
 COMPATIBLE_MACHINE = "j721e|j721s2|j784s4|j722s|j742s2|am62axx"
-COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2"
+COMPATIBLE_MACHINE += "|phyboard-izar-am68x-2|phyboard-izar-am68x-3"
 
 export SOC = "${PLAT_SOC}"
 
