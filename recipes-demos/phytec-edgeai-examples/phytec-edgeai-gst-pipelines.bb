@@ -27,29 +27,28 @@ SRC_URI:append:j721s2 = " \
     file://receive_rtp_stream.sh \
 "
 
+EXAMPLE_TARGET_FOLDER = "${D}${ROOT_HOME}/phytec_edgeai_examples"
+
 do_install() {
+    install -d ${EXAMPLE_TARGET_FOLDER}
+
     if [ -e ${WORKDIR}/run_vm016_csi0.sh ]; then
-        install -d ${D}${ROOT_HOME}
-        install -m 0755 ${WORKDIR}/run_vm016_csi0.sh ${D}${ROOT_HOME}/
+        install -m 0755 ${WORKDIR}/run_vm016_csi0.sh ${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0.sh ]; then
-        install -d ${D}${ROOT_HOME}
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0.sh ${D}${ROOT_HOME}/
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0.sh ${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ]; then
-        install -d ${D}${ROOT_HOME}
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ${D}${ROOT_HOME}/
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ]; then
-        install -d ${D}${ROOT_HOME}
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ${D}${ROOT_HOME}/
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/receive_rtp_stream.sh ]; then
-        install -d ${D}${ROOT_HOME}
-        install -m 0755 ${WORKDIR}/receive_rtp_stream.sh ${D}${ROOT_HOME}/
+        install -m 0755 ${WORKDIR}/receive_rtp_stream.sh ${EXAMPLE_TARGET_FOLDER}
     fi
 }
