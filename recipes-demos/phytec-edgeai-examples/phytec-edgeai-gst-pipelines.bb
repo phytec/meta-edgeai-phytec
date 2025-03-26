@@ -24,6 +24,7 @@ SRC_URI:append:j721s2 = " \
     file://run_vm016_isp_csi0.sh \
     file://run_vm016_isp_csi0_object_det.sh \
     file://run_vm016_isp_csi0_keypoint_det.sh \
+    file://receive_rtp_stream.sh \
 "
 
 do_install() {
@@ -45,5 +46,10 @@ do_install() {
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ]; then
         install -d ${D}${ROOT_HOME}
         install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ${D}${ROOT_HOME}/
+    fi
+
+    if [ -e ${WORKDIR}/receive_rtp_stream.sh ]; then
+        install -d ${D}${ROOT_HOME}
+        install -m 0755 ${WORKDIR}/receive_rtp_stream.sh ${D}${ROOT_HOME}/
     fi
 }
