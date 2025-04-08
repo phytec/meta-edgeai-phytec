@@ -22,6 +22,10 @@ RDEPENDS:${PN} = " \
 SRC_URI:append:j721s2 = " \
     file://run_vm016_csi0.sh \
     file://run_vm016_isp_csi0.sh \
+    file://run_vm016_isp_csi0_port0.sh \
+    file://run_vm016_isp_csi0_port1.sh \
+    file://run_vm016_isp_csi0_port01.sh \
+    file://run_vm016_isp_csi1_port0.sh \
     file://run_vm016_isp_csi0_object_det.sh \
     file://run_vm016_isp_csi0_keypoint_det.sh \
     file://receive_rtp_stream.sh \
@@ -38,6 +42,22 @@ do_install() {
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0.sh ]; then
         install -m 0755 ${WORKDIR}/run_vm016_isp_csi0.sh ${EXAMPLE_TARGET_FOLDER}
+    fi
+
+    if [ -e ${WORKDIR}/run_vm016_isp_csi0_port0.sh ]; then
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port0.sh ${EXAMPLE_TARGET_FOLDER}
+    fi
+
+    if [ -e ${WORKDIR}/run_vm016_isp_csi0_port1.sh ]; then
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port1.sh ${EXAMPLE_TARGET_FOLDER}
+    fi
+
+    if [ -e ${WORKDIR}/run_vm016_isp_csi0_port01.sh ]; then
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port01.sh ${EXAMPLE_TARGET_FOLDER}
+    fi
+
+    if [ -e ${WORKDIR}/run_vm016_isp_csi1_port0.sh ]; then
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi1_port0.sh ${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ]; then
