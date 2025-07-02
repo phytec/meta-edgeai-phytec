@@ -13,10 +13,12 @@ FILES:${PN} = " \
 "
 
 RDEPENDS:${PN} = " \
-    v4l-utils \
+    edgeai-gst-plugins \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-good-video4linux2 \
     media-ctl \
     phycam-setup \
-    edgeai-gst-plugins \
+    v4l-utils \
 "
 
 SRC_URI:append:j721s2 = " \
