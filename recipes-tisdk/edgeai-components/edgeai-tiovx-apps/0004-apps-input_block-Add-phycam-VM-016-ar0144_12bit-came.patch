@@ -1,0 +1,52 @@
+From 7b5f200bc6b4bb48b9f0703120931699dc821663 Mon Sep 17 00:00:00 2001
+From: Steffen Hemer <s.hemer@phytec.de>
+Date: Wed, 23 Jul 2025 13:36:39 +0200
+Subject: [PATCH 4/6] apps: input_block: Add phycam VM-016 ar0144_12bit camera
+ support
+
+Also adds a part to the sensor_module.
+
+Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
+---
+ apps/src/input_block.c            | 9 +++++++++
+ modules/src/tiovx_sensor_module.c | 4 ++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/apps/src/input_block.c b/apps/src/input_block.c
+index 972d973d571e..27ef4a1edf4b 100644
+--- a/apps/src/input_block.c
++++ b/apps/src/input_block.c
+@@ -200,6 +200,15 @@ int32_t create_input_block(GraphObj *graph, InputBlock *input_block)
+             output_height = 1300;
+         }
+ #endif
++        else if (0 == strcmp("ar0144_12bit", input_info->sensor_name))
++        {
++            sprintf(sensor_name, "SENSOR_AR0144_PHYCAM");
++            format_pixel_container = TIVX_RAW_IMAGE_16_BIT;
++            format_msb = 11;
++            v4l2_pix_format = V4L2_PIX_FMT_SGRBG12;
++            output_width = 1280;
++            output_height = 800;
++        }
+         else
+         {
+             TIOVX_APPS_ERROR("Invalid sensor name %s\n", input_info->sensor_name);
+diff --git a/modules/src/tiovx_sensor_module.c b/modules/src/tiovx_sensor_module.c
+index 1df97b552ea6..86bc1a36f96b 100644
+--- a/modules/src/tiovx_sensor_module.c
++++ b/modules/src/tiovx_sensor_module.c
+@@ -107,6 +107,10 @@ vx_status tiovx_init_sensor_obj(SensorObj *sensorObj, char *objName)
+     {
+         sensorObj->sensorParams.dccId=2312;
+     }
++    else if(strcmp(sensorObj->sensor_name, "SENSOR_AR0144_PHYCAM") == 0)
++    {
++        sensorObj->sensorParams.dccId=144;
++    }
+     else
+     {
+         TIOVX_MODULE_ERROR("[SENSOR-MODULE] Invalid sensor name\n");
+-- 
+2.43.0
+
