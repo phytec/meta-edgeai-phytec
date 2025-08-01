@@ -1,0 +1,85 @@
+From 42ee33b74a6e704371b8993e6016e6485a8e6ca8 Mon Sep 17 00:00:00 2001
+From: Steffen Hemer <s.hemer@phytec.de>
+Date: Fri, 1 Aug 2025 08:49:19 +0200
+Subject: [PATCH 5/6] utils: yaml_parser: Check path length and simplify the
+ search in 'artifacts_folder'
+
+While investigating buffer overflows due to too long file paths, rewrite
+the iteration through the 'artifacts_folder' fully using
+std::filesystem::path instead of strings.
+
+The overflow results from the limited length and missing checks of the
+path fields in 'model_info'. Add a length check.
+
+Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
+---
+ utils/src/yaml_parser.cpp | 38 +++++++++++++++++++++++---------------
+ 1 file changed, 23 insertions(+), 15 deletions(-)
+
+diff --git a/utils/src/yaml_parser.cpp b/utils/src/yaml_parser.cpp
+index cfe71e60e11b..84817bbd4d2f 100644
+--- a/utils/src/yaml_parser.cpp
++++ b/utils/src/yaml_parser.cpp
+@@ -294,36 +294,44 @@ int32_t parse_model_node(ModelInfo *model_info, const YAML::Node &model_node)
+     
+     if (!session_node["artifacts_folder"])
+     {
+-        TIOVX_APPS_ERROR("'artifacts_folder' not sepcified in param file.\n");
++        TIOVX_APPS_ERROR("'artifacts_folder' not specified in param file.\n");
+         return -1;
+     }
+ 
+-    std::string artifacts_path = "";
+-    const std::string &temp_artifacts_path = session_node["artifacts_folder"].as<std::string>();
+-    std::filesystem::path a_path(temp_artifacts_path);
+-    if (a_path.is_relative())
++    std::filesystem::path artifacts_path;
++    std::filesystem::path temp_artifacts_path = std::filesystem::path{session_node["artifacts_folder"].as<std::string>()};
++
++    if (temp_artifacts_path.is_relative())
+     {
+-        artifacts_path = model_path + "/" + temp_artifacts_path;
++        artifacts_path = model_path / temp_artifacts_path;
+     }
+     else
+     {
+         artifacts_path = temp_artifacts_path;
+     }
+ 
+-    for(const auto &filename : std::filesystem::directory_iterator(artifacts_path))
+-    {
+-        std::string x(filename.path());
+-        if(ends_with(x, "_tidl_io_1.bin"))
+-        {
+-            sprintf(model_info->io_config_path, "%s", x.data());
+-        }
++    const std::string io_conf_ext{"_tidl_io_1.bin"};
++    bool path_size_ok = artifacts_path.string().length() + io_conf_ext.length() < MAX_CHAR_ARRAY_SIZE;
+ 
+-        if(ends_with(x, "_tidl_net.bin"))
++    if(path_size_ok) {
++        for(const auto &filename : std::filesystem::directory_iterator{artifacts_path})
+         {
+-            sprintf(model_info->network_path, "%s", x.data());
++            if(ends_with(filename.path(), io_conf_ext))
++            {
++                sprintf(model_info->io_config_path, "%s", filename.path().c_str());
++            }
++
++            if(ends_with(filename.path(), "_tidl_net.bin"))
++            {
++                sprintf(model_info->network_path, "%s", filename.path().c_str());
++            }
+         }
++    } else {
++            TIOVX_APPS_ERROR("Filepath for model info paths get too long: %s\n", artifacts_path.c_str());
++            return -1;
+     }
+ 
++    //checks are obsolete as they were retrieved via the directory_iterator?!
+     if (!std::filesystem::exists(model_info->io_config_path))
+     {
+         TIOVX_APPS_ERROR("%s does not exist\n",model_info->io_config_path);
+-- 
+2.43.0
+

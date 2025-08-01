@@ -1,7 +1,7 @@
-From 404a111c6446329fc3a67cd545feed9dc0b4c56e Mon Sep 17 00:00:00 2001
+From a3d14f4dd2cf42680bcc7377f249edae3d374b7a Mon Sep 17 00:00:00 2001
 From: Steffen Hemer <s.hemer@phytec.de>
 Date: Tue, 4 Feb 2025 15:17:55 +0100
-Subject: [PATCH 2/3] apps: Fix build failure due to warning
+Subject: [PATCH 3/6] apps: Fix build failure due to warning
 
 sprintf second argument should be a format string.
 

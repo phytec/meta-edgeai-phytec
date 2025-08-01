@@ -1,0 +1,165 @@
+From aea73e813737a95998f2053ee19f88f1c60b5a57 Mon Sep 17 00:00:00 2001
+From: Steffen Hemer <s.hemer@phytec.de>
+Date: Wed, 6 Aug 2025 13:27:10 +0200
+Subject: [PATCH 6/6] modules: linux_aewb_module: Add PHYTEC VM-016 and let
+ messages break lines
+
+Not yet validated if there need to be some kind of mapping.
+
+Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
+---
+ modules/src/linux_aewb_module.c | 79 ++++++++++++++++++++++++++++++---
+ 1 file changed, 73 insertions(+), 6 deletions(-)
+
+diff --git a/modules/src/linux_aewb_module.c b/modules/src/linux_aewb_module.c
+index d7f1b7407b42..a0cd0505503c 100644
+--- a/modules/src/linux_aewb_module.c
++++ b/modules/src/linux_aewb_module.c
+@@ -153,6 +153,29 @@ static const uint16_t gIMX390GainsTable[ISS_IMX390_GAIN_TBL_SIZE][2U] = {
+   {8192, 0x5D}
+ };
+ 
++
++void get_ar0144_ae_dyn_params (IssAeDynamicParams * p_ae_dynPrms)
++{
++  uint8_t count = 0;
++
++  p_ae_dynPrms->targetBrightnessRange.min = 40;
++  p_ae_dynPrms->targetBrightnessRange.max = 50;
++  p_ae_dynPrms->targetBrightness = 45;
++  p_ae_dynPrms->threshold = 1;
++  p_ae_dynPrms->enableBlc = 0;
++  p_ae_dynPrms->exposureTimeStepSize = 1;
++
++  p_ae_dynPrms->exposureTimeRange[count].min = 100;
++  p_ae_dynPrms->exposureTimeRange[count].max = 16033;
++  p_ae_dynPrms->analogGainRange[count].min = 1724;
++  p_ae_dynPrms->analogGainRange[count].max = 16384;
++  p_ae_dynPrms->digitalGainRange[count].min = 256;
++  p_ae_dynPrms->digitalGainRange[count].max = 256;
++  count++;
++
++  p_ae_dynPrms->numAeDynParams = count;
++}
++
+ void get_imx219_ae_dyn_params (IssAeDynamicParams *p_ae_dynPrms)
+ {
+     uint8_t count = 0;
+@@ -228,7 +251,8 @@ void get_ov2312_ae_dyn_params (IssAeDynamicParams *p_ae_dynPrms)
+ }
+ 
+ void gst_tiovx_isp_map_2A_values (char *sensor_name, int exposure_time,
+-    int analog_gain, int *exposure_time_mapped, int *analog_gain_mapped)
++    int analog_gain, uint64_t pixclk, uint32_t hlength,
++    int *exposure_time_mapped, int *analog_gain_mapped)
+ {
+   if (strcmp(sensor_name, "SENSOR_SONY_IMX390_UB953_D3") == 0) {
+       int i;
+@@ -247,8 +271,11 @@ void gst_tiovx_isp_map_2A_values (char *sensor_name, int exposure_time,
+   } else if (strcmp(sensor_name, "SENSOR_OV2312_UB953_LI") == 0) {
+       *exposure_time_mapped = (60 * 1300 * exposure_time / 1000000);
+       *analog_gain_mapped = analog_gain;
++  } else if (strcmp(sensor_name, "SENSOR_AR0144_PHYCAM") == 0) {
++      *exposure_time_mapped =  pixclk / 1000000 * exposure_time / hlength;
++      *analog_gain_mapped = analog_gain * 1000 / 1024;
+   } else {
+-      TIOVX_MODULE_ERROR("[AEWB] Unknown sensor: %s", sensor_name);
++      TIOVX_MODULE_ERROR("[AEWB] Unknown sensor: %s\n", sensor_name);
+   }
+ }
+ 
+@@ -331,7 +358,7 @@ AewbHandle *aewb_create_handle(AewbCfg *cfg)
+     status = TI_2A_wrapper_create(&handle->ti_2a_wrapper, &handle->aewb_config,
+                 handle->dcc_2a_buf, handle->dcc_2a_buf_size);
+     if (status) {
+-        TIOVX_MODULE_ERROR("[AEWB] Unable to create TI 2A wrapper: %d", status);
++        TIOVX_MODULE_ERROR("[AEWB] Unable to create TI 2A wrapper: %d\n", status);
+         goto free_2a_file;
+     }
+ 
+@@ -339,6 +366,8 @@ AewbHandle *aewb_create_handle(AewbCfg *cfg)
+       get_imx390_ae_dyn_params (&handle->sensor_in_data.ae_dynPrms);
+     } else if (strcmp(cfg->sensor_name, "SENSOR_OV2312_UB953_LI") == 0) {
+       get_ov2312_ae_dyn_params (&handle->sensor_in_data.ae_dynPrms);
++    } else if (strcmp(cfg->sensor_name, "SENSOR_AR0144_PHYCAM") == 0) {
++      get_ar0144_ae_dyn_params (&handle->sensor_in_data.ae_dynPrms);
+     } else {
+       get_imx219_ae_dyn_params (&handle->sensor_in_data.ae_dynPrms);
+     }
+@@ -361,16 +390,54 @@ int aewb_write_to_sensor(AewbHandle *handle)
+     int coarse_integration_time = 0;
+     struct v4l2_control control;
+ 
++    // get values for pixclk and hlength - TODO better do at aewb_create_handle ?
++    struct v4l2_ext_controls ext_ctrls;
++    struct v4l2_ext_control ctrls[2];
++    int32_t hblank;
++    uint32_t hlength;
++    uint32_t width;
++    uint64_t pixclk;
++
++    width = handle->sensor_obj.image_width;
++
++    memset(&ctrls, 0, sizeof(ctrls));
++    memset(&ext_ctrls, 0, sizeof(ext_ctrls));
++
++    ctrls[0].id = V4L2_CID_PIXEL_RATE;
++    ctrls[1].id = V4L2_CID_HBLANK;
++
++    ext_ctrls.count = 2;
++    ext_ctrls.which = V4L2_CTRL_WHICH_CUR_VAL;
++    ext_ctrls.controls = ctrls;
++
++    ret = ioctl (handle->fd, VIDIOC_G_EXT_CTRLS, &ext_ctrls);
++    if (ret < 0) {
++        TIOVX_MODULE_ERROR("[AEWB] Unable to get controls: (%s) %s",
++                        handle->cfg.sensor_name, strerror(errno));
++        return ret;
++    }
++
++    pixclk = ctrls[0].value64;
++    hblank = ctrls[1].value;
++
++    if (hblank == 0) {
++        TIOVX_MODULE_ERROR ("[AEWB] horizontal blanking is zero");
++        return ret;
++    }
++
++    hlength = width + hblank;
++
+     gst_tiovx_isp_map_2A_values (handle->cfg.sensor_name,
+             handle->sensor_out_data.aePrms.exposureTime[0],
+             handle->sensor_out_data.aePrms.analogGain[0],
++            pixclk , hlength,
+             &coarse_integration_time, &analog_gain);
+ 
+     control.id = V4L2_CID_EXPOSURE;
+     control.value = coarse_integration_time;
+     ret = ioctl (handle->fd, VIDIOC_S_CTRL, &control);
+     if (ret < 0) {
+-        TIOVX_MODULE_ERROR("[AEWB] Unable to call exposure ioctl: %d", ret);
++        TIOVX_MODULE_ERROR("[AEWB] Unable to call exposure ioctl: %d\n", ret);
+         return ret;
+     }
+ 
+@@ -378,7 +445,7 @@ int aewb_write_to_sensor(AewbHandle *handle)
+     control.value = analog_gain;
+     ret = ioctl (handle->fd, VIDIOC_S_CTRL, &control);
+     if (ret < 0) {
+-        TIOVX_MODULE_ERROR("[AEWB] Unable to call analog gain ioctl: %d", ret);
++        TIOVX_MODULE_ERROR("[AEWB] Unable to call analog gain ioctl: %d\n", ret);
+     }
+ 
+     return ret;
+@@ -403,7 +470,7 @@ int aewb_process(AewbHandle *handle, Buf *h3a_buf, Buf *aewb_buf)
+             h3a_ptr, &handle->sensor_in_data, aewb_ptr,
+             &handle->sensor_out_data);
+     if (status) {
+-        TIOVX_MODULE_ERROR("[AEWB] Process call failed: %d", status);
++        TIOVX_MODULE_ERROR("[AEWB] Process call failed: %d\n", status);
+     }
+ 
+     vxUnmapUserDataObject ((vx_user_data_object)h3a_buf->handle, h3a_buf_map_id);
+-- 
+2.43.0
+

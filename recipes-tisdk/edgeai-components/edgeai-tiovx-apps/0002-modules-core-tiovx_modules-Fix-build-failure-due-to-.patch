@@ -1,7 +1,7 @@
-From 23432cc0ac87cf3656b7bdb57a87f7a5e4d3262b Mon Sep 17 00:00:00 2001
+From 67b2330fa953c1a93b3e01955563faa889226de3 Mon Sep 17 00:00:00 2001
 From: Steffen Hemer <s.hemer@phytec.de>
 Date: Tue, 4 Feb 2025 15:19:01 +0100
-Subject: [PATCH 3/3] modules: core: tiovx_modules: Fix build failure due to
+Subject: [PATCH 2/6] modules: core: tiovx_modules: Fix build failure due to
  warning
 
 sprintf second argument should be a format string.

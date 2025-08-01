@@ -12,9 +12,12 @@ SRCREV = "c441577b22d36f6d36068b1bc95af006fdab687b"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 SRC_URI += " \
-    file://0001-utils-yamlparser-Fix-build-failure-due-to-warning.patch \
-    file://0002-apps-Fix-build-failure-due-to-warning.patch \
-    file://0003-modules-core-tiovx_modules-Fix-build-failure-due-to-.patch \
+    file://0001-utils-yaml_parser-Fix-build-failure-due-to-warning.patch \
+    file://0002-modules-core-tiovx_modules-Fix-build-failure-due-to-.patch \
+    file://0003-apps-Fix-build-failure-due-to-warning.patch \
+    file://0004-apps-input_block-Add-phycam-VM-016-ar0144_12bit-came.patch \
+    file://0005-utils-yaml_parser-Check-path-length-and-simplify-the.patch \
+    file://0006-modules-linux_aewb_module-Add-PHYTEC-VM-016-and-let-.patch \
 "
 
 PLAT_SOC = ""
