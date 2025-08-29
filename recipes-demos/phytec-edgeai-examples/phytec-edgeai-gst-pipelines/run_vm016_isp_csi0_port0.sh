@@ -4,7 +4,7 @@ CSI="0"
 PORT="0"
 BITS="12"
 MBUS_FMT="SGRBG${BITS}_1X${BITS}"
-setup-pipeline-csi${CSI} -f ${MBUS_FMT} -p ${PORT}
+setup-pipeline-csi -i ${CSI} -f ${MBUS_FMT} -p ${PORT}
 
 BIN_PATH="/opt/imaging/ar0144_${BITS}bit/linear/"
 SENSOR_NAME="SENSOR_AR0144_PHYCAM"
