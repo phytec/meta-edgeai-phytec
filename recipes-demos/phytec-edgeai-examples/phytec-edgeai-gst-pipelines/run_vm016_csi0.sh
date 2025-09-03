@@ -3,6 +3,9 @@
 CSI="0"
 
 setup-pipeline-csi -i ${CSI}
+if [ "$?" = '1' ]; then
+	echo "Error on pipeline setup!"; exit 1
+fi
 
 WIDTH="1280"
 HEIGHT="800"

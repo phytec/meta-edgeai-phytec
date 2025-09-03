@@ -4,6 +4,9 @@ CSI="0"
 BITS="12"
 MBUS_FMT="SGRBG${BITS}_1X${BITS}"
 setup-pipeline-csi -i ${CSI} -f ${MBUS_FMT}
+if [ "$?" = '1' ]; then
+	echo "Error on pipeline setup!"; exit 1
+fi
 
 BIN_PATH="/opt/imaging/ar0144_${BITS}bit/linear/"
 SENSOR_NAME="SENSOR_AR0144_PHYCAM"
