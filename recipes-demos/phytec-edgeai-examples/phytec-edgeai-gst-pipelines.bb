@@ -8,17 +8,11 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 PR = "r0"
 
-FILES:${PN} = " \
-    ${ROOT_HOME} \
-"
-
 RDEPENDS:${PN} = " \
     edgeai-gst-plugins \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-good-video4linux2 \
-    media-ctl \
     phycam-setup \
-    v4l-utils \
 "
 
 SRC_URI:append:j721s2 = " \
@@ -33,44 +27,48 @@ SRC_URI:append:j721s2 = " \
     file://receive_rtp_stream.sh \
 "
 
-EXAMPLE_TARGET_FOLDER = "${D}${ROOT_HOME}/phytec_edgeai_examples"
+EXAMPLE_TARGET_FOLDER = "${ROOT_HOME}/phytec_edgeai_examples"
 
 do_install() {
-    install -d ${EXAMPLE_TARGET_FOLDER}
+    install -d ${D}${EXAMPLE_TARGET_FOLDER}
 
     if [ -e ${WORKDIR}/run_vm016_csi0.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_csi0.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/run_vm016_csi0.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_port0.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port0.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port0.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_port1.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port1.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port1.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_port01.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port01.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port01.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi1_port0.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi1_port0.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi1_port0.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 
     if [ -e ${WORKDIR}/receive_rtp_stream.sh ]; then
-        install -m 0755 ${WORKDIR}/receive_rtp_stream.sh ${EXAMPLE_TARGET_FOLDER}
+        install -m 0755 ${WORKDIR}/receive_rtp_stream.sh ${D}${EXAMPLE_TARGET_FOLDER}
     fi
 }
+
+FILES:${PN} = " \
+    ${EXAMPLE_TARGET_FOLDER} \
+"
