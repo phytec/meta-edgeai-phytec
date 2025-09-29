@@ -55,6 +55,23 @@ do_install:append() {
     rm -rf ${D}/usr/cmake
 }
 
+# FIXME find a more common place as this is also relevant for quite some edgeai packages!
+# does not work due to empty MACHINEOVERRIDES in nativesdk.bbclass !!!
+BBCLASSEXTEND = "nativesdk"
+ENV_SCRIPT = "${WORKDIR}/environment.d-edgeai.sh"
+do_install:append:class-nativesdk () {
+	mkdir -p ${D}${SDKPATHNATIVE}/environment-setup.d
+	cat <<- 'EOF' > ${ENV_SCRIPT}
+	export SOC=${PLAT_SOC}
+	export CROSS_COMPILER_PATH="$OECORE_NATIVE_SYSROOT/usr/aarch64-phytec-linux/"
+    export CROSS_COMPILER_PREFIX=aarch64-phytec-linux-
+	export TARGET_FS="$OECORE_TARGET_SYSROOT"
+	EOF
+	install -m 644 ${ENV_SCRIPT} ${D}${SDKPATHNATIVE}/environment-setup.d/edgeai.sh
+}
+
+FILES:${PN}:append:class-nativesdk = " ${SDKPATHNATIVE}/environment-setup.d/edgeai.sh"
+
 INSANE_SKIP:${PN} += "dev-deps"
 INSANE_SKIP:${PN}-source += "dev-deps"
 
