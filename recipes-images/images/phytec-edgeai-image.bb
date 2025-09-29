@@ -18,3 +18,5 @@ IMAGE_INSTALL += "\
     phytec-edgeai-firmware \
     phytec-edgeai-gst-pipelines \
 "
+
+TOOLCHAIN_HOST_TASK:append = " nativesdk-edgeai-env"
