@@ -1,4 +1,5 @@
-# Copyright (C) 2025 Dominik Haller <d.haller@phytec.de>
+# Copyright (C) 2025 PHYTEC Messtechnik GmbH,
+# Author: Dominik Haller <d.haller@phytec.de>
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 SUMMARY = "PHYTEC examples for edgeai gst pipelines"
