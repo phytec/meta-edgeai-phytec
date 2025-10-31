@@ -22,7 +22,33 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/../meta-ti/meta-ti-bsp/licenses/TI-TFL;md
                     file://${COMMON_LICENSE_DIR}/OpenSSL;md5=4eb1764f3e65fafa1a25057f9082f2ae \
                     "
 
-SRC_URI = "repo://git.ti.com/git/processor-sdk/psdk_repo_manifests.git;protocol=https;branch=refs/tags/REL.PSDK.ANALYTICS.09.02.00.05;manifest=vision_apps_yocto.xml"
+SRC_URI = " \
+    git://git.ti.com/git/processor-sdk/sdk_builder.git;branch=main;protocol=https;name=sdk_builder;destsuffix=repo/sdk_builder \
+    git://git.ti.com/git/processor-sdk/app_utils.git;branch=main;protocol=https;name=app_utils;destsuffix=repo/app_utils \
+    git://git.ti.com/git/processor-sdk/vision_apps.git;branch=main;protocol=https;name=vision_apps;destsuffix=repo/vision_apps \
+    git://git.ti.com/git/processor-sdk/tiovx.git;branch=main;protocol=https;name=tiovx;destsuffix=repo/tiovx \
+    git://git.ti.com/git/processor-sdk/imaging.git;branch=main;protocol=https;name=imaging;destsuffix=repo/imaging \
+    git://git.ti.com/git/processor-sdk/video_io.git;branch=main;protocol=https;name=video_io;destsuffix=repo/video_io \
+    git://git.ti.com/git/processor-sdk/ti-perception-toolkit.git;branch=main;protocol=https;name=ti-perception-toolkit;destsuffix=repo/ti-perception-toolkit \
+    git://git.ti.com/git/processor-sdk/psdk_include.git;branch=main;protocol=https;name=psdk_include;destsuffix=repo/psdk_include \
+    git://git.ti.com/git/processor-sdk-vision/arm-tidl.git;branch=master;protocol=https;name=arm-tidl;destsuffix=repo/psdk_include/tidl_j7/arm-tidl \
+    git://git.ti.com/git/processor-sdk/concerto.git;branch=main;protocol=https;name=concerto;destsuffix=repo/sdk_builder/concerto \
+    git://git.ti.com/git/processor-sdk/pdk.git;nobranch=1;protocol=https;name=pdk;destsuffix=repo/pdk_j721s2_09_02_00_30 \
+"
+
+# tag REL.PSDK.ANALYTICS.09.02.00.05
+SRCREV_sdk_builder = "947b82ef1103765a865f790026723d5c2adba587"
+SRCREV_app_utils = "81ef5dadbe7bbe8a69b7e1dd0bd7f1dd369c5277"
+SRCREV_vision_apps = "13c4e01192db2703ef8fcd9351eb07ec6d0f8982"
+SRCREV_tiovx = "74a586f84d020b2348c8feabced86658e3268220"
+SRCREV_imaging = "88386be8db58bfdd568eded077d83095871e351a"
+SRCREV_video_io = "31ba97979ea22d811efff995e662da61be5e19fe"
+SRCREV_ti-perception-toolkit = "8d090941dd671a5e670aa8f777986be73763ab41"
+SRCREV_psdk_include = "2dde83677ad4daf0d3e53bcd6d2a032a9bac53aa"
+SRCREV_arm-tidl = "c3a009b2eee74284c75dd5687d766f68f4648498"
+SRCREV_concerto = "b354c73de459a380b45943b1afc7e1b10bc5491d"
+# tag REL.PSDK.09.02.00.30
+SRCREV_pdk = "efbd4dcadd5a523956d231dd5d2f361f173b6844"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
