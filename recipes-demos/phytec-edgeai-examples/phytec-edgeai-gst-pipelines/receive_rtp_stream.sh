@@ -7,7 +7,7 @@ if [ "${HW_ARCH}" = "aarch64" ]; then
 fi
 
 UDP_PORT=8081
-if [ $1 -ge 1024 ]; then
+if [ -n "$1" ] && [ $1 -ge 1024 ]; then
 	UDP_PORT=$1
 	echo "Listen for stream on port ${UDP_PORT}"
 else
