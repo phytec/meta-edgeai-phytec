@@ -17,6 +17,7 @@ IMAGE_INSTALL += "\
     edgeai-tiovx-apps \   
     phytec-edgeai-firmware \
     phytec-edgeai-gst-pipelines \
+    phytec-edgeai-tiovx-app-configs \
 "
 
 TOOLCHAIN_HOST_TASK:append = " nativesdk-edgeai-env"
