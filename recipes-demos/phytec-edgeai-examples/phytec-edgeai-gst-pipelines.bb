@@ -25,6 +25,9 @@ SRC_URI:append:j721s2 = " \
     file://run_vm016_isp_csi1_port0.sh \
     file://run_vm016_isp_csi0_object_det.sh \
     file://run_vm016_isp_csi0_keypoint_det.sh \
+    file://run_vm020_isp_csi0_port0.sh \
+    file://run_vm020_isp_csi0_port1.sh \
+    file://run_vm020_isp_csi1_port0.sh \
     file://receive_rtp_stream.sh \
 "
 
@@ -33,37 +36,10 @@ EXAMPLE_TARGET_FOLDER = "${ROOT_HOME}/phytec_edgeai_examples"
 do_install() {
     install -d ${D}${EXAMPLE_TARGET_FOLDER}
 
-    if [ -e ${WORKDIR}/run_vm016_csi0.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_csi0.sh ${D}${EXAMPLE_TARGET_FOLDER}
-    fi
-
-    if [ -e ${WORKDIR}/run_vm016_isp_csi0.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0.sh ${D}${EXAMPLE_TARGET_FOLDER}
-    fi
-
-    if [ -e ${WORKDIR}/run_vm016_isp_csi0_port0.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port0.sh ${D}${EXAMPLE_TARGET_FOLDER}
-    fi
-
-    if [ -e ${WORKDIR}/run_vm016_isp_csi0_port1.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port1.sh ${D}${EXAMPLE_TARGET_FOLDER}
-    fi
-
-    if [ -e ${WORKDIR}/run_vm016_isp_csi0_port01.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_port01.sh ${D}${EXAMPLE_TARGET_FOLDER}
-    fi
-
-    if [ -e ${WORKDIR}/run_vm016_isp_csi1_port0.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi1_port0.sh ${D}${EXAMPLE_TARGET_FOLDER}
-    fi
-
-    if [ -e ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_object_det.sh ${D}${EXAMPLE_TARGET_FOLDER}
-    fi
-
-    if [ -e ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ]; then
-        install -m 0755 ${WORKDIR}/run_vm016_isp_csi0_keypoint_det.sh ${D}${EXAMPLE_TARGET_FOLDER}
-    fi
+    for p in $(ls ${WORKDIR}/run_vm*)
+    do
+        install -m 0755 ${p} ${D}${EXAMPLE_TARGET_FOLDER}
+    done
 
     if [ -e ${WORKDIR}/receive_rtp_stream.sh ]; then
         install -m 0755 ${WORKDIR}/receive_rtp_stream.sh ${D}${EXAMPLE_TARGET_FOLDER}
