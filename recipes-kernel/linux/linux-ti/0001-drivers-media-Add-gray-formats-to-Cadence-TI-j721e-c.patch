@@ -1,0 +1,60 @@
+From d6f4a4c4cdd527aabe9c7217364f8b78dae9c65a Mon Sep 17 00:00:00 2001
+From: Steffen Hemer <s.hemer@phytec.de>
+Date: Mon, 12 Jan 2026 10:17:21 +0100
+Subject: [PATCH] drivers: media: Add gray formats to Cadence/TI j721e csi2rx
+
+As suggested in
+https://e2e.ti.com/support/processors-group/processors/f/processors-forum/1382878/sk-am62a-lp-monochrome-format-support-in-csi-driver
+
+Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
+---
+ drivers/media/platform/cadence/cdns-csi2rx.c        |  8 ++++++++
+ .../media/platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 13 +++++++++++++
+ 2 files changed, 21 insertions(+)
+
+diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
+index c6d9aaf38184..ddc8abb3a5e9 100644
+--- a/drivers/media/platform/cadence/cdns-csi2rx.c
++++ b/drivers/media/platform/cadence/cdns-csi2rx.c
+@@ -199,6 +199,14 @@ static const struct csi2rx_fmt formats[] = {
+ 		.code	= MEDIA_BUS_FMT_SIGGB10_1X10,
+ 		.bpp	= 10,
+ 	},
++	{
++		.code	= MEDIA_BUS_FMT_Y8_1X8,
++		.bpp	= 8,
++	},
++	{
++		.code	= MEDIA_BUS_FMT_Y10_1X10,
++		.bpp	= 10,
++	},
+ };
+ 
+ static const struct csi2rx_fmt *csi2rx_get_fmt_by_code(u32 code)
+diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+index e5bcd8423dc5..a29ec9c1a392 100644
+--- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
++++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
+@@ -281,6 +281,19 @@ static const struct ti_csi2rx_fmt formats[] = {
+ 		.bpp			= 16,
+ 		.size			= SHIM_DMACNTX_SIZE_16,
+ 	},
++	{
++		.fourcc			= V4L2_PIX_FMT_GREY,
++		.code			= MEDIA_BUS_FMT_Y8_1X8,
++		.csi_dt			= MIPI_CSI2_DT_RAW8,
++		.bpp			= 8,
++		.size			= SHIM_DMACNTX_SIZE_8,
++	}, {
++		.fourcc			= V4L2_PIX_FMT_Y10,
++		.code			= MEDIA_BUS_FMT_Y10_1X10,
++		.csi_dt			= MIPI_CSI2_DT_RAW10,
++		.bpp			= 16,
++		.size			= SHIM_DMACNTX_SIZE_16,
++	},
+ 
+ 	/* More formats can be supported but they are not listed for now. */
+ };
+-- 
+2.43.0
+
