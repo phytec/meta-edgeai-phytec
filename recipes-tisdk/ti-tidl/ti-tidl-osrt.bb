@@ -56,3 +56,5 @@ do_install() {
     ln -s -r ${libdir}/python3.10/site-packages/dlr/libdlr.so ${LIB_DST_DIR}/libdlr.so
 }
 
+# keep the .so links for now; better do a proper linking 
+INSANE_SKIP:${PN} += "dev-so"
