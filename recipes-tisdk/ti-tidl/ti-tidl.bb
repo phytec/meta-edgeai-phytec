@@ -50,7 +50,7 @@ export TARGET_FS = "${WORKDIR}/recipe-sysroot"
 
 FILES:${PN} += "/opt/*"
 FILES:${PN} += "${libdir}/*"
-FILES:${PN} += "${includedir}/*"
+FILES:${PN}-dev += "${includedir}/*"
 
 EXTRA_OEMAKE += "-C ${S}/arm-tidl"
 
@@ -97,12 +97,16 @@ do_install() {
     install -m 755 ${S}/arm-tidl/onnxrt_ep/out/${TIDL_SOC_NAME}/${CPU}/LINUX/release/libtidl_onnxrt_EP.so.1.0 ${LIB_DST_DIR}/libtidl_onnxrt_EP.so.1.0
     ln -sr ${LIB_DST_DIR}/libtidl_onnxrt_EP.so.1.0 ${LIB_DST_DIR}/libtidl_onnxrt_EP.so
 
+    install -d ${OPT_DST_DIR}/tidl_test
+    cp ${S}/arm-tidl/rt/out/${TIDL_SOC_NAME}/${CPU}/LINUX/release/TI_DEVICE_armv8_test_dl_algo_host_rt.out ${OPT_DST_DIR}/tidl_test/
+
+}
+
+do_install:${PN}-dev() {
+
     install -d ${INC_DST_DIR}
     cp ${S}/arm-tidl/rt/inc/itidl_rt.h  ${INC_DST_DIR}/
     cp ${S}/arm-tidl/rt/inc/itvm_rt.h ${INC_DST_DIR}/
-
-    install -d ${OPT_DST_DIR}/tidl_test
-    cp ${S}/arm-tidl/rt/out/${TIDL_SOC_NAME}/${CPU}/LINUX/release/TI_DEVICE_armv8_test_dl_algo_host_rt.out ${OPT_DST_DIR}/tidl_test/
 
 }
 
