@@ -21,14 +21,9 @@ SRC_URI = " \
     git://git.ti.com/git/processor-sdk/concerto.git;branch=main;protocol=https;name=concerto;destsuffix=git/concerto \
     git://github.com/TexasInstruments/onnxruntime;branch=tidl-1.14;protocol=https;name=onnxruntime;destsuffix=git/onnxruntime  \
     git://github.com/TexasInstruments/tensorflow;branch=tidl-j7-2.12-latest;protocol=https;name=tensorflow;destsuffix=git/tensorflow  \
-    https://github.com/protocolbuffers/protobuf/releases/download/v3.20.2/protobuf-cpp-3.20.2.tar.gz;name=protobuf;subdir=git/protobuf-3.20.2 \
+    https://github.com/protocolbuffers/protobuf/releases/download/v3.20.2/protobuf-cpp-3.20.2.tar.gz;name=protobuf;subdir=git \
 "
 SRC_URI[protobuf.sha256sum] = "a0167e2ba24bba0a180fbc9392f3a43e749d7a26e630fe9c1a1ba32a53675ac3"
-
-do_cp_downloaded_build_deps() {
-    mv ${S}/protobuf-3.20.2/*/* ${S}/protobuf-3.20.2
-}
-addtask cp_downloaded_build_deps after do_unpack before do_patch
 
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
