@@ -15,6 +15,8 @@ SRC_URI += " \
 	file://0001-tiovx_sensor_module-Add-support-for-phyCAM.patch \
 "
 
+PACKAGECONFIG[dcc] = "-DENABLE_DCC_TOOL=on,,"
+
 PLAT_SOC = ""
 PLAT_SOC:j721e = "j721e"
 PLAT_SOC:j721s2 = "j721s2"
