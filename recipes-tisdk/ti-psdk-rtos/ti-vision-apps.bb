@@ -54,6 +54,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI:append = " \
     file://0001-makerules-makefile_linux_arm-Add-makefile-part-for-p.patch \
+    file://0001-HACK-imaging-itt_server-itt_ctrl_handle_sensor-Switc.patch \
     https://download.phytec.de/Software/Linux/BSP-Yocto-AM68x/resources/phycam_vm016_dcc-calib_v0_1.tar.gz;name=vm016;subdir=repo/imaging/sensor_drv/src/ \
 "
 

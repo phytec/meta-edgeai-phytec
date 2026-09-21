@@ -1,0 +1,32 @@
+From f67e8ac1ac14c94695fb3877c58881c66e17a502 Mon Sep 17 00:00:00 2001
+From: Steffen Hemer <s.hemer@phytec.de>
+Date: Fri, 18 Sep 2026 14:23:05 +0200
+Subject: [PATCH] HACK: imaging: itt_server: itt_ctrl_handle_sensor: Switch
+ hardcoded bus for camera sensor to phyBOARD Izar CSI0
+
+As the comment says, this sould be dynamic for the sensor in use/defined
+via tiovx/gstreamer. But for now just set it to a usable value.
+
+Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
+---
+ repo/imaging/utils/itt_server/src/itt_ctrl_handle_sensor.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/repo/imaging/utils/itt_server/src/itt_ctrl_handle_sensor.c b/imaging/utils/itt_server/src/itt_ctrl_handle_sensor.c
+index 0fdde804a4dc..b958ed38932a 100755
+--- a/repo/imaging/utils/itt_server/src/itt_ctrl_handle_sensor.c
++++ b/repo/imaging/utils/itt_server/src/itt_ctrl_handle_sensor.c
+@@ -68,8 +68,8 @@
+ 
+ /* information should be dynamic */
+ 
+-#define I2C_BUS 9
+-#define SLAVE_REG 0x4a
++#define I2C_BUS 5
++#define SLAVE_REG 0x10
+ 
+ int file_g = -1;
+ 
+-- 
+2.43.0
+
