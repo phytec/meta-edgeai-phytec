@@ -17,8 +17,8 @@ WIDTH="1280"
 HEIGHT="800"
 
 LOCAL_SINK="kmssink driver-name=tidss sync=true connector-id=40" # does not work for two cameras!
-REMOTE_SINK_PORT0="v4l2h264enc ! rtph264pay ! udpsink host=localhost port=8081 host=192.168.3.10"
-REMOTE_SINK_PORT1="v4l2h264enc ! rtph264pay ! udpsink host=localhost port=8082 host=192.168.3.10"
+REMOTE_SINK_PORT0="v4l2h264enc ! rtph264pay ! udpsink port=8081 host=192.168.3.10"
+REMOTE_SINK_PORT1="v4l2h264enc ! rtph264pay ! udpsink port=8082 host=192.168.3.10"
 
 v4l2-ctl -d /dev/cam-csi${CSI}-port0 -c autogain_analogue=0,auto_exposure=1
 v4l2-ctl -d /dev/cam-csi${CSI}-port1 -c autogain_analogue=0,auto_exposure=1
