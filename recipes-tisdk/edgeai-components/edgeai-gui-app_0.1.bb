@@ -20,7 +20,6 @@ RDEPENDS:${PN} = "\
     qtquick3d \
     qtmultimedia \
     qt5compat \
-    pulseaudio-service \
     qtdeclarative-qmlplugins \
     qtdeclarative-tools \
     gstreamer1.0-plugins-good \
