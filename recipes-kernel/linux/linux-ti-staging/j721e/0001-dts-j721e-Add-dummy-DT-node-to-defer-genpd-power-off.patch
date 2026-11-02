@@ -1,0 +1,56 @@
+From 2c3cf84fc3e84748fec2bec8fc2d1be517e81ad8 Mon Sep 17 00:00:00 2001
+From: Puyush Gupta <p-gupta5@ti.com>
+Date: Mon, 2 Nov 2026 11:55:15 +0530
+Subject: [PATCH] [dts]: j721e: Add dummy DT node to defer genpd power-off
+
+- The genpd framework powers off DM TIMER 0 and TIMER 2 after boot
+because no Linux driver claims them exclusively and keeps them claimed.
+- The C66x core uses TIMER 0 as its system tick and hangs waiting for an
+interrupt that never comes.
+- Add a temporary dummy device-tree node so its driver is probed before
+the genpd sync_state runs, preventing the kernel from powering off timer
+power domains before all drivers have finished probing.
+- This is a temporary workaround for the C66x timer hang and should be
+replaced with the proper runtime-PM reference fix.
+
+Upstream-Status: Inappropriate [customization for edgeai]
+
+Signed-off-by: Puyush Gupta <p-gupta5@ti.com>
+---
+ .../boot/dts/ti/k3-j721e-rtos-memory-map.dtsi | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi b/arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
+index 3e4e1ca8fe541..f14f13e488fb8 100644
+--- a/arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j721e-rtos-memory-map.dtsi
+@@ -7,6 +7,26 @@
+ 
+ #include <dt-bindings/soc/ti,sci_pm_domain.h>
+ 
++&{/} {
++
++	video-encoder@4200000 {
++		compatible = "img,vxe384";
++		reg = <0x00 0x4200000 0x00 0x100000>;
++		power-domains = <0x09 0x99 0x01>;
++		interrupts = <0x00 0xb5 0x04>;
++		phandle = <0x14e>;
++	};
++
++	video-decoder@4300000 {
++		compatible = "img,d5500-vxd";
++		reg = <0x00 0x4300000 0x00 0x100000>;
++		power-domains = <0x09 0x90 0x01>;
++		interrupts = <0x00 0xb4 0x04>;
++		phandle = <0x14f>;
++	};
++
++};
++
+ &mcu_r5fss0_core0_memory_region {
+ 	status = "disabled";
+ };
+-- 
+2.34.1
+

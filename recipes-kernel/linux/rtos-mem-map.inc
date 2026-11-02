@@ -2,6 +2,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/linux-ti-staging/:"
 
 SRC_URI:append:j721e = " \
     file://0001-arm64-dts-ti-Add-DTB-overlays-for-vision-apps-and-ed.patch \
+    file://0001-dts-j721e-Add-dummy-DT-node-to-defer-genpd-power-off.patch \
 "
 
 SRC_URI:append:j721s2 = " \
