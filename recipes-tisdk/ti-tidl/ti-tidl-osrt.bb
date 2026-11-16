@@ -11,7 +11,7 @@ SRC_URI = "https://software-dl.ti.com/jacinto7/esd/tidl-tools/12_00_00_00/OSRT_T
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/12_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnxruntime_tidl-1.23.0-cp314-cp314-linux_aarch64.whl;name=ort;subdir=${S}/ort\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/12_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tflite_2.12_aragoj7.tar.gz;name=tfl_lib;subdir=${S}/tfl_lib\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/12_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/onnx_1.23.0_aragoj7.tar.gz;name=ort_lib;subdir=${S}/ort_lib\
-           https://software-dl.ti.com/mctools/esd/tvm/c7x/am62d/12_1/tvm-0.18.0-0git6acc98882-cp314-cp314-linux_aarch64.whl;name=tvm;subdir=${S}/tvm\
+           https://software-dl.ti.com/mctools/esd/tvm/c7x/am62d/12_2/ti_tvm_am62x-3.0.0-cp314-cp314-linux_aarch64.whl;name=tvm;subdir=${S}/tvm\
            https://software-dl.ti.com/jacinto7/esd/tidl-tools/12_00_00_00/OSRT_TOOLS/ARM_LINUX/ARAGO/tidlruntime-0.1.0-cp314-cp314-linux_aarch64.whl;name=tidlrt;subdir=${S}/tidlrt\
            "
 
@@ -19,7 +19,7 @@ SRC_URI[tflite.sha256sum] = "7c60aae35b4c22ad6485fa68a9017feb549f08eba58ed62dbb0
 SRC_URI[ort.sha256sum] = "719e03cffb61f56de78561fe35ba58c5fc997bf2a2aade51e8b07b71fb419e70"
 SRC_URI[tfl_lib.sha256sum] = "e98bc1c793ee9e0de69cc56ad5e9098a048def1683ceda0159798827b77bd1ef"
 SRC_URI[ort_lib.sha256sum] = "5edc48315cb8d69e14e315cb06dad0845c9286a3ba02e6b339b56ae62a027d5d"
-SRC_URI[tvm.sha256sum] = "8f8b07651d8ba9499e3ce246e9af525e69372272fc9e417934a5348289a14fc6"
+SRC_URI[tvm.sha256sum] = "ed6cf253b13b9e3208c702b0802ee8e87d32d94ad29e392d877c01aaeeeb41d5"
 SRC_URI[tidlrt.sha256sum] = "e328bb35c5d0016ba32d72032c1318f27c44a38cce142b47d3eeb9dd52a3c09f"
 
 do_cp_downloaded_build_deps() {
@@ -57,7 +57,7 @@ do_install() {
     unzip -d ${D}${PYTHON_SITEPACKAGES_DIR} ${S}/tflite/tflite_runtime-2.12.0-cp314-cp314-linux_aarch64.whl
     unzip -d ${D}${PYTHON_SITEPACKAGES_DIR} ${S}/ort/onnxruntime_tidl-1.23.0-cp314-cp314-linux_aarch64.whl
     unzip -d ${D}${PYTHON_SITEPACKAGES_DIR} ${S}/tidlrt/tidlruntime-0.1.0-cp314-cp314-linux_aarch64.whl
-    unzip -d ${D}${PYTHON_SITEPACKAGES_DIR} ${S}/tvm/tvm-0.18.0-0git6acc98882-cp314-cp314-linux_aarch64.whl
+    unzip -d ${D}${PYTHON_SITEPACKAGES_DIR} ${S}/tvm/ti_tvm_am62x-3.0.0-cp314-cp314-linux_aarch64.whl
 
     install -d ${D}${includedir}
     install -d ${D}${libdir}
