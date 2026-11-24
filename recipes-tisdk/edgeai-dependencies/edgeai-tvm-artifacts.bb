@@ -15,8 +15,8 @@ SRC_URI = " \
     ${MODELZOO_URI}/ase-0212_tvmrt_speech_enhancement_voicebank_demand_16k_gcrn_mod_g16_fixed_4sec_onnx.tar.gz;name=gcrn;subdir=${S}/gcrn \
 "
 
-SRC_URI[yamnet.sha256sum] = "5718f420a11833ede839fcedbc11878640c7114b24fe0c476e4f474e8cd0a0c6"
-SRC_URI[vggish.sha256sum] = "1623a008bf9a2d7ac2588824785f28fc244c641855eacd4d9938056798863f65"
+SRC_URI[yamnet.sha256sum] = "9e690cac5aab0891b8807b9eb0003c568c98f814498d7b3bd7b393c31ff2720c"
+SRC_URI[vggish.sha256sum] = "862bf567e9502ce3b13475d4a87eef8121dae36d67b3540bdcbac150f3ba0f48"
 SRC_URI[gcrn.sha256sum] = "3903319042ca04507cf2d872eebabf1a7fab50673a48e66ea419f5d71d0bb10e"
 
 COMPATIBLE_MACHINE = "am62dxx"
